@@ -19,7 +19,6 @@ import (
 
 	pbtypes "github.com/gogo/protobuf/types"
 	"go.thethings.network/lorawan-stack/v3/pkg/errors"
-	"go.thethings.network/lorawan-stack/v3/pkg/qrcode"
 	"go.thethings.network/lorawan-stack/v3/pkg/ttnpb"
 	"go.thethings.network/lorawan-stack/v3/pkg/types"
 	"go.thethings.network/lorawan-stack/v3/pkg/web"
@@ -67,21 +66,28 @@ var (
 )
 
 // Claim implements EndDeviceClaimingServer.
-func (edcs *endDeviceClaimingServer) Claim(ctx context.Context, req *ttnpb.ClaimEndDeviceRequest) (ids *ttnpb.EndDeviceIdentifiers, err error) {
-	for _, edcs := range edcs.DCS.endDeviceClaimingUpstreams {
+func (srv *endDeviceClaimingServer) Claim(ctx context.Context, req *ttnpb.ClaimEndDeviceRequest) (ids *ttnpb.EndDeviceIdentifiers, err error) {
+	for _, edcs := range srv.DCS.endDeviceClaimingUpstreams {
 		var joinEUI types.EUI64
 		if authenticatedIDs := req.GetAuthenticatedIdentifiers(); authenticatedIDs != nil {
 			joinEUI = req.GetAuthenticatedIdentifiers().JoinEui
 		} else if qrCode := req.GetQrCode(); qrCode != nil {
-			data, err := qrcode.Parse(qrCode)
+			conn, err := srv.DCS.GetPeerConn(ctx, ttnpb.ClusterRole_QR_CODE_GENERATOR, nil)
+			if err != nil {
+				return nil, err
+			}
+			client := ttnpb.NewQRCodeParserClient(conn)
+			data, err := client.Parse(ctx, &ttnpb.ParseQRCodeRequest{
+				QrCode: qrCode,
+			})
 			if err != nil {
 				return nil, errParseQRCode.WithCause(err)
 			}
-			authIDs, ok := data.(qrcode.AuthenticatedEndDeviceIdentifiers)
-			if !ok {
+			if onboardingData := data.EntityOnboardingData.GetEndDeviceOnboardingData(); onboardingData != nil && onboardingData.JoinEui != nil {
+				joinEUI = *onboardingData.JoinEui
+			} else {
 				return nil, errQRCodeData.New()
 			}
-			joinEUI, _, _ = authIDs.AuthenticatedEndDeviceIdentifiers()
 		} else {
 			return nil, errNoJoinEUI.New()
 		}
@@ -91,15 +97,15 @@ func (edcs *endDeviceClaimingServer) Claim(ctx context.Context, req *ttnpb.Claim
 	}
 	// Use default if no EDCS supports this EUI.
 	// TODO: Remove this option and return JoinEUI not provisioned error (https://github.com/TheThingsIndustries/lorawan-stack/issues/3036).
-	return edcs.DCS.endDeviceClaimingUpstreams[defaultType].Claim(ctx, req)
+	return srv.DCS.endDeviceClaimingUpstreams[defaultType].Claim(ctx, req)
 }
 
 // AuthorizeApplication implements EndDeviceClaimingServer.
-func (edcs *endDeviceClaimingServer) AuthorizeApplication(ctx context.Context, req *ttnpb.AuthorizeApplicationRequest) (*pbtypes.Empty, error) {
-	return edcs.DCS.endDeviceClaimingUpstreams[defaultType].AuthorizeApplication(ctx, req)
+func (srv *endDeviceClaimingServer) AuthorizeApplication(ctx context.Context, req *ttnpb.AuthorizeApplicationRequest) (*pbtypes.Empty, error) {
+	return srv.DCS.endDeviceClaimingUpstreams[defaultType].AuthorizeApplication(ctx, req)
 }
 
 // UnauthorizeApplication implements EndDeviceClaimingServer.
-func (edcs *endDeviceClaimingServer) UnauthorizeApplication(ctx context.Context, ids *ttnpb.ApplicationIdentifiers) (*pbtypes.Empty, error) {
-	return edcs.DCS.endDeviceClaimingUpstreams[defaultType].UnauthorizeApplication(ctx, ids)
+func (srv *endDeviceClaimingServer) UnauthorizeApplication(ctx context.Context, ids *ttnpb.ApplicationIdentifiers) (*pbtypes.Empty, error) {
+	return srv.DCS.endDeviceClaimingUpstreams[defaultType].UnauthorizeApplication(ctx, ids)
 }
