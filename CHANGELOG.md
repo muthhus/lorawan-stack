@@ -13,6 +13,10 @@ For details about compatibility between different releases, see the **Commitment
 
 - Retain at most 10 recent session keys in the Join Server. This avoids a slowly growing number of session keys in the Join Server's database.
   - This requires a database migration (`ttn-lw-stack js-db migrate`).
+- Service to parse QRCodes and return the data within.
+  - See the `Parse` RPC of the `QRCodeParser` service.
+
+### Changed
 
 ### Changed
 
