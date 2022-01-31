@@ -32,7 +32,7 @@ var DefaultGatewayServerConfig = gatewayserver.Config{
 	FetchGatewayInterval:              10 * time.Minute,
 	FetchGatewayJitter:                0.2,
 	UpdateGatewayLocationDebounceTime: time.Hour,
-	ConnectionStatsDisconnectTTL:      48 * time.Hour,
+	ConnectionStatsTTL:                48 * time.Hour,
 	UpdateVersionInfoDelay:            5 * time.Second,
 	Forward: map[string][]string{
 		"": {"00000000/0"},
