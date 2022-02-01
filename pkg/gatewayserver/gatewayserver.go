@@ -881,6 +881,7 @@ func (gs *GatewayServer) updateConnStats(ctx context.Context, conn connectionEnt
 		Protocol:    conn.Connection.Frontend().Protocol(),
 	}
 	refreshTTLTimer := time.NewTicker(gs.config.ConnectionStatsTTL)
+	defer refreshTTLTimer.Stop()
 
 	// Initial update, so that the gateway appears connected.
 	if err := gs.statsRegistry.Set(decoupledCtx, *ids, stats, ttnpb.GatewayConnectionStatsFieldPathsTopLevel, gs.config.ConnectionStatsTTL); err != nil {
@@ -888,13 +889,12 @@ func (gs *GatewayServer) updateConnStats(ctx context.Context, conn connectionEnt
 	}
 
 	defer func() {
-		refreshTTLTimer.Stop()
 		logger.Debug("Delete connection stats")
-		stats.ConnectedAt = nil
-		stats.DisconnectedAt = ttnpb.ProtoTimePtr(time.Now())
-
 		if err := gs.statsRegistry.Set(
-			decoupledCtx, *ids, stats,
+			decoupledCtx, *ids, &ttnpb.GatewayConnectionStats{
+				ConnectedAt:    nil,
+				DisconnectedAt: ttnpb.ProtoTimePtr(time.Now()),
+			},
 			[]string{"connected_at", "disconnected_at"},
 			gs.config.ConnectionStatsTTL,
 		); err != nil {
