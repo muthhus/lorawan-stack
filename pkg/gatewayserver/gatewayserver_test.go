@@ -101,6 +101,7 @@ func TestGatewayServer(t *testing.T) {
 				gsConfig := &gatewayserver.Config{
 					RequireRegisteredGateways:         false,
 					UpdateGatewayLocationDebounceTime: 0,
+					ConnectionStatsTTL:                (1 << 3) * test.Delay,
 					FetchGatewayInterval:              time.Minute,
 					FetchGatewayJitter:                1,
 					MQTT: config.MQTT{
@@ -1759,6 +1760,59 @@ func TestGatewayServer(t *testing.T) {
 					})
 				})
 			}
+			t.Run("unexpected shutdown", func(t *testing.T) {
+				ids := &ttnpb.GatewayIdentifiers{
+					GatewayId: registeredGatewayID,
+					Eui:       &registeredGatewayEUI,
+				}
+
+				if err := config.Stats.Set(ctx, *ids, &ttnpb.GatewayConnectionStats{
+					ConnectedAt: pbtypes.TimestampNow(),
+				}, []string{"connected_at"}, 0); err != nil {
+					t.Error(err)
+				}
+
+				conn, err := grpc.Dial(":9187", append(rpcclient.DefaultDialOptions(ctx), grpc.WithInsecure(), grpc.WithBlock())...)
+				if err != nil {
+					t.Error(err)
+				}
+				defer conn.Close()
+				md := rpcmetadata.MD{
+					ID:            ids.GatewayId,
+					AuthType:      "Bearer",
+					AuthValue:     registeredGatewayKey,
+					AllowInsecure: true,
+				}
+				link, err := ttnpb.NewGtwGsClient(conn).LinkGateway(ctx, grpc.PerRPCCredentials(md))
+				if err != nil {
+					t.Error(err)
+				}
+
+				// Send dummy up to start stream:
+				if err = link.Send(&ttnpb.GatewayUp{}); err != nil {
+					t.Error(err)
+				}
+
+				gtwTime := pbtypes.TimestampNow()
+				link.Send(&ttnpb.GatewayUp{
+					UplinkMessages: []*ttnpb.UplinkMessage{
+						{
+							Settings: &ttnpb.TxSettings{},
+							RxMetadata: []*ttnpb.RxMetadata{
+								{
+									GatewayIds: ids,
+									Time:       gtwTime,
+								},
+							},
+						},
+					},
+					GatewayStatus: &ttnpb.GatewayStatus{Time: gtwTime},
+				})
+				gs.Close()
+				time.Sleep((1 << 4) * test.Delay)
+				_, err = config.Stats.Get(ctx, *ids)
+				a.So(errors.IsNotFound(err), should.BeTrue)
+			})
 			c.Close()
 		})
 	}
