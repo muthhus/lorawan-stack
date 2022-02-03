@@ -10,7 +10,7 @@ For details about compatibility between different releases, see the **Commitment
 ## [Unreleased]
 
 ### Added
-
+- gRPC service to Gateway Configuration Server so that gateway configurations can be obtained via gRPC requests.
 - Retain at most 10 recent session keys in the Join Server. This avoids a slowly growing number of session keys in the Join Server's database.
   - This requires a database migration (`ttn-lw-stack js-db migrate`).
 - Add TTL for gateway connection stats. Can be configured with the option `gs.connection-stats-ttl`.
