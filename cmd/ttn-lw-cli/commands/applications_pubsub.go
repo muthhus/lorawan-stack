@@ -19,6 +19,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin"
 	pbtypes "github.com/gogo/protobuf/types"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -30,8 +31,9 @@ import (
 )
 
 var (
-	selectApplicationPubSubFlags         = util.FieldMaskFlags(&ttnpb.ApplicationPubSub{})
-	setApplicationPubSubFlags            = util.FieldFlags(&ttnpb.ApplicationPubSub{})
+	selectApplicationPubSubFlags = &pflag.FlagSet{}
+	setApplicationPubSubFlags    = util.FieldFlags(&ttnpb.ApplicationPubSub{})
+
 	natsProviderApplicationPubSubFlags   = util.HideFlagSet(util.FieldFlags(&ttnpb.ApplicationPubSub_NATSProvider{}, "nats"))
 	mqttProviderApplicationPubSubFlags   = util.HideFlagSet(util.FieldFlags(&ttnpb.ApplicationPubSub_MQTTProvider{}, "mqtt"))
 	awsiotProviderApplicationPubSubFlags = util.HideFlagSet(util.FieldFlags(&ttnpb.ApplicationPubSub_AWSIoTProvider{}, "aws_iot"))
@@ -338,8 +340,10 @@ var (
 )
 
 func init() {
+	ttnpb.AddSelectFlagsForApplicationPubSub(selectApplicationPubSubFlags, "")
 	applicationsPubSubsCommand.AddCommand(applicationsPubSubsGetFormatsCommand)
-	applicationsPubSubsGetCommand.Flags().AddFlagSet(applicationPubSubIDFlags())
+	ttnpb.AddSetFlagsForApplicationPubSubIdentifiers(applicationsPubSubsGetCommand.Flags(), "")
+	flagsplugin.AddAlias(applicationsPubSubsGetCommand.Flags(), "application-ids.application-id", "application-id")
 	applicationsPubSubsGetCommand.Flags().AddFlagSet(selectApplicationPubSubFlags)
 	applicationsPubSubsGetCommand.Flags().AddFlagSet(selectAllApplicationPubSubFlags)
 	applicationsPubSubsCommand.AddCommand(applicationsPubSubsGetCommand)

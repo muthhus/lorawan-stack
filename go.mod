@@ -2,6 +2,10 @@ module go.thethings.network/lorawan-stack/v3
 
 go 1.17
 
+replace github.com/TheThingsIndustries/protoc-gen-go-flags v0.0.0 => ../../github.com/TheThingsIndustries/protoc-gen-go-flags
+
+replace github.com/TheThingsIndustries/protoc-gen-go-json v1.3.1 => ../../protoc-gen-go-json
+
 // Use our fork of grpc-gateway.
 replace github.com/grpc-ecosystem/grpc-gateway => github.com/TheThingsIndustries/grpc-gateway v1.15.2-gogo
 
@@ -232,4 +236,11 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.0.0-00010101000000-000000000000 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
+)
+
+require github.com/TheThingsIndustries/protoc-gen-go-flags v0.0.0
+
+require (
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/mattn/go-sqlite3 v1.14.7 // indirect
 )

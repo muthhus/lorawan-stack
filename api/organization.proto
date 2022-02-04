@@ -14,6 +14,7 @@
 
 syntax = "proto3";
 
+import "github.com/TheThingsIndustries/protoc-gen-go-flags/annotations.proto";
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "google/protobuf/field_mask.proto";
@@ -30,6 +31,7 @@ option go_package = "go.thethings.network/lorawan-stack/v3/pkg/ttnpb";
 option (gogoproto.goproto_registration) = true;
 
 message Organization {
+  option (thethings.flags.message) = { select: true, set: true };
   // The identifiers of the organization. These are public and can be seen by any authenticated user in the network.
   OrganizationIdentifiers ids = 1 [(validate.rules).message.required = true];
   // When the organization was created. This information is public and can be seen by any authenticated user in the network.
@@ -74,6 +76,7 @@ message GetOrganizationRequest {
 }
 
 message ListOrganizationsRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // By default we list all organizations the caller has rights on.
   // Set the user to instead list the organizations
   // where the user or organization is collaborator on.

@@ -14,6 +14,7 @@
 
 syntax = "proto3";
 
+import "github.com/TheThingsIndustries/protoc-gen-go-flags/annotations.proto";
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "google/protobuf/field_mask.proto";
@@ -33,6 +34,7 @@ option (gogoproto.goproto_registration) = true;
 
 // User is the message that defines a user on the network.
 message User {
+  option (thethings.flags.message) = { select: true, set: true };
   // The identifiers of the user. These are public and can be seen by any authenticated user in the network.
   UserIdentifiers ids = 1 [(validate.rules).message.required = true];
   // When the user was created. This information is public and can be seen by any authenticated user in the network.
@@ -112,6 +114,7 @@ message GetUserRequest {
 }
 
 message ListUsersRequest {
+  option (thethings.flags.message) = { select: true, set: true };
   // The names of the user fields that should be returned.
   google.protobuf.FieldMask field_mask = 1;
   // Order the results by this field path (must be present in the field mask).

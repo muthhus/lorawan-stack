@@ -14,6 +14,7 @@
 
 syntax = "proto3";
 
+import "github.com/TheThingsIndustries/protoc-gen-go-flags/annotations.proto";
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "github.com/TheThingsIndustries/protoc-gen-go-json/annotations.proto";
@@ -45,6 +46,7 @@ enum GrantType {
 
 // An OAuth client on the network.
 message Client {
+  option (thethings.flags.message) = { select: true, set: true };
   // The identifiers of the OAuth client. These are public and can be seen by any authenticated user in the network.
   ClientIdentifiers ids = 1 [(validate.rules).message.required = true];
   // When the OAuth client was created. This information is public and can be seen by any authenticated user in the network.
@@ -139,6 +141,7 @@ message GetClientRequest {
 }
 
 message ListClientsRequest {
+  option (thethings.flags.message) = { select: true, set: true };
   // By default we list all OAuth clients the caller has rights on.
   // Set the user or the organization (not both) to instead list the OAuth clients
   // where the user or organization is collaborator on.

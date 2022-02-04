@@ -28,8 +28,7 @@ import (
 )
 
 var (
-	selectApplicationActivationSettingsFlags = util.FieldMaskFlags(&ttnpb.ApplicationActivationSettings{})
-	setApplicationActivationSettingsFlags    = util.FieldFlags(&ttnpb.ApplicationActivationSettings{})
+	selectApplicationActivationSettingsFlags = &pflag.FlagSet{}
 
 	selectAllApplicationActivationSettingsFlags = util.SelectAllFlagSet("application activation settings")
 )
@@ -80,20 +79,19 @@ var (
 			if appID == nil {
 				return errNoApplicationID.New()
 			}
-			paths := util.UpdateFieldMask(cmd.Flags(), setApplicationActivationSettingsFlags)
 
-			var aas ttnpb.ApplicationActivationSettings
-			if err := util.SetFields(&aas, setApplicationActivationSettingsFlags); err != nil {
+			var aas *ttnpb.ApplicationActivationSettings
+			paths, err := aas.SetFromFlags(cmd.Flags(), "")
+			if err != nil {
 				return err
 			}
-
 			js, err := api.Dial(ctx, config.JoinServerGRPCAddress)
 			if err != nil {
 				return err
 			}
 			res, err := ttnpb.NewApplicationActivationSettingRegistryClient(js).Set(ctx, &ttnpb.SetApplicationActivationSettingsRequest{
 				ApplicationIds: appID,
-				Settings:       &aas,
+				Settings:       aas,
 				FieldMask:      &pbtypes.FieldMask{Paths: paths},
 			})
 			if err != nil {
@@ -126,12 +124,13 @@ var (
 )
 
 func init() {
+	ttnpb.AddSelectFlagsForApplicationActivationSettings(selectApplicationActivationSettingsFlags, "")
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(applicationIDFlags())
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(selectApplicationActivationSettingsFlags)
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(selectAllApplicationActivationSettingsFlags)
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsGetCommand)
 	applicationActivationSettingsSetCommand.Flags().AddFlagSet(applicationIDFlags())
-	applicationActivationSettingsSetCommand.Flags().AddFlagSet(setApplicationActivationSettingsFlags)
+	ttnpb.AddSetFlagsForApplicationActivationSettings(applicationActivationSettingsSetCommand.Flags(), "")
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsSetCommand)
 	applicationActivationSettingsDeleteCommand.Flags().AddFlagSet(applicationIDFlags())
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsDeleteCommand)

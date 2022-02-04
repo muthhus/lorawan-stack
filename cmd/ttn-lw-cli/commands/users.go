@@ -18,6 +18,7 @@ import (
 	"os"
 	"reflect"
 
+	"github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin"
 	pbtypes "github.com/gogo/protobuf/types"
 	"github.com/howeyc/gopass"
 	"github.com/spf13/cobra"
@@ -31,8 +32,7 @@ import (
 )
 
 var (
-	selectUserFlags     = util.FieldMaskFlags(&ttnpb.User{})
-	setUserFlags        = util.FieldFlags(&ttnpb.User{})
+	selectUserFlags     = &pflag.FlagSet{}
 	profilePictureFlags = &pflag.FlagSet{}
 
 	selectAllUserFlags = util.SelectAllFlagSet("user")
@@ -108,18 +108,20 @@ var (
 			paths := util.SelectFieldMask(cmd.Flags(), selectUserFlags)
 			paths = ttnpb.AllowedFields(paths, ttnpb.RPCFieldMaskPaths["/ttn.lorawan.v3.UserRegistry/List"].Allowed)
 
+			req := &ttnpb.ListUsersRequest{}
+			_, err := req.SetFromFlags(cmd.Flags(), "")
+			if err != nil {
+				return err
+			}
+			if req.FieldMask == nil {
+				req.FieldMask = &pbtypes.FieldMask{Paths: paths}
+			}
 			is, err := api.Dial(ctx, config.IdentityServerGRPCAddress)
 			if err != nil {
 				return err
 			}
-			limit, page, opt, getTotal := withPagination(cmd.Flags())
-			res, err := ttnpb.NewUserRegistryClient(is).List(ctx, &ttnpb.ListUsersRequest{
-				FieldMask: &pbtypes.FieldMask{Paths: paths},
-				Limit:     limit,
-				Page:      page,
-				Order:     getOrder(cmd.Flags()),
-				Deleted:   getDeleted(cmd.Flags()),
-			}, opt)
+			_, _, opt, getTotal := withPagination(cmd.Flags())
+			res, err := ttnpb.NewUserRegistryClient(is).List(ctx, req, opt)
 			if err != nil {
 				return err
 			}
@@ -136,16 +138,18 @@ var (
 			paths = ttnpb.AllowedFields(paths, ttnpb.RPCFieldMaskPaths["/ttn.lorawan.v3.EntityRegistrySearch/SearchUsers"].Allowed)
 
 			req := &ttnpb.SearchUsersRequest{}
-			if err := util.SetFields(req, searchUsersFlags); err != nil {
+			_, err := req.SetFromFlags(cmd.Flags(), "")
+			if err != nil {
 				return err
 			}
 			var (
 				opt      grpc.CallOption
 				getTotal func() uint64
 			)
-			req.Limit, req.Page, opt, getTotal = withPagination(cmd.Flags())
-			req.FieldMask = &pbtypes.FieldMask{Paths: paths}
-			req.Deleted = getDeleted(cmd.Flags())
+			_, _, opt, getTotal = withPagination(cmd.Flags())
+			if req.FieldMask == nil {
+				req.FieldMask = &pbtypes.FieldMask{Paths: paths}
+			}
 
 			is, err := api.Dial(ctx, config.IdentityServerGRPCAddress)
 			if err != nil {
@@ -202,10 +206,10 @@ var (
 					return err
 				}
 			}
-			if err := util.SetFields(&user, setUserFlags); err != nil {
+			_, err = user.SetFromFlags(cmd.Flags(), "")
+			if err != nil {
 				return err
 			}
-			user.Attributes = mergeAttributes(user.Attributes, cmd.Flags())
 			if usrID.GetUserId() != "" {
 				user.Ids = &ttnpb.UserIdentifiers{UserId: usrID.GetUserId()}
 			}
@@ -286,7 +290,20 @@ var (
 			if usrID == nil {
 				return errNoUserID.New()
 			}
-			paths := util.UpdateFieldMask(cmd.Flags(), setUserFlags, attributesFlags(), profilePictureFlags)
+			var user ttnpb.User
+			paths, err := user.SetFromFlags(cmd.Flags(), "")
+			if err != nil {
+				return err
+			}
+			user.Ids = usrID
+			if profilePicture, err := cmd.Flags().GetString("profile_picture"); err == nil && profilePicture != "" {
+				user.ProfilePicture, err = readPicture(profilePicture)
+				if err != nil {
+					return err
+				}
+				paths = append(paths, "profile_picture")
+			}
+
 			if len(paths) == 0 {
 				logger.Warn("No fields selected, won't update anything")
 				return nil
@@ -297,19 +314,6 @@ var (
 				logger.Warnf("Use \"%s [user-id]\" if you forgot your password and want to request a temporary password.", usersForgotPasswordCommand.CommandPath())
 				logger.Warnf("Alternatively, admins may use \"%s [user-id] --temporary-password [pass]\" to set a temporary password for a user.", cmd.CommandPath())
 				logger.Warn("The user can then use this temporary password when changing their password.")
-			}
-			var user ttnpb.User
-			if err := util.SetFields(&user, setUserFlags); err != nil {
-				return err
-			}
-			user.Attributes = mergeAttributes(user.Attributes, cmd.Flags())
-			user.Ids = usrID
-			if profilePicture, err := cmd.Flags().GetString("profile_picture"); err == nil && profilePicture != "" {
-				user.ProfilePicture, err = readPicture(profilePicture)
-				if err != nil {
-					return err
-				}
-				paths = append(paths, "profile_picture")
 			}
 
 			is, err := api.Dial(ctx, config.IdentityServerGRPCAddress)
@@ -496,15 +500,12 @@ var (
 
 func init() {
 	profilePictureFlags.String("profile_picture", "", "upload the profile picture from this file")
-
-	usersListCommand.Flags().AddFlagSet(deletedFlags)
+	ttnpb.AddSelectFlagsForUser(selectUserFlags, "")
+	ttnpb.AddSetFlagsForListUsersRequest(usersListCommand.Flags(), "")
 	usersListCommand.Flags().AddFlagSet(selectUserFlags)
 	usersListCommand.Flags().AddFlagSet(selectAllUserFlags)
-	usersListCommand.Flags().AddFlagSet(paginationFlags())
-	usersListCommand.Flags().AddFlagSet(orderFlags())
 	usersCommand.AddCommand(usersListCommand)
-	usersSearchCommand.Flags().AddFlagSet(searchUsersFlags)
-	usersSearchCommand.Flags().AddFlagSet(deletedFlags)
+	ttnpb.AddSetFlagsForSearchUsersRequest(usersSearchCommand.Flags(), "")
 	usersSearchCommand.Flags().AddFlagSet(selectUserFlags)
 	usersSearchCommand.Flags().AddFlagSet(selectAllUserFlags)
 	usersCommand.AddCommand(usersSearchCommand)
@@ -512,16 +513,14 @@ func init() {
 	usersGetCommand.Flags().AddFlagSet(selectUserFlags)
 	usersGetCommand.Flags().AddFlagSet(selectAllUserFlags)
 	usersCommand.AddCommand(usersGetCommand)
-	usersCreateCommand.Flags().AddFlagSet(userIDFlags())
-	usersCreateCommand.Flags().AddFlagSet(setUserFlags)
-	usersCreateCommand.Flags().AddFlagSet(attributesFlags())
+	ttnpb.AddSetFlagsForUser(usersCreateCommand.Flags(), "")
+	flagsplugin.AddAlias(usersCreateCommand.Flags(), "ids.user-id", "user-id")
 	usersCreateCommand.Flags().AddFlagSet(profilePictureFlags)
 	usersCreateCommand.Flags().Lookup("state").DefValue = ttnpb.State_STATE_APPROVED.String()
 	usersCreateCommand.Flags().String("invitation-token", "", "")
 	usersCommand.AddCommand(usersCreateCommand)
-	usersSetCommand.Flags().AddFlagSet(userIDFlags())
-	usersSetCommand.Flags().AddFlagSet(setUserFlags)
-	usersSetCommand.Flags().AddFlagSet(attributesFlags())
+	ttnpb.AddSetFlagsForUser(usersSetCommand.Flags(), "")
+	flagsplugin.AddAlias(usersSetCommand.Flags(), "ids.user-id", "user-id")
 	usersSetCommand.Flags().AddFlagSet(profilePictureFlags)
 	usersCommand.AddCommand(usersSetCommand)
 	usersForgotPasswordCommand.Flags().AddFlagSet(userIDFlags())

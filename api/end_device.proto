@@ -14,6 +14,7 @@
 
 syntax = "proto3";
 
+import "github.com/TheThingsIndustries/protoc-gen-go-flags/annotations.proto";
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "github.com/TheThingsIndustries/protoc-gen-go-json/annotations.proto";
@@ -58,6 +59,7 @@ message Session {
 }
 
 message BoolValue {
+  option (thethings.flags.message) = { select: true, set: true, wrapper: true };
   option (thethings.json.message) = { wrapper: true };
   bool value = 1;
 }
@@ -65,6 +67,7 @@ message BoolValue {
 // MACParameters represent the parameters of the device's MAC layer (active or desired).
 // This is used internally by the Network Server.
 message MACParameters {
+  option (thethings.flags.message) = { select: true, set: true };
   // Maximum EIRP (dBm).
   float max_eirp = 1;
   reserved 2; // Deprecated: uplink_dwell_time
@@ -104,7 +107,8 @@ message MACParameters {
   uint64 beacon_frequency = 18 [(validate.rules).uint64 = {lte: 0, gte: 100000}];
 
   message Channel {
-      // Uplink frequency of the channel (Hz).
+    option (thethings.flags.message) = { select: true, set: true };
+    // Uplink frequency of the channel (Hz).
     uint64 uplink_frequency = 1 [(validate.rules).uint64 = {lte: 0, gte: 100000}];
     // Downlink frequency of the channel (Hz).
     uint64 downlink_frequency = 2 [(validate.rules).uint64.gte = 100000];
@@ -168,6 +172,7 @@ message EndDeviceVersion {
 }
 
 message MACSettings {
+  option (thethings.flags.message) = { select: true, set: true };
   // Maximum delay for the device to answer a MAC request or a confirmed downlink frame.
   // If unset, the default value from Network Server configuration will be used.
   google.protobuf.Duration class_b_timeout = 1;
@@ -272,6 +277,7 @@ message MACSettings {
 // MACState is reset on each join for OTAA or ResetInd for ABP devices.
 // This is used internally by the Network Server.
 message MACState {
+  option (thethings.flags.message) = { select: true, set: true };
   // Current LoRaWAN MAC parameters.
   MACParameters current_parameters = 1 [(validate.rules).message.required = true];
   // Desired LoRaWAN MAC parameters.
@@ -385,6 +391,7 @@ message EndDeviceAuthenticationCode {
 // The persistence of the EndDevice is divided between the Network Server, Application Server and Join Server.
 // SDKs are responsible for combining (if desired) the three.
 message EndDevice {
+  option (thethings.flags.message) = { select: true, set: true };
   EndDeviceIdentifiers ids = 1 [(validate.rules).message.required = true];
   google.protobuf.Timestamp created_at = 2;
   google.protobuf.Timestamp updated_at = 3;
@@ -478,7 +485,14 @@ message EndDevice {
   RootKeys root_keys = 22;
 
   // Home NetID. Stored in Join Server.
-  bytes net_id = 23 [(gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.NetID"];
+  bytes net_id = 23 [
+    (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.NetID",
+    (thethings.flags.field) = {
+      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New3BytesFlag",
+      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetNetID",
+      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+    }
+  ];
   // Settings for how the Network Server handles MAC layer for this device. Stored in Network Server.
   MACSettings mac_settings = 24;
   // MAC state of the device. Stored in Network Server.

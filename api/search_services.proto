@@ -16,6 +16,7 @@ syntax = "proto3";
 
 import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "github.com/TheThingsIndustries/protoc-gen-go-flags/annotations.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";
 import "lorawan-stack/api/application.proto";
@@ -36,6 +37,7 @@ option (gogoproto.goproto_registration) = true;
 
 // This message is used for finding applications in the EntityRegistrySearch service.
 message SearchApplicationsRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // Find applications where the ID contains this substring.
   string id_contains = 1 [
     (validate.rules).string.max_len = 50
@@ -72,6 +74,7 @@ message SearchApplicationsRequest {
 
 // This message is used for finding OAuth clients in the EntityRegistrySearch service.
 message SearchClientsRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // Find OAuth clients where the ID contains this substring.
   string id_contains = 1 [
     (validate.rules).string.max_len = 50
@@ -114,6 +117,7 @@ message SearchClientsRequest {
 
 // This message is used for finding gateways in the EntityRegistrySearch service.
 message SearchGatewaysRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // Find gateways where the ID contains this substring.
   string id_contains = 1 [
     (validate.rules).string.max_len = 50
@@ -153,6 +157,7 @@ message SearchGatewaysRequest {
 
 // This message is used for finding organizations in the EntityRegistrySearch service.
 message SearchOrganizationsRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // Find organizations where the ID contains this substring.
   string id_contains = 1 [
     (validate.rules).string.max_len = 50
@@ -189,6 +194,7 @@ message SearchOrganizationsRequest {
 
 // This message is used for finding users in the EntityRegistrySearch service.
 message SearchUsersRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   // Find users where the ID contains this substring.
   string id_contains = 1 [
     (validate.rules).string.max_len = 50
@@ -215,7 +221,6 @@ message SearchUsersRequest {
   ];
 
   google.protobuf.FieldMask field_mask = 6;
-
   // Order the results by this field path (must be present in the field mask).
   // Default ordering is by ID. Prepend with a minus (-) to reverse the order.
   string order = 7 [
@@ -275,6 +280,7 @@ service EntityRegistrySearch {
 }
 
 message SearchEndDevicesRequest {
+  option (thethings.flags.message) = { select: false, set: true };
   ApplicationIdentifiers application_ids = 1 [(validate.rules).message.required = true];
 
   // Find end devices where the ID contains this substring.
