@@ -292,6 +292,8 @@ func (s *Scheduler) ScheduleAt(ctx context.Context, opts Options) (Emission, err
 		return Emission{}, errNoClockSync.New()
 	}
 	minScheduleTime := ScheduleTimeShort
+	logger := log.FromContext(ctx).WithFields(log.Fields(
+		"orig_min_schedule_time", minScheduleTime))
 	var medianRTT *time.Duration
 	if opts.RTTs != nil {
 		if _, _, median, np, n := opts.RTTs.Stats(scheduleLateRTTPercentile, s.timeSource.Now()); n >= scheduleMinRTTCount {
@@ -299,6 +301,11 @@ func (s *Scheduler) ScheduleAt(ctx context.Context, opts Options) (Emission, err
 			medianRTT = &median
 		}
 	}
+	logger.WithFields(log.Fields(
+		"median-rtt", medianRTT,
+		"offset_min_schedule_time", minScheduleTime,
+	)).Info("Calculated RTT")
+
 	var starts ConcentratorTime
 	now, ok := s.clock.FromServerTime(s.timeSource.Now())
 	if opts.Time != nil {
@@ -324,6 +331,11 @@ func (s *Scheduler) ScheduleAt(ctx context.Context, opts Options) (Emission, err
 	} else {
 		starts = s.clock.FromTimestampTime(opts.Timestamp)
 	}
+	logger.WithFields(log.Fields(
+		"now", now,
+		"starts", starts,
+	)).Info("Calculated Start time")
+
 	if ok {
 		if delta := time.Duration(starts - now); delta < minScheduleTime {
 			return Emission{}, errTooLate.WithAttributes(
