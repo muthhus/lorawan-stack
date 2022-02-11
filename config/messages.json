@@ -4202,9 +4202,27 @@
       "file": "http_gateway.go"
     }
   },
+  "error:pkg/gatewayconfigurationserver:invalid_configuration_filename": {
+    "translations": {
+      "en": "configuration filename `{filename}` is not supported"
+    },
+    "description": {
+      "package": "pkg/gatewayconfigurationserver",
+      "file": "grpc.go"
+    }
+  },
   "error:pkg/gatewayconfigurationserver:invalid_configuration_format": {
     "translations": {
       "en": "configuration format `{format}` is not supported"
+    },
+    "description": {
+      "package": "pkg/gatewayconfigurationserver",
+      "file": "grpc.go"
+    }
+  },
+  "error:pkg/gatewayconfigurationserver:invalid_configuration_type": {
+    "translations": {
+      "en": "configuration type `{type}` is not supported"
     },
     "description": {
       "package": "pkg/gatewayconfigurationserver",
