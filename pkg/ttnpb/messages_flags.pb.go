@@ -22,7 +22,7 @@ func AddSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rx-metadata", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rx-metadata", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true)))
-	AddSelectFlagsForTxSettings(flags, flagsplugin.Prefix("settings", prefix))
+	// NOTE: settings (TxSettings) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-s-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-s-key", prefix), true)))
 	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix))
@@ -38,135 +38,99 @@ func AddSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forApplicationUplink message from select flags.
 func PathsFromSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	sessionKeyId, sessionKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
-	if sessionKeyIdSelect && sessionKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
-	fPort, fPortSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_cnt", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_cnt", prefix))
 	}
-	if fPortSelect && fPort {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frm_payload", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("frm_payload", prefix))
 	}
-	fCnt, fCntSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-cnt", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded_payload", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("decoded_payload", prefix))
 	}
-	if fCntSelect && fCnt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-cnt", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded_payload_warnings", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("decoded_payload_warnings", prefix))
 	}
-	frmPayload, frmPayloadSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frm-payload", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx_metadata", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx_metadata", prefix))
 	}
-	if frmPayloadSelect && frmPayload {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frm-payload", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("settings", prefix))
 	}
-	decodedPayload, decodedPayloadSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded-payload", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: settings (TxSettings) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("received_at", prefix))
 	}
-	if decodedPayloadSelect && decodedPayload {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("decoded-payload", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app_s_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("app_s_key", prefix))
 	}
-	decodedPayloadWarnings, decodedPayloadWarningsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded-payload-warnings", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if decodedPayloadWarningsSelect && decodedPayloadWarnings {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix)))
-	}
-	rxMetadata, rxMetadataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx-metadata", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rxMetadataSelect && rxMetadata {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx-metadata", prefix)))
-	}
-	settings, settingsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("settings", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if settingsSelect && settings {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("settings", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForTxSettings(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app_s_key", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	receivedAt, receivedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_a_f_cnt_down", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_a_f_cnt_down", prefix))
 	}
-	if receivedAtSelect && receivedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("received-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("confirmed", prefix))
 	}
-	appSKey, appSKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app-s-key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("consumed_airtime", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("consumed_airtime", prefix))
 	}
-	if appSKeySelect && appSKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("app-s-key", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("locations", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("locations", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix)); err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("version_ids", prefix))
+	}
+	if selectPaths, err := PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	lastAFCntDown, lastAFCntDownSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-a-f-cnt-down", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("network_ids", prefix))
 	}
-	if lastAFCntDownSelect && lastAFCntDown {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-a-f-cnt-down", prefix)))
-	}
-	confirmed, confirmedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if confirmedSelect && confirmed {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("confirmed", prefix)))
-	}
-	consumedAirtime, consumedAirtimeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("consumed-airtime", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if consumedAirtimeSelect && consumedAirtime {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("consumed-airtime", prefix)))
-	}
-	locations, locationsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("locations", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if locationsSelect && locations {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("locations", prefix)))
-	}
-	versionIds, versionIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("version-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if versionIdsSelect && versionIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("version-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	networkIds, networkIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if networkIdsSelect && networkIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("network-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForNetworkIdentifiers(flags, flagsplugin.Prefix("network-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForNetworkIdentifiers(flags, flagsplugin.Prefix("network_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -183,31 +147,25 @@ func AddSelectFlagsForApplicationLocation(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forApplicationLocation message from select flags.
 func PathsFromSelectFlagsForApplicationLocation(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	service, serviceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("service", prefix))
 	}
-	if serviceSelect && service {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service", prefix)))
-	}
-	location, locationSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if locationSelect && location {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("location", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("location", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForLocation(flags, flagsplugin.Prefix("location", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	attributes, attributesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSelect && attributes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
 	return paths, nil
 }
@@ -224,45 +182,35 @@ func AddSelectFlagsForApplicationJoinAccept(flags *pflag.FlagSet, prefix string)
 
 // SelectFromFlags outputs the fieldmask paths forApplicationJoinAccept message from select flags.
 func PathsFromSelectFlagsForApplicationJoinAccept(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	sessionKeyId, sessionKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
-	if sessionKeyIdSelect && sessionKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app_s_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("app_s_key", prefix))
 	}
-	appSKey, appSKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app-s-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if appSKeySelect && appSKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("app-s-key", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app_s_key", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	invalidatedDownlinks, invalidatedDownlinksSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("invalidated-downlinks", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("invalidated_downlinks", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("invalidated_downlinks", prefix))
 	}
-	if invalidatedDownlinksSelect && invalidatedDownlinks {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("invalidated-downlinks", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_session", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_session", prefix))
 	}
-	pendingSession, pendingSessionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-session", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingSessionSelect && pendingSession {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-session", prefix)))
-	}
-	receivedAt, receivedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if receivedAtSelect && receivedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("received-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("received_at", prefix))
 	}
 	return paths, nil
 }
@@ -275,19 +223,15 @@ func AddSelectFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix s
 
 // SelectFromFlags outputs the fieldmask paths forApplicationDownlink_ClassBC message from select flags.
 func PathsFromSelectFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	gateways, gatewaysSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("gateways", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("gateways", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("gateways", prefix))
 	}
-	if gatewaysSelect && gateways {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("gateways", prefix)))
-	}
-	absoluteTime, absoluteTimeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("absolute-time", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if absoluteTimeSelect && absoluteTime {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("absolute-time", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("absolute_time", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("absolute_time", prefix))
 	}
 	return paths, nil
 }
@@ -301,13 +245,11 @@ func AddSetFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix stri
 // SetFromFlags sets the ApplicationDownlink_ClassBC message from flags.
 func (m *ApplicationDownlink_ClassBC) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
 	// FIXME: Skipping Gateways because it does not seem to implement AddSetFlags.
-	absoluteTime, absoluteTimeSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("absolute-time", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if absoluteTimeSet {
-		m.AbsoluteTime = gogo.SetTimestamp(absoluteTime)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("absolute-time", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("absolute_time", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AbsoluteTime = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("absolute_time", prefix))
 	}
 	return paths, nil
 }
@@ -322,87 +264,63 @@ func AddSelectFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("confirmed", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("class-b-c", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("class-b-c", prefix), true)))
-	AddSelectFlagsForApplicationDownlink_ClassBC(flags, flagsplugin.Prefix("class-b-c", prefix))
+	// NOTE: class_b_c (ApplicationDownlink_ClassBC) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("priority", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("priority", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationDownlink message from select flags.
 func PathsFromSelectFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	sessionKeyId, sessionKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
-	if sessionKeyIdSelect && sessionKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
-	fPort, fPortSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_cnt", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_cnt", prefix))
 	}
-	if fPortSelect && fPort {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frm_payload", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("frm_payload", prefix))
 	}
-	fCnt, fCntSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-cnt", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded_payload", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("decoded_payload", prefix))
 	}
-	if fCntSelect && fCnt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-cnt", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded_payload_warnings", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("decoded_payload_warnings", prefix))
 	}
-	frmPayload, frmPayloadSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frm-payload", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("confirmed", prefix))
 	}
-	if frmPayloadSelect && frmPayload {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frm-payload", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class_b_c", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("class_b_c", prefix))
 	}
-	decodedPayload, decodedPayloadSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded-payload", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: class_b_c (ApplicationDownlink_ClassBC) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("priority", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("priority", prefix))
 	}
-	if decodedPayloadSelect && decodedPayload {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("decoded-payload", prefix)))
-	}
-	decodedPayloadWarnings, decodedPayloadWarningsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("decoded-payload-warnings", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if decodedPayloadWarningsSelect && decodedPayloadWarnings {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix)))
-	}
-	confirmed, confirmedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if confirmedSelect && confirmed {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("confirmed", prefix)))
-	}
-	classBC, classBCSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class-b-c", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if classBCSelect && classBC {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-b-c", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink_ClassBC(flags, flagsplugin.Prefix("class-b-c", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	priority, prioritySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("priority", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if prioritySelect && priority {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("priority", prefix)))
-	}
-	correlationIds, correlationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if correlationIdsSelect && correlationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("correlation-ids", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("correlation_ids", prefix))
 	}
 	return paths, nil
 }
@@ -423,83 +341,66 @@ func AddSetFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ApplicationDownlink message from flags.
 func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	sessionKeyId, sessionKeyIdSet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("session-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SessionKeyId = val
+		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
-	if sessionKeyIdSet {
-		m.SessionKeyId = sessionKeyId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FPort = val
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
-	fPort, fPortSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_cnt", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FCnt = val
+		paths = append(paths, flagsplugin.Prefix("f_cnt", prefix))
 	}
-	if fPortSet {
-		m.FPort = fPort
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
-	}
-	fCnt, fCntSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f-cnt", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fCntSet {
-		m.FCnt = fCnt
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-cnt", prefix)))
-	}
-	frmPayload, frmPayloadSet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("frm-payload", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if frmPayloadSet {
-		m.FrmPayload = frmPayload
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frm-payload", prefix)))
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("frm_payload", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FrmPayload = val
+		paths = append(paths, flagsplugin.Prefix("frm_payload", prefix))
 	}
 	// FIXME: Skipping DecodedPayload because this WKT is not supported.
-	decodedPayloadWarnings, decodedPayloadWarningsSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("decoded-payload-warnings", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("decoded_payload_warnings", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DecodedPayloadWarnings = val
+		paths = append(paths, flagsplugin.Prefix("decoded_payload_warnings", prefix))
 	}
-	if decodedPayloadWarningsSet {
-		m.DecodedPayloadWarnings = decodedPayloadWarnings
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Confirmed = val
+		paths = append(paths, flagsplugin.Prefix("confirmed", prefix))
 	}
-	confirmed, confirmedSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if confirmedSet {
-		m.Confirmed = confirmed
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("confirmed", prefix)))
-	}
-	classBCSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("class-b-c", prefix))
-	if classBCSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("class_b_c", prefix)); selected {
 		m.ClassBC = &ApplicationDownlink_ClassBC{}
-		if setPaths, err := m.ClassBC.SetFromFlags(flags, flagsplugin.Prefix("class-b-c", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ClassBC.SetFromFlags(flags, flagsplugin.Prefix("class_b_c", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	priority, prioritySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("priority", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if prioritySet {
-		enumValue, err := flagsplugin.SetEnumString(priority, TxSchedulePriority_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("priority", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, TxSchedulePriority_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Priority = TxSchedulePriority(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("priority", prefix)))
+		paths = append(paths, flagsplugin.Prefix("priority", prefix))
 	}
-	correlationIds, correlationIdsSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("correlation-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if correlationIdsSet {
-		m.CorrelationIds = correlationIds
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("correlation-ids", prefix)))
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("correlation_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CorrelationIds = val
+		paths = append(paths, flagsplugin.Prefix("correlation_ids", prefix))
 	}
 	return paths, nil
 }
@@ -507,37 +408,25 @@ func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 // AddSelectFlagsForApplicationDownlinkFailed adds flags to select fields in ApplicationDownlinkFailed.
 func AddSelectFlagsForApplicationDownlinkFailed(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("downlink", prefix))
+	// NOTE: downlink (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("error", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("error", prefix), true)))
-	AddSelectFlagsForErrorDetails(flags, flagsplugin.Prefix("error", prefix))
+	// NOTE: error (ErrorDetails) does not seem to have select flags.
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationDownlinkFailed message from select flags.
 func PathsFromSelectFlagsForApplicationDownlinkFailed(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	downlink, downlinkSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink", prefix))
 	}
-	if downlinkSelect && downlink {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink", prefix)))
+	// NOTE: downlink (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("error", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("error", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("downlink", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	error, errorSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("error", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if errorSelect && error {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("error", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForErrorDetails(flags, flagsplugin.Prefix("error", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
+	// NOTE: error (ErrorDetails) does not seem to have select flags.
 	return paths, nil
 }
 
@@ -550,26 +439,20 @@ func AddSelectFlagsForApplicationInvalidatedDownlinks(flags *pflag.FlagSet, pref
 
 // SelectFromFlags outputs the fieldmask paths forApplicationInvalidatedDownlinks message from select flags.
 func PathsFromSelectFlagsForApplicationInvalidatedDownlinks(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	downlinks, downlinksSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlinks", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlinks", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlinks", prefix))
 	}
-	if downlinksSelect && downlinks {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlinks", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_f_cnt_down", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_f_cnt_down", prefix))
 	}
-	lastFCntDown, lastFCntDownSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-f-cnt-down", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastFCntDownSelect && lastFCntDown {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-f-cnt-down", prefix)))
-	}
-	sessionKeyId, sessionKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-key-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionKeyIdSelect && sessionKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
 	return paths, nil
 }
@@ -582,19 +465,15 @@ func AddSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix string
 
 // SelectFromFlags outputs the fieldmask paths forApplicationServiceData message from select flags.
 func PathsFromSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	service, serviceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("service", prefix))
 	}
-	if serviceSelect && service {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service", prefix)))
-	}
-	data, dataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if dataSelect && data {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("data", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("data", prefix))
 	}
 	return paths, nil
 }
@@ -602,186 +481,114 @@ func PathsFromSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix 
 // AddSelectFlagsForApplicationUp adds flags to select fields in ApplicationUp.
 func AddSelectFlagsForApplicationUp(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true)))
-	AddSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix))
+	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.uplink-message", prefix), true)))
-	AddSelectFlagsForApplicationUplink(flags, flagsplugin.Prefix("up.uplink-message", prefix))
+	// NOTE: uplink_message (ApplicationUplink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.join-accept", prefix), true)))
-	AddSelectFlagsForApplicationJoinAccept(flags, flagsplugin.Prefix("up.join-accept", prefix))
+	// NOTE: join_accept (ApplicationJoinAccept) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-ack", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-ack", prefix))
+	// NOTE: downlink_ack (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-nack", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-nack", prefix))
+	// NOTE: downlink_nack (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-sent", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-sent", prefix))
+	// NOTE: downlink_sent (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-failed", prefix), true)))
-	AddSelectFlagsForApplicationDownlinkFailed(flags, flagsplugin.Prefix("up.downlink-failed", prefix))
+	// NOTE: downlink_failed (ApplicationDownlinkFailed) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queued", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-queued", prefix))
+	// NOTE: downlink_queued (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), true)))
-	AddSelectFlagsForApplicationInvalidatedDownlinks(flags, flagsplugin.Prefix("up.downlink-queue-invalidated", prefix))
+	// NOTE: downlink_queue_invalidated (ApplicationInvalidatedDownlinks) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.location-solved", prefix), true)))
-	AddSelectFlagsForApplicationLocation(flags, flagsplugin.Prefix("up.location-solved", prefix))
+	// NOTE: location_solved (ApplicationLocation) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.service-data", prefix), true)))
-	AddSelectFlagsForApplicationServiceData(flags, flagsplugin.Prefix("up.service-data", prefix))
+	// NOTE: service_data (ApplicationServiceData) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("simulated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("simulated", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationUp message from select flags.
 func PathsFromSelectFlagsForApplicationUp(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	endDeviceIds, endDeviceIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("end-device-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("end_device_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("end_device_ids", prefix))
 	}
-	if endDeviceIdsSelect && endDeviceIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("end-device-ids", prefix)))
+	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("correlation_ids", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("received_at", prefix))
 	}
-	correlationIds, correlationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.uplink_message", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.uplink_message", prefix))
 	}
-	if correlationIdsSelect && correlationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("correlation-ids", prefix)))
+	// NOTE: uplink_message (ApplicationUplink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.join_accept", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.join_accept", prefix))
 	}
-	receivedAt, receivedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("received-at", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: join_accept (ApplicationJoinAccept) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_ack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_ack", prefix))
 	}
-	if receivedAtSelect && receivedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("received-at", prefix)))
+	// NOTE: downlink_ack (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_nack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_nack", prefix))
 	}
-	uplinkMessage, uplinkMessageSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.uplink-message", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: downlink_nack (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_sent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_sent", prefix))
 	}
-	if uplinkMessageSelect && uplinkMessage {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.uplink-message", prefix)))
+	// NOTE: downlink_sent (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_failed", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_failed", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationUplink(flags, flagsplugin.Prefix("up.uplink-message", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	// NOTE: downlink_failed (ApplicationDownlinkFailed) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_queued", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_queued", prefix))
 	}
-	joinAccept, joinAcceptSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.join-accept", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: downlink_queued (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink_queue_invalidated", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.downlink_queue_invalidated", prefix))
 	}
-	if joinAcceptSelect && joinAccept {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.join-accept", prefix)))
+	// NOTE: downlink_queue_invalidated (ApplicationInvalidatedDownlinks) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.location_solved", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.location_solved", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationJoinAccept(flags, flagsplugin.Prefix("up.join-accept", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	// NOTE: location_solved (ApplicationLocation) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.service_data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up.service_data", prefix))
 	}
-	downlinkAck, downlinkAckSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-ack", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkAckSelect && downlinkAck {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-ack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-ack", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	downlinkNack, downlinkNackSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-nack", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkNackSelect && downlinkNack {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-nack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-nack", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	downlinkSent, downlinkSentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-sent", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkSentSelect && downlinkSent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-sent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-sent", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	downlinkFailed, downlinkFailedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-failed", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkFailedSelect && downlinkFailed {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-failed", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlinkFailed(flags, flagsplugin.Prefix("up.downlink-failed", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	downlinkQueued, downlinkQueuedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-queued", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkQueuedSelect && downlinkQueued {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-queued", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("up.downlink-queued", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	downlinkQueueInvalidated, downlinkQueueInvalidatedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.downlink-queue-invalidated", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkQueueInvalidatedSelect && downlinkQueueInvalidated {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationInvalidatedDownlinks(flags, flagsplugin.Prefix("up.downlink-queue-invalidated", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	locationSolved, locationSolvedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.location-solved", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if locationSolvedSelect && locationSolved {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.location-solved", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationLocation(flags, flagsplugin.Prefix("up.location-solved", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	serviceData, serviceDataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up.service-data", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if serviceDataSelect && serviceData {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up.service-data", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationServiceData(flags, flagsplugin.Prefix("up.service-data", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	simulated, simulatedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("simulated", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if simulatedSelect && simulated {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("simulated", prefix)))
+	// NOTE: service_data (ApplicationServiceData) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("simulated", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("simulated", prefix))
 	}
 	return paths, nil
 }
@@ -796,33 +603,25 @@ func AddSelectFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix stri
 
 // SelectFromFlags outputs the fieldmask paths forMessagePayloadFormatters message from select flags.
 func PathsFromSelectFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	upFormatter, upFormatterSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up-formatter", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up_formatter", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up_formatter", prefix))
 	}
-	if upFormatterSelect && upFormatter {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up-formatter", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up_formatter_parameter", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("up_formatter_parameter", prefix))
 	}
-	upFormatterParameter, upFormatterParameterSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("up-formatter-parameter", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("down_formatter", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("down_formatter", prefix))
 	}
-	if upFormatterParameterSelect && upFormatterParameter {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up-formatter-parameter", prefix)))
-	}
-	downFormatter, downFormatterSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("down-formatter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downFormatterSelect && downFormatter {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("down-formatter", prefix)))
-	}
-	downFormatterParameter, downFormatterParameterSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("down-formatter-parameter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downFormatterParameterSelect && downFormatterParameter {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("down-formatter-parameter", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("down_formatter_parameter", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("down_formatter_parameter", prefix))
 	}
 	return paths, nil
 }
@@ -837,45 +636,37 @@ func AddSetFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string)
 
 // SetFromFlags sets the MessagePayloadFormatters message from flags.
 func (m *MessagePayloadFormatters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	upFormatter, upFormatterSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up-formatter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if upFormatterSet {
-		enumValue, err := flagsplugin.SetEnumString(upFormatter, PayloadFormatter_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PayloadFormatter_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.UpFormatter = PayloadFormatter(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up-formatter", prefix)))
+		paths = append(paths, flagsplugin.Prefix("up_formatter", prefix))
 	}
-	upFormatterParameter, upFormatterParameterSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up-formatter-parameter", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter_parameter", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpFormatterParameter = val
+		paths = append(paths, flagsplugin.Prefix("up_formatter_parameter", prefix))
 	}
-	if upFormatterParameterSet {
-		m.UpFormatterParameter = upFormatterParameter
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("up-formatter-parameter", prefix)))
-	}
-	downFormatter, downFormatterSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down-formatter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downFormatterSet {
-		enumValue, err := flagsplugin.SetEnumString(downFormatter, PayloadFormatter_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PayloadFormatter_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.DownFormatter = PayloadFormatter(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("down-formatter", prefix)))
+		paths = append(paths, flagsplugin.Prefix("down_formatter", prefix))
 	}
-	downFormatterParameter, downFormatterParameterSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down-formatter-parameter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downFormatterParameterSet {
-		m.DownFormatterParameter = downFormatterParameter
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("down-formatter-parameter", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter_parameter", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DownFormatterParameter = val
+		paths = append(paths, flagsplugin.Prefix("down_formatter_parameter", prefix))
 	}
 	return paths, nil
 }

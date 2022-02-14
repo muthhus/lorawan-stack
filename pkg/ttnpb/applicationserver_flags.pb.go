@@ -21,24 +21,20 @@ func AddSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forApplicationLink message from select flags.
 func PathsFromSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	defaultFormatters, defaultFormattersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("default-formatters", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("default_formatters", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("default_formatters", prefix))
 	}
-	if defaultFormattersSelect && defaultFormatters {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("default-formatters", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default_formatters", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	skipPayloadCrypto, skipPayloadCryptoSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if skipPayloadCryptoSelect && skipPayloadCrypto {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}
 	return paths, nil
 }
@@ -46,28 +42,25 @@ func PathsFromSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string)
 // AddSetFlagsForApplicationLink adds flags to select fields in ApplicationLink.
 func AddSetFlagsForApplicationLink(flags *pflag.FlagSet, prefix string) {
 	AddSetFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto", prefix), flagsplugin.Prefix("skip-payload-crypto.value", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto.value", prefix), flagsplugin.Prefix("skip-payload-crypto", prefix))
 }
 
 // SetFromFlags sets the ApplicationLink message from flags.
 func (m *ApplicationLink) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	defaultFormattersSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("default-formatters", prefix))
-	if defaultFormattersSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("default_formatters", prefix)); selected {
 		m.DefaultFormatters = &MessagePayloadFormatters{}
-		if setPaths, err := m.DefaultFormatters.SetFromFlags(flags, flagsplugin.Prefix("default-formatters", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DefaultFormatters.SetFromFlags(flags, flagsplugin.Prefix("default_formatters", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	skipPayloadCrypto, skipPayloadCryptoSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if skipPayloadCryptoSet {
-		m.SkipPayloadCrypto = &types.BoolValue{Value: skipPayloadCrypto}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SkipPayloadCrypto = &types.BoolValue{Value: val}
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}
 	return paths, nil
 }

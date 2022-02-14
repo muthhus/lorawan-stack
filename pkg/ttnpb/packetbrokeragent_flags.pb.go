@@ -14,19 +14,17 @@ import (
 
 // AddSetFlagsForPacketBrokerRegisterRequest adds flags to select fields in PacketBrokerRegisterRequest.
 func AddSetFlagsForPacketBrokerRegisterRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("listed", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("listed", prefix), flagsplugin.Prefix("listed.value", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("listed.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("listed.value", prefix), flagsplugin.Prefix("listed", prefix))
 }
 
 // SetFromFlags sets the PacketBrokerRegisterRequest message from flags.
 func (m *PacketBrokerRegisterRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	listed, listedSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("listed", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if listedSet {
-		m.Listed = &types.BoolValue{Value: listed}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("listed", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("listed.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Listed = &types.BoolValue{Value: val}
+		paths = append(paths, flagsplugin.Prefix("listed", prefix))
 	}
 	return paths, nil
 }
@@ -45,69 +43,53 @@ func AddSetFlagsForPacketBrokerGatewayVisibility(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the PacketBrokerGatewayVisibility message from flags.
 func (m *PacketBrokerGatewayVisibility) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	location, locationSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Location = val
+		paths = append(paths, flagsplugin.Prefix("location", prefix))
 	}
-	if locationSet {
-		m.Location = location
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("location", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_placement", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AntennaPlacement = val
+		paths = append(paths, flagsplugin.Prefix("antenna_placement", prefix))
 	}
-	antennaPlacement, antennaPlacementSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna-placement", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_count", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AntennaCount = val
+		paths = append(paths, flagsplugin.Prefix("antenna_count", prefix))
 	}
-	if antennaPlacementSet {
-		m.AntennaPlacement = antennaPlacement
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("antenna-placement", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("fine_timestamps", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FineTimestamps = val
+		paths = append(paths, flagsplugin.Prefix("fine_timestamps", prefix))
 	}
-	antennaCount, antennaCountSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna-count", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_info", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ContactInfo = val
+		paths = append(paths, flagsplugin.Prefix("contact_info", prefix))
 	}
-	if antennaCountSet {
-		m.AntennaCount = antennaCount
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("antenna-count", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Status = val
+		paths = append(paths, flagsplugin.Prefix("status", prefix))
 	}
-	fineTimestamps, fineTimestampsSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("fine-timestamps", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency_plan", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FrequencyPlan = val
+		paths = append(paths, flagsplugin.Prefix("frequency_plan", prefix))
 	}
-	if fineTimestampsSet {
-		m.FineTimestamps = fineTimestamps
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("fine-timestamps", prefix)))
-	}
-	contactInfo, contactInfoSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact-info", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if contactInfoSet {
-		m.ContactInfo = contactInfo
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-info", prefix)))
-	}
-	status, statusSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if statusSet {
-		m.Status = status
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status", prefix)))
-	}
-	frequencyPlan, frequencyPlanSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency-plan", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if frequencyPlanSet {
-		m.FrequencyPlan = frequencyPlan
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frequency-plan", prefix)))
-	}
-	packetRates, packetRatesSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("packet-rates", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if packetRatesSet {
-		m.PacketRates = packetRates
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("packet-rates", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("packet_rates", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PacketRates = val
+		paths = append(paths, flagsplugin.Prefix("packet_rates", prefix))
 	}
 	return paths, nil
 }

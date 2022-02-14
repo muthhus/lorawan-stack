@@ -11,6 +11,7 @@ import (
 	gogo "github.com/TheThingsIndustries/protoc-gen-go-flags/gogo"
 	pflag "github.com/spf13/pflag"
 	custom_flags "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags"
+	types "go.thethings.network/lorawan-stack/v3/pkg/types"
 )
 
 // AddSelectFlagsForApplicationActivationSettings adds flags to select fields in ApplicationActivationSettings.
@@ -24,38 +25,30 @@ func AddSelectFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix
 
 // SelectFromFlags outputs the fieldmask paths forApplicationActivationSettings message from select flags.
 func PathsFromSelectFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	kekLabel, kekLabelSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek-label", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	if kekLabelSelect && kekLabel {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("kek-label", prefix)))
-	}
-	kek, kekSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if kekSelect && kek {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("kek", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("kek", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("kek", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	homeNetId, homeNetIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("home-net-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("home_net_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("home_net_id", prefix))
 	}
-	if homeNetIdSelect && homeNetId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("home-net-id", prefix)))
-	}
-	applicationServerId, applicationServerIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-server-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerIdSelect && applicationServerId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
 	return paths, nil
 }
@@ -70,38 +63,31 @@ func AddSetFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationActivationSettings message from flags.
 func (m *ApplicationActivationSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	kekLabel, kekLabelSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek-label", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.KekLabel = val
+		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	if kekLabelSet {
-		m.KekLabel = kekLabel
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("kek-label", prefix)))
-	}
-	kekSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("kek", prefix))
-	if kekSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("kek", prefix)); selected {
 		m.Kek = &KeyEnvelope{}
 		if setPaths, err := m.Kek.SetFromFlags(flags, flagsplugin.Prefix("kek", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	homeNetId, homeNetIdSet, err := custom_flags.GetNetID(flags, flagsplugin.Prefix("home-net-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := types.GetNetID(flags, flagsplugin.Prefix("home_net_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.HomeNetId = &val
+		paths = append(paths, flagsplugin.Prefix("home_net_id", prefix))
 	}
-	if homeNetIdSet {
-		m.HomeNetId = &homeNetId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("home-net-id", prefix)))
-	}
-	applicationServerId, applicationServerIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application-server-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerIdSet {
-		m.ApplicationServerId = applicationServerId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ApplicationServerId = val
+		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
 	return paths, nil
 }
@@ -111,42 +97,32 @@ func AddSelectFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagS
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
 	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true)))
-	AddSelectFlagsForApplicationActivationSettings(flags, flagsplugin.Prefix("settings", prefix))
+	// NOTE: settings (ApplicationActivationSettings) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forSetApplicationActivationSettingsRequest message from select flags.
 func PathsFromSelectFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIds, applicationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_ids", prefix))
 	}
-	if applicationIdsSelect && applicationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	settings, settingsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("settings", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("settings", prefix))
 	}
-	if settingsSelect && settings {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("settings", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationActivationSettings(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	fieldMask, fieldMaskSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fieldMaskSelect && fieldMask {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	// NOTE: settings (ApplicationActivationSettings) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
 	return paths, nil
 }
@@ -160,31 +136,27 @@ func AddSetFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet,
 
 // SetFromFlags sets the SetApplicationActivationSettingsRequest message from flags.
 func (m *SetApplicationActivationSettingsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	settingsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("settings", prefix))
-	if settingsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("settings", prefix)); selected {
 		m.Settings = &ApplicationActivationSettings{}
 		if setPaths, err := m.Settings.SetFromFlags(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	fieldMask, fieldMaskSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fieldMaskSet {
-		m.FieldMask = gogo.SetFieldMask(fieldMask)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FieldMask = gogo.SetFieldMask(val)
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
 	return paths, nil
 }

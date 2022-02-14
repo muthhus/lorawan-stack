@@ -24,105 +24,75 @@ func AddSelectFlagsForApplication(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("administrative-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("administrative-contact", prefix), true)))
-	AddSelectFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix))
+	// NOTE: administrative_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("technical-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("technical-contact", prefix), true)))
-	AddSelectFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix))
+	// NOTE: technical_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("dev-eui-counter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("dev-eui-counter", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplication message from select flags.
 func PathsFromSelectFlagsForApplication(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	deletedAt, deletedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if deletedAtSelect && deletedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	name, nameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_info", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("contact_info", prefix))
 	}
-	if nameSelect && name {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("administrative_contact", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("administrative_contact", prefix))
 	}
-	description, descriptionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: administrative_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("technical_contact", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("technical_contact", prefix))
 	}
-	if descriptionSelect && description {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
-	}
-	attributes, attributesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSelect && attributes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
-	}
-	contactInfo, contactInfoSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact-info", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if contactInfoSelect && contactInfo {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-info", prefix)))
-	}
-	administrativeContact, administrativeContactSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("administrative-contact", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if administrativeContactSelect && administrativeContact {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("administrative-contact", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	technicalContact, technicalContactSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("technical-contact", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if technicalContactSelect && technicalContact {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("technical-contact", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	devEuiCounter, devEuiCounterSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev-eui-counter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if devEuiCounterSelect && devEuiCounter {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-eui-counter", prefix)))
+	// NOTE: technical_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev_eui_counter", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("dev_eui_counter", prefix))
 	}
 	return paths, nil
 }
@@ -144,89 +114,72 @@ func AddSetFlagsForApplication(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the Application message from flags.
 func (m *Application) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &ApplicationIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DeletedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Name = val
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	deletedAt, deletedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Description = val
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if deletedAtSet {
-		m.DeletedAt = gogo.SetTimestamp(deletedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted-at", prefix)))
-	}
-	name, nameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if nameSet {
-		m.Name = name
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
-	}
-	description, descriptionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if descriptionSet {
-		m.Description = description
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
-	}
-	attributes, attributesSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSet {
-		m.Attributes = attributes
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Attributes = val
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
 	// FIXME: Skipping ContactInfo because it does not seem to implement AddSetFlags.
-	administrativeContactSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("administrative-contact", prefix))
-	if administrativeContactSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("administrative_contact", prefix)); selected {
 		m.AdministrativeContact = &OrganizationOrUserIdentifiers{}
-		if setPaths, err := m.AdministrativeContact.SetFromFlags(flags, flagsplugin.Prefix("administrative-contact", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AdministrativeContact.SetFromFlags(flags, flagsplugin.Prefix("administrative_contact", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	technicalContactSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("technical-contact", prefix))
-	if technicalContactSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("technical_contact", prefix)); selected {
 		m.TechnicalContact = &OrganizationOrUserIdentifiers{}
-		if setPaths, err := m.TechnicalContact.SetFromFlags(flags, flagsplugin.Prefix("technical-contact", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.TechnicalContact.SetFromFlags(flags, flagsplugin.Prefix("technical_contact", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	devEuiCounter, devEuiCounterSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("dev-eui-counter", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if devEuiCounterSet {
-		m.DevEuiCounter = devEuiCounter
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-eui-counter", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("dev_eui_counter", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DevEuiCounter = val
+		paths = append(paths, flagsplugin.Prefix("dev_eui_counter", prefix))
 	}
 	return paths, nil
 }
@@ -243,54 +196,43 @@ func AddSetFlagsForListApplicationsRequest(flags *pflag.FlagSet, prefix string) 
 
 // SetFromFlags sets the ListApplicationsRequest message from flags.
 func (m *ListApplicationsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	collaboratorSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("collaborator", prefix))
-	if collaboratorSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("collaborator", prefix)); selected {
 		m.Collaborator = &OrganizationOrUserIdentifiers{}
 		if setPaths, err := m.Collaborator.SetFromFlags(flags, flagsplugin.Prefix("collaborator", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	fieldMask, fieldMaskSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FieldMask = gogo.SetFieldMask(val)
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if fieldMaskSet {
-		m.FieldMask = gogo.SetFieldMask(fieldMask)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Order = val
+		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	order, orderSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Limit = val
+		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if orderSet {
-		m.Order = order
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("order", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Page = val
+		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	limit, limitSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if limitSet {
-		m.Limit = limit
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("limit", prefix)))
-	}
-	page, pageSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pageSet {
-		m.Page = page
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("page", prefix)))
-	}
-	deleted, deletedSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if deletedSet {
-		m.Deleted = deleted
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Deleted = val
+		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
 	return paths, nil
 }

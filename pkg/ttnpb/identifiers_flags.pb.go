@@ -10,6 +10,7 @@ import (
 	flagsplugin "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin"
 	pflag "github.com/spf13/pflag"
 	custom_flags "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags"
+	types "go.thethings.network/lorawan-stack/v3/pkg/types"
 )
 
 // AddSelectFlagsForApplicationIdentifiers adds flags to select fields in ApplicationIdentifiers.
@@ -19,12 +20,10 @@ func AddSelectFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string
 
 // SelectFromFlags outputs the fieldmask paths forApplicationIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationId, applicationIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationIdSelect && applicationId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_id", prefix))
 	}
 	return paths, nil
 }
@@ -36,13 +35,11 @@ func AddSetFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ApplicationIdentifiers message from flags.
 func (m *ApplicationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationId, applicationIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationIdSet {
-		m.ApplicationId = applicationId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ApplicationId = val
+		paths = append(paths, flagsplugin.Prefix("application_id", prefix))
 	}
 	return paths, nil
 }
@@ -54,12 +51,10 @@ func AddSelectFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forClientIdentifiers message from select flags.
 func PathsFromSelectFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	clientId, clientIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("client-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if clientIdSelect && clientId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("client-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("client_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("client_id", prefix))
 	}
 	return paths, nil
 }
@@ -71,13 +66,11 @@ func AddSetFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ClientIdentifiers message from flags.
 func (m *ClientIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	clientId, clientIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("client-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if clientIdSet {
-		m.ClientId = clientId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("client-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("client_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ClientId = val
+		paths = append(paths, flagsplugin.Prefix("client_id", prefix))
 	}
 	return paths, nil
 }
@@ -94,45 +87,35 @@ func AddSelectFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string) 
 
 // SelectFromFlags outputs the fieldmask paths forEndDeviceIdentifiers message from select flags.
 func PathsFromSelectFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	deviceId, deviceIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("device-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("device_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("device_id", prefix))
 	}
-	if deviceIdSelect && deviceId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("device-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_ids", prefix))
 	}
-	applicationIds, applicationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationIdsSelect && applicationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	devEui, devEuiSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev-eui", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev_eui", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("dev_eui", prefix))
 	}
-	if devEuiSelect && devEui {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-eui", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join_eui", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("join_eui", prefix))
 	}
-	joinEui, joinEuiSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join-eui", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if joinEuiSelect && joinEui {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-eui", prefix)))
-	}
-	devAddr, devAddrSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev-addr", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if devAddrSelect && devAddr {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-addr", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("dev_addr", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("dev_addr", prefix))
 	}
 	return paths, nil
 }
@@ -148,46 +131,37 @@ func AddSetFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the EndDeviceIdentifiers message from flags.
 func (m *EndDeviceIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	deviceId, deviceIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DeviceId = val
+		paths = append(paths, flagsplugin.Prefix("device_id", prefix))
 	}
-	if deviceIdSet {
-		m.DeviceId = deviceId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("device-id", prefix)))
-	}
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	devEui, devEuiSet, err := custom_flags.GetEUI64(flags, flagsplugin.Prefix("dev-eui", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := types.GetEUI64(flags, flagsplugin.Prefix("dev_eui", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DevEui = &val
+		paths = append(paths, flagsplugin.Prefix("dev_eui", prefix))
 	}
-	if devEuiSet {
-		m.DevEui = &devEui
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-eui", prefix)))
+	if val, selected, err := types.GetEUI64(flags, flagsplugin.Prefix("join_eui", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.JoinEui = &val
+		paths = append(paths, flagsplugin.Prefix("join_eui", prefix))
 	}
-	joinEui, joinEuiSet, err := custom_flags.GetEUI64(flags, flagsplugin.Prefix("join-eui", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if joinEuiSet {
-		m.JoinEui = &joinEui
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-eui", prefix)))
-	}
-	devAddr, devAddrSet, err := custom_flags.GetDevAddr(flags, flagsplugin.Prefix("dev-addr", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if devAddrSet {
-		m.DevAddr = &devAddr
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("dev-addr", prefix)))
+	if val, selected, err := types.GetDevAddr(flags, flagsplugin.Prefix("dev_addr", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DevAddr = &val
+		paths = append(paths, flagsplugin.Prefix("dev_addr", prefix))
 	}
 	return paths, nil
 }
@@ -200,19 +174,15 @@ func AddSelectFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forGatewayIdentifiers message from select flags.
 func PathsFromSelectFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	gatewayId, gatewayIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("gateway-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("gateway_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("gateway_id", prefix))
 	}
-	if gatewayIdSelect && gatewayId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("gateway-id", prefix)))
-	}
-	eui, euiSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("eui", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if euiSelect && eui {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("eui", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("eui", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("eui", prefix))
 	}
 	return paths, nil
 }
@@ -225,21 +195,17 @@ func AddSetFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the GatewayIdentifiers message from flags.
 func (m *GatewayIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	gatewayId, gatewayIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("gateway-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("gateway_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.GatewayId = val
+		paths = append(paths, flagsplugin.Prefix("gateway_id", prefix))
 	}
-	if gatewayIdSet {
-		m.GatewayId = gatewayId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("gateway-id", prefix)))
-	}
-	eui, euiSet, err := custom_flags.GetEUI64(flags, flagsplugin.Prefix("eui", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if euiSet {
-		m.Eui = &eui
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("eui", prefix)))
+	if val, selected, err := types.GetEUI64(flags, flagsplugin.Prefix("eui", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Eui = &val
+		paths = append(paths, flagsplugin.Prefix("eui", prefix))
 	}
 	return paths, nil
 }
@@ -251,12 +217,10 @@ func AddSelectFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix strin
 
 // SelectFromFlags outputs the fieldmask paths forOrganizationIdentifiers message from select flags.
 func PathsFromSelectFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	organizationId, organizationIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("organization-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if organizationIdSelect && organizationId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("organization-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("organization_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("organization_id", prefix))
 	}
 	return paths, nil
 }
@@ -268,13 +232,11 @@ func AddSetFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string) 
 
 // SetFromFlags sets the OrganizationIdentifiers message from flags.
 func (m *OrganizationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	organizationId, organizationIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("organization-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if organizationIdSet {
-		m.OrganizationId = organizationId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("organization-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("organization_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.OrganizationId = val
+		paths = append(paths, flagsplugin.Prefix("organization_id", prefix))
 	}
 	return paths, nil
 }
@@ -287,19 +249,15 @@ func AddSelectFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forUserIdentifiers message from select flags.
 func PathsFromSelectFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	userId, userIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("user-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("user_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("user_id", prefix))
 	}
-	if userIdSelect && userId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("user-id", prefix)))
-	}
-	email, emailSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("email", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if emailSelect && email {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("email", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("email", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("email", prefix))
 	}
 	return paths, nil
 }
@@ -312,21 +270,17 @@ func AddSetFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the UserIdentifiers message from flags.
 func (m *UserIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	userId, userIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("user-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("user_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UserId = val
+		paths = append(paths, flagsplugin.Prefix("user_id", prefix))
 	}
-	if userIdSet {
-		m.UserId = userId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("user-id", prefix)))
-	}
-	email, emailSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("email", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if emailSet {
-		m.Email = email
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("email", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("email", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Email = val
+		paths = append(paths, flagsplugin.Prefix("email", prefix))
 	}
 	return paths, nil
 }
@@ -341,27 +295,23 @@ func AddSelectFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix
 
 // SelectFromFlags outputs the fieldmask paths forOrganizationOrUserIdentifiers message from select flags.
 func PathsFromSelectFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	organizationIds, organizationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids.organization-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids.organization_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids.organization_ids", prefix))
 	}
-	if organizationIdsSelect && organizationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids.organization-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	userIds, userIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids.user-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids.user_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids.user_ids", prefix))
 	}
-	if userIdsSelect && userIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids.user-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -376,23 +326,21 @@ func AddSetFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the OrganizationOrUserIdentifiers message from flags.
 func (m *OrganizationOrUserIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	organizationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids.organization-ids", prefix))
-	if organizationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids.organization_ids", prefix)); selected {
 		ov := &OrganizationOrUserIdentifiers_OrganizationIds{}
 		ov.OrganizationIds = &OrganizationIdentifiers{}
-		if setPaths, err := ov.OrganizationIds.SetFromFlags(flags, flagsplugin.Prefix("ids.organization-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := ov.OrganizationIds.SetFromFlags(flags, flagsplugin.Prefix("ids.organization_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 		m.Ids = ov
 	}
-	userIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids.user-ids", prefix))
-	if userIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids.user_ids", prefix)); selected {
 		ov := &OrganizationOrUserIdentifiers_UserIds{}
 		ov.UserIds = &UserIdentifiers{}
-		if setPaths, err := ov.UserIds.SetFromFlags(flags, flagsplugin.Prefix("ids.user-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := ov.UserIds.SetFromFlags(flags, flagsplugin.Prefix("ids.user_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
@@ -412,40 +360,30 @@ func AddSelectFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix s
 
 // SelectFromFlags outputs the fieldmask paths forEndDeviceVersionIdentifiers message from select flags.
 func PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	brandId, brandIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("brand-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("brand_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("brand_id", prefix))
 	}
-	if brandIdSelect && brandId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("brand-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("model_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("model_id", prefix))
 	}
-	modelId, modelIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("model-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("hardware_version", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("hardware_version", prefix))
 	}
-	if modelIdSelect && modelId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("model-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("firmware_version", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("firmware_version", prefix))
 	}
-	hardwareVersion, hardwareVersionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("hardware-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if hardwareVersionSelect && hardwareVersion {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("hardware-version", prefix)))
-	}
-	firmwareVersion, firmwareVersionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("firmware-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if firmwareVersionSelect && firmwareVersion {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("firmware-version", prefix)))
-	}
-	bandId, bandIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("band-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if bandIdSelect && bandId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("band-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("band_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("band_id", prefix))
 	}
 	return paths, nil
 }
@@ -461,45 +399,35 @@ func AddSetFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix stri
 
 // SetFromFlags sets the EndDeviceVersionIdentifiers message from flags.
 func (m *EndDeviceVersionIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	brandId, brandIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("brand-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("brand_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BrandId = val
+		paths = append(paths, flagsplugin.Prefix("brand_id", prefix))
 	}
-	if brandIdSet {
-		m.BrandId = brandId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("brand-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("model_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ModelId = val
+		paths = append(paths, flagsplugin.Prefix("model_id", prefix))
 	}
-	modelId, modelIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("model-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("hardware_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.HardwareVersion = val
+		paths = append(paths, flagsplugin.Prefix("hardware_version", prefix))
 	}
-	if modelIdSet {
-		m.ModelId = modelId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("model-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("firmware_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FirmwareVersion = val
+		paths = append(paths, flagsplugin.Prefix("firmware_version", prefix))
 	}
-	hardwareVersion, hardwareVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("hardware-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if hardwareVersionSet {
-		m.HardwareVersion = hardwareVersion
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("hardware-version", prefix)))
-	}
-	firmwareVersion, firmwareVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("firmware-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if firmwareVersionSet {
-		m.FirmwareVersion = firmwareVersion
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("firmware-version", prefix)))
-	}
-	bandId, bandIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("band-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if bandIdSet {
-		m.BandId = bandId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("band-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("band_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BandId = val
+		paths = append(paths, flagsplugin.Prefix("band_id", prefix))
 	}
 	return paths, nil
 }
@@ -513,26 +441,20 @@ func AddSelectFlagsForNetworkIdentifiers(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forNetworkIdentifiers message from select flags.
 func PathsFromSelectFlagsForNetworkIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	netId, netIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("net-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("net_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("net_id", prefix))
 	}
-	if netIdSelect && netId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("net-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tenant_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("tenant_id", prefix))
 	}
-	tenantId, tenantIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tenant-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tenantIdSelect && tenantId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tenant-id", prefix)))
-	}
-	clusterId, clusterIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("cluster-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if clusterIdSelect && clusterId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("cluster-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("cluster_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("cluster_id", prefix))
 	}
 	return paths, nil
 }

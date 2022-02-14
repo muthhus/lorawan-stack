@@ -21,24 +21,20 @@ func AddSelectFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIds, applicationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_ids", prefix))
 	}
-	if applicationIdsSelect && applicationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	webhookId, webhookIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("webhook-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if webhookIdSelect && webhookId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("webhook-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("webhook_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("webhook_id", prefix))
 	}
 	return paths, nil
 }
@@ -51,22 +47,19 @@ func AddSetFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationWebhookIdentifiers message from flags.
 func (m *ApplicationWebhookIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	webhookId, webhookIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("webhook-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if webhookIdSet {
-		m.WebhookId = webhookId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("webhook-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("webhook_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.WebhookId = val
+		paths = append(paths, flagsplugin.Prefix("webhook_id", prefix))
 	}
 	return paths, nil
 }
@@ -78,12 +71,10 @@ func AddSelectFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookTemplateIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	templateId, templateIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if templateIdSelect && templateId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("template-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("template_id", prefix))
 	}
 	return paths, nil
 }
@@ -95,13 +86,11 @@ func AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, p
 
 // SetFromFlags sets the ApplicationWebhookTemplateIdentifiers message from flags.
 func (m *ApplicationWebhookTemplateIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	templateId, templateIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("template-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if templateIdSet {
-		m.TemplateId = templateId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("template-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("template_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TemplateId = val
+		paths = append(paths, flagsplugin.Prefix("template_id", prefix))
 	}
 	return paths, nil
 }
@@ -120,37 +109,27 @@ func AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flag
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("failed-attempts", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("failed-attempts", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-details", prefix), true)))
-	AddSelectFlagsForErrorDetails(flags, flagsplugin.Prefix("last-failed-attempt-details", prefix))
+	// NOTE: last_failed_attempt_details (ErrorDetails) does not seem to have select flags.
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookHealth_WebhookHealthStatusUnhealthy message from select flags.
 func PathsFromSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	failedAttempts, failedAttemptsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("failed-attempts", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("failed_attempts", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("failed_attempts", prefix))
 	}
-	if failedAttemptsSelect && failedAttempts {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("failed-attempts", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_failed_attempt_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_failed_attempt_at", prefix))
 	}
-	lastFailedAttemptAt, lastFailedAttemptAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-failed-attempt-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_failed_attempt_details", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_failed_attempt_details", prefix))
 	}
-	if lastFailedAttemptAtSelect && lastFailedAttemptAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-failed-attempt-at", prefix)))
-	}
-	lastFailedAttemptDetails, lastFailedAttemptDetailsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-failed-attempt-details", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastFailedAttemptDetailsSelect && lastFailedAttemptDetails {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-failed-attempt-details", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForErrorDetails(flags, flagsplugin.Prefix("last-failed-attempt-details", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
+	// NOTE: last_failed_attempt_details (ErrorDetails) does not seem to have select flags.
 	return paths, nil
 }
 
@@ -159,35 +138,27 @@ func AddSelectFlagsForApplicationWebhookHealth(flags *pflag.FlagSet, prefix stri
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.healthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.healthy", prefix), true)))
 	AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags, flagsplugin.Prefix("status.healthy", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.unhealthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.unhealthy", prefix), true)))
-	AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flags, flagsplugin.Prefix("status.unhealthy", prefix))
+	// NOTE: unhealthy (ApplicationWebhookHealth_WebhookHealthStatusUnhealthy) does not seem to have select flags.
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookHealth message from select flags.
 func PathsFromSelectFlagsForApplicationWebhookHealth(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	healthy, healthySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status.healthy", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if healthySelect && healthy {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status.healthy", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status.healthy", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("status.healthy", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags, flagsplugin.Prefix("status.healthy", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	unhealthy, unhealthySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status.unhealthy", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status.unhealthy", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("status.unhealthy", prefix))
 	}
-	if unhealthySelect && unhealthy {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status.unhealthy", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flags, flagsplugin.Prefix("status.unhealthy", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
+	// NOTE: unhealthy (ApplicationWebhookHealth_WebhookHealthStatusUnhealthy) does not seem to have select flags.
 	return paths, nil
 }
 
@@ -198,12 +169,10 @@ func AddSelectFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix st
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhook_Message message from select flags.
 func PathsFromSelectFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	path, pathSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("path", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pathSelect && path {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("path", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("path", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("path", prefix))
 	}
 	return paths, nil
 }
@@ -215,13 +184,11 @@ func AddSetFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix strin
 
 // SetFromFlags sets the ApplicationWebhook_Message message from flags.
 func (m *ApplicationWebhook_Message) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	path, pathSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("path", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pathSet {
-		m.Path = path
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("path", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("path", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Path = val
+		paths = append(paths, flagsplugin.Prefix("path", prefix))
 	}
 	return paths, nil
 }
@@ -229,7 +196,7 @@ func (m *ApplicationWebhook_Message) SetFromFlags(flags *pflag.FlagSet, prefix s
 // AddSelectFlagsForApplicationWebhook adds flags to select fields in ApplicationWebhook.
 func AddSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForApplicationWebhookIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
+	// NOTE: ids (ApplicationWebhookIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-url", prefix), false)))
@@ -260,216 +227,168 @@ func AddSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service-data", prefix), true)))
 	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("health-status", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("health-status", prefix), true)))
-	AddSelectFlagsForApplicationWebhookHealth(flags, flagsplugin.Prefix("health-status", prefix))
+	// NOTE: health_status (ApplicationWebhookHealth) does not seem to have select flags.
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhook message from select flags.
 func PathsFromSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	// NOTE: ids (ApplicationWebhookIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("base_url", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("base_url", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("headers", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("format", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("format", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("template_ids", prefix))
+	}
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template_fields", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("template_fields", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_api_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_api_key", prefix))
 	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("uplink_message", prefix))
 	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	baseUrl, baseUrlSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("base-url", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if baseUrlSelect && baseUrl {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("base-url", prefix)))
-	}
-	headers, headersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("headers", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if headersSelect && headers {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("headers", prefix)))
-	}
-	format, formatSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("format", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if formatSelect && format {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("format", prefix)))
-	}
-	templateIds, templateIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if templateIdsSelect && templateIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("template-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	templateFields, templateFieldsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("template-fields", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("join_accept", prefix))
 	}
-	if templateFieldsSelect && templateFields {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("template-fields", prefix)))
-	}
-	downlinkApiKey, downlinkApiKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-api-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkApiKeySelect && downlinkApiKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-api-key", prefix)))
-	}
-	uplinkMessage, uplinkMessageSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink-message", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if uplinkMessageSelect && uplinkMessage {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("uplink-message", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink-message", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	joinAccept, joinAcceptSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join-accept", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_ack", prefix))
 	}
-	if joinAcceptSelect && joinAccept {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-accept", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join-accept", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkAck, downlinkAckSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_nack", prefix))
 	}
-	if downlinkAckSelect && downlinkAck {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-ack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-ack", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkNack, downlinkNackSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_sent", prefix))
 	}
-	if downlinkNackSelect && downlinkNack {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-nack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-nack", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkSent, downlinkSentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_failed", prefix))
 	}
-	if downlinkSentSelect && downlinkSent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-sent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-sent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkFailed, downlinkFailedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_queued", prefix))
 	}
-	if downlinkFailedSelect && downlinkFailed {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-failed", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-failed", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkQueued, downlinkQueuedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_queue_invalidated", prefix))
 	}
-	if downlinkQueuedSelect && downlinkQueued {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-queued", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queued", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkQueueInvalidated, downlinkQueueInvalidatedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("location_solved", prefix))
 	}
-	if downlinkQueueInvalidatedSelect && downlinkQueueInvalidated {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	locationSolved, locationSolvedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location-solved", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("service_data", prefix))
 	}
-	if locationSolvedSelect && locationSolved {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("location-solved", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location-solved", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	serviceData, serviceDataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service-data", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("health_status", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("health_status", prefix))
 	}
-	if serviceDataSelect && serviceData {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service-data", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	healthStatus, healthStatusSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("health-status", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if healthStatusSelect && healthStatus {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("health-status", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationWebhookHealth(flags, flagsplugin.Prefix("health-status", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
+	// NOTE: health_status (ApplicationWebhookHealth) does not seem to have select flags.
 	return paths, nil
 }
 
@@ -499,166 +418,140 @@ func AddSetFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ApplicationWebhook message from flags.
 func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &ApplicationWebhookIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base_url", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BaseUrl = val
+		paths = append(paths, flagsplugin.Prefix("base_url", prefix))
 	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Headers = val
+		paths = append(paths, flagsplugin.Prefix("headers", prefix))
 	}
-	baseUrl, baseUrlSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base-url", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Format = val
+		paths = append(paths, flagsplugin.Prefix("format", prefix))
 	}
-	if baseUrlSet {
-		m.BaseUrl = baseUrl
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("base-url", prefix)))
-	}
-	headers, headersSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if headersSet {
-		m.Headers = headers
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("headers", prefix)))
-	}
-	format, formatSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if formatSet {
-		m.Format = format
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("format", prefix)))
-	}
-	templateIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("template-ids", prefix))
-	if templateIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("template_ids", prefix)); selected {
 		m.TemplateIds = &ApplicationWebhookTemplateIdentifiers{}
-		if setPaths, err := m.TemplateIds.SetFromFlags(flags, flagsplugin.Prefix("template-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.TemplateIds.SetFromFlags(flags, flagsplugin.Prefix("template_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	templateFields, templateFieldsSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("template-fields", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("template_fields", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TemplateFields = val
+		paths = append(paths, flagsplugin.Prefix("template_fields", prefix))
 	}
-	if templateFieldsSet {
-		m.TemplateFields = templateFields
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("template-fields", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink_api_key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DownlinkApiKey = val
+		paths = append(paths, flagsplugin.Prefix("downlink_api_key", prefix))
 	}
-	downlinkApiKey, downlinkApiKeySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink-api-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkApiKeySet {
-		m.DownlinkApiKey = downlinkApiKey
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-api-key", prefix)))
-	}
-	uplinkMessageSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink-message", prefix))
-	if uplinkMessageSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_message", prefix)); selected {
 		m.UplinkMessage = &ApplicationWebhook_Message{}
-		if setPaths, err := m.UplinkMessage.SetFromFlags(flags, flagsplugin.Prefix("uplink-message", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.UplinkMessage.SetFromFlags(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	joinAcceptSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join-accept", prefix))
-	if joinAcceptSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join_accept", prefix)); selected {
 		m.JoinAccept = &ApplicationWebhook_Message{}
-		if setPaths, err := m.JoinAccept.SetFromFlags(flags, flagsplugin.Prefix("join-accept", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.JoinAccept.SetFromFlags(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkAckSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	if downlinkAckSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_ack", prefix)); selected {
 		m.DownlinkAck = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkAck.SetFromFlags(flags, flagsplugin.Prefix("downlink-ack", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkAck.SetFromFlags(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkNackSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	if downlinkNackSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_nack", prefix)); selected {
 		m.DownlinkNack = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkNack.SetFromFlags(flags, flagsplugin.Prefix("downlink-nack", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkNack.SetFromFlags(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkSentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	if downlinkSentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_sent", prefix)); selected {
 		m.DownlinkSent = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkSent.SetFromFlags(flags, flagsplugin.Prefix("downlink-sent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkSent.SetFromFlags(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkFailedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	if downlinkFailedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_failed", prefix)); selected {
 		m.DownlinkFailed = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkFailed.SetFromFlags(flags, flagsplugin.Prefix("downlink-failed", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkFailed.SetFromFlags(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkQueuedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	if downlinkQueuedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queued", prefix)); selected {
 		m.DownlinkQueued = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkQueued.SetFromFlags(flags, flagsplugin.Prefix("downlink-queued", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkQueued.SetFromFlags(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkQueueInvalidatedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	if downlinkQueueInvalidatedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); selected {
 		m.DownlinkQueueInvalidated = &ApplicationWebhook_Message{}
-		if setPaths, err := m.DownlinkQueueInvalidated.SetFromFlags(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkQueueInvalidated.SetFromFlags(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	locationSolvedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location-solved", prefix))
-	if locationSolvedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location_solved", prefix)); selected {
 		m.LocationSolved = &ApplicationWebhook_Message{}
-		if setPaths, err := m.LocationSolved.SetFromFlags(flags, flagsplugin.Prefix("location-solved", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.LocationSolved.SetFromFlags(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	serviceDataSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service-data", prefix))
-	if serviceDataSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service_data", prefix)); selected {
 		m.ServiceData = &ApplicationWebhook_Message{}
-		if setPaths, err := m.ServiceData.SetFromFlags(flags, flagsplugin.Prefix("service-data", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ServiceData.SetFromFlags(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}

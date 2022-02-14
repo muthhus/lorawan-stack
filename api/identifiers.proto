@@ -43,27 +43,24 @@ message EndDeviceIdentifiers {
   bytes dev_eui = 4 [
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.EUI64",
     (thethings.flags.field) = {
-      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetEUI64",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
+      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
     ];
   // The LoRaWAN JoinEUI (AppEUI until LoRaWAN 1.0.3 end devices).
   bytes join_eui = 5 [
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.EUI64",
     (thethings.flags.field) = {
-      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetEUI64",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
+      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
     ];
   // The LoRaWAN DevAddr.
   bytes dev_addr = 6 [
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.DevAddr",
     (thethings.flags.field) = {
-      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New4BytesFlag",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetDevAddr",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New4BytesFlag",
+      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
   ];
 }
@@ -76,9 +73,8 @@ message GatewayIdentifiers {
   bytes eui = 2 [
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.EUI64",
     (thethings.flags.field) = {
-      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetEUI64",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New8BytesFlag",
+      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
     ];
 }

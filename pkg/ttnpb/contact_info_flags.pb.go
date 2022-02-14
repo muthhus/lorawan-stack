@@ -23,40 +23,30 @@ func AddSelectFlagsForContactInfo(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forContactInfo message from select flags.
 func PathsFromSelectFlagsForContactInfo(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	contactType, contactTypeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact-type", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_type", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("contact_type", prefix))
 	}
-	if contactTypeSelect && contactType {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-type", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_method", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("contact_method", prefix))
 	}
-	contactMethod, contactMethodSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact-method", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
-	if contactMethodSelect && contactMethod {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-method", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("public", prefix))
 	}
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
-	}
-	public, publicSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if publicSelect && public {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("public", prefix)))
-	}
-	validatedAt, validatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("validated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if validatedAtSelect && validatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("validated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("validated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("validated_at", prefix))
 	}
 	return paths, nil
 }
@@ -72,53 +62,43 @@ func AddSetFlagsForContactInfo(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ContactInfo message from flags.
 func (m *ContactInfo) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	contactType, contactTypeSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact-type", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if contactTypeSet {
-		enumValue, err := flagsplugin.SetEnumString(contactType, ContactType_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_type", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ContactType_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.ContactType = ContactType(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-type", prefix)))
+		paths = append(paths, flagsplugin.Prefix("contact_type", prefix))
 	}
-	contactMethod, contactMethodSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact-method", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if contactMethodSet {
-		enumValue, err := flagsplugin.SetEnumString(contactMethod, ContactMethod_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_method", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ContactMethod_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.ContactMethod = ContactMethod(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-method", prefix)))
+		paths = append(paths, flagsplugin.Prefix("contact_method", prefix))
 	}
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Value = val
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
-	if valueSet {
-		m.Value = value
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Public = val
+		paths = append(paths, flagsplugin.Prefix("public", prefix))
 	}
-	public, publicSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if publicSet {
-		m.Public = public
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("public", prefix)))
-	}
-	validatedAt, validatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("validated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if validatedAtSet {
-		m.ValidatedAt = gogo.SetTimestamp(validatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("validated-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("validated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ValidatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("validated_at", prefix))
 	}
 	return paths, nil
 }

@@ -25,54 +25,40 @@ func AddSelectFlagsForAPIKey(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forAPIKey message from select flags.
 func PathsFromSelectFlagsForAPIKey(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	id, idSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("id", prefix))
 	}
-	if idSelect && id {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	key, keySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if keySelect && key {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rights", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rights", prefix))
 	}
-	name, nameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if nameSelect && name {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	rights, rightsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rights", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rightsSelect && rights {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rights", prefix)))
-	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
-	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	expiresAt, expiresAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("expires-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if expiresAtSelect && expiresAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("expires-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("expires_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("expires_at", prefix))
 	}
 	return paths, nil
 }
@@ -90,67 +76,53 @@ func AddSetFlagsForAPIKey(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the APIKey message from flags.
 func (m *APIKey) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	id, idSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Id = val
+		paths = append(paths, flagsplugin.Prefix("id", prefix))
 	}
-	if idSet {
-		m.Id = id
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Key = val
+		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	key, keySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Name = val
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if keySet {
-		m.Key = key
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key", prefix)))
-	}
-	name, nameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if nameSet {
-		m.Name = name
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
-	}
-	rights, rightsSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rights", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rightsSet {
-		for _, v := range rights {
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rights", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, Right_value)
 			if err != nil {
-				return paths, err
+				return nil, err
 			}
 			m.Rights = append(m.Rights, Right(enumValue))
 		}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rights", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rights", prefix))
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	expiresAt, expiresAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("expires-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if expiresAtSet {
-		m.ExpiresAt = gogo.SetTimestamp(expiresAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("expires-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("expires_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ExpiresAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("expires_at", prefix))
 	}
 	return paths, nil
 }

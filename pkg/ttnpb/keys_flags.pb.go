@@ -10,6 +10,7 @@ import (
 	flagsplugin "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin"
 	pflag "github.com/spf13/pflag"
 	custom_flags "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags"
+	types "go.thethings.network/lorawan-stack/v3/pkg/types"
 )
 
 // AddSelectFlagsForKeyEnvelope adds flags to select fields in KeyEnvelope.
@@ -21,26 +22,20 @@ func AddSelectFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forKeyEnvelope message from select flags.
 func PathsFromSelectFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	key, keySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	if keySelect && key {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	kekLabel, kekLabelSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("kek-label", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if kekLabelSelect && kekLabel {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("kek-label", prefix)))
-	}
-	encryptedKey, encryptedKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("encrypted-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if encryptedKeySelect && encryptedKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("encrypted-key", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("encrypted_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("encrypted_key", prefix))
 	}
 	return paths, nil
 }
@@ -54,29 +49,23 @@ func AddSetFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the KeyEnvelope message from flags.
 func (m *KeyEnvelope) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	key, keySet, err := custom_flags.GetAESKey(flags, flagsplugin.Prefix("key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := types.GetAES128Key(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Key = &val
+		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	if keySet {
-		m.Key = &key
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.KekLabel = val
+		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	kekLabel, kekLabelSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek-label", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if kekLabelSet {
-		m.KekLabel = kekLabel
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("kek-label", prefix)))
-	}
-	encryptedKey, encryptedKeySet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("encrypted-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if encryptedKeySet {
-		m.EncryptedKey = encryptedKey
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("encrypted-key", prefix)))
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("encrypted_key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.EncryptedKey = val
+		paths = append(paths, flagsplugin.Prefix("encrypted_key", prefix))
 	}
 	return paths, nil
 }
@@ -92,34 +81,28 @@ func AddSelectFlagsForRootKeys(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forRootKeys message from select flags.
 func PathsFromSelectFlagsForRootKeys(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	rootKeyId, rootKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("root-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("root_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("root_key_id", prefix))
 	}
-	if rootKeyIdSelect && rootKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("root-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("app_key", prefix))
 	}
-	appKey, appKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("app-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if appKeySelect && appKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("app-key", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-key", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app_key", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	nwkKey, nwkKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("nwk-key", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("nwk_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("nwk_key", prefix))
 	}
-	if nwkKeySelect && nwkKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("nwk-key", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk-key", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk_key", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -135,28 +118,24 @@ func AddSetFlagsForRootKeys(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the RootKeys message from flags.
 func (m *RootKeys) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	rootKeyId, rootKeyIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("root-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("root_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.RootKeyId = val
+		paths = append(paths, flagsplugin.Prefix("root_key_id", prefix))
 	}
-	if rootKeyIdSet {
-		m.RootKeyId = rootKeyId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("root-key-id", prefix)))
-	}
-	appKeySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("app-key", prefix))
-	if appKeySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("app_key", prefix)); selected {
 		m.AppKey = &KeyEnvelope{}
-		if setPaths, err := m.AppKey.SetFromFlags(flags, flagsplugin.Prefix("app-key", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AppKey.SetFromFlags(flags, flagsplugin.Prefix("app_key", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	nwkKeySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("nwk-key", prefix))
-	if nwkKeySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("nwk_key", prefix)); selected {
 		m.NwkKey = &KeyEnvelope{}
-		if setPaths, err := m.NwkKey.SetFromFlags(flags, flagsplugin.Prefix("nwk-key", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.NwkKey.SetFromFlags(flags, flagsplugin.Prefix("nwk_key", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}

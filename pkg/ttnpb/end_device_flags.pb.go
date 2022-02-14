@@ -12,6 +12,7 @@ import (
 	types "github.com/gogo/protobuf/types"
 	pflag "github.com/spf13/pflag"
 	custom_flags "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags"
+	types1 "go.thethings.network/lorawan-stack/v3/pkg/types"
 )
 
 // AddSelectFlagsForBoolValue adds flags to select fields in BoolValue.
@@ -21,12 +22,10 @@ func AddSelectFlagsForBoolValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forBoolValue message from select flags.
 func PathsFromSelectFlagsForBoolValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -38,13 +37,11 @@ func AddSetFlagsForBoolValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the BoolValue message from flags.
 func (m *BoolValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		m.Value = value
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Value = val
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -60,40 +57,30 @@ func AddSelectFlagsForMACParameters_Channel(flags *pflag.FlagSet, prefix string)
 
 // SelectFromFlags outputs the fieldmask paths forMACParameters_Channel message from select flags.
 func PathsFromSelectFlagsForMACParameters_Channel(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	uplinkFrequency, uplinkFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("uplink_frequency", prefix))
 	}
-	if uplinkFrequencySelect && uplinkFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("uplink-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_frequency", prefix))
 	}
-	downlinkFrequency, downlinkFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("min_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("min_data_rate_index", prefix))
 	}
-	if downlinkFrequencySelect && downlinkFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("max_data_rate_index", prefix))
 	}
-	minDataRateIndex, minDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("min-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if minDataRateIndexSelect && minDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("min-data-rate-index", prefix)))
-	}
-	maxDataRateIndex, maxDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if maxDataRateIndexSelect && maxDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-data-rate-index", prefix)))
-	}
-	enableUplink, enableUplinkSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable-uplink", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if enableUplinkSelect && enableUplink {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("enable-uplink", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable_uplink", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("enable_uplink", prefix))
 	}
 	return paths, nil
 }
@@ -109,53 +96,43 @@ func AddSetFlagsForMACParameters_Channel(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the MACParameters_Channel message from flags.
 func (m *MACParameters_Channel) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	uplinkFrequency, uplinkFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("uplink-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("uplink_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UplinkFrequency = val
+		paths = append(paths, flagsplugin.Prefix("uplink_frequency", prefix))
 	}
-	if uplinkFrequencySet {
-		m.UplinkFrequency = uplinkFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("uplink-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("downlink_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DownlinkFrequency = val
+		paths = append(paths, flagsplugin.Prefix("downlink_frequency", prefix))
 	}
-	downlinkFrequency, downlinkFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("downlink-frequency", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkFrequencySet {
-		m.DownlinkFrequency = downlinkFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-frequency", prefix)))
-	}
-	minDataRateIndex, minDataRateIndexSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("min-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if minDataRateIndexSet {
-		enumValue, err := flagsplugin.SetEnumString(minDataRateIndex, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("min_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.MinDataRateIndex = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("min-data-rate-index", prefix)))
+		paths = append(paths, flagsplugin.Prefix("min_data_rate_index", prefix))
 	}
-	maxDataRateIndex, maxDataRateIndexSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if maxDataRateIndexSet {
-		enumValue, err := flagsplugin.SetEnumString(maxDataRateIndex, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.MaxDataRateIndex = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-data-rate-index", prefix)))
+		paths = append(paths, flagsplugin.Prefix("max_data_rate_index", prefix))
 	}
-	enableUplink, enableUplinkSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable-uplink", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if enableUplinkSet {
-		m.EnableUplink = enableUplink
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("enable-uplink", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable_uplink", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.EnableUplink = val
+		paths = append(paths, flagsplugin.Prefix("enable_uplink", prefix))
 	}
 	return paths, nil
 }
@@ -193,182 +170,138 @@ func AddSelectFlagsForMACParameters(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forMACParameters message from select flags.
 func PathsFromSelectFlagsForMACParameters(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	maxEirp, maxEirpSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max-eirp", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max_eirp", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("max_eirp", prefix))
 	}
-	if maxEirpSelect && maxEirp {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-eirp", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_data_rate_index", prefix))
 	}
-	adrDataRateIndex, adrDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_tx_power_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_tx_power_index", prefix))
 	}
-	if adrDataRateIndexSelect && adrDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-data-rate-index", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_nb_trans", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_nb_trans", prefix))
 	}
-	adrTxPowerIndex, adrTxPowerIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-tx-power-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_ack_limit", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_ack_limit", prefix))
 	}
-	if adrTxPowerIndexSelect && adrTxPowerIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-tx-power-index", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_ack_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_ack_delay", prefix))
 	}
-	adrNbTrans, adrNbTransSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-nb-trans", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx1_delay", prefix))
 	}
-	if adrNbTransSelect && adrNbTrans {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-nb-trans", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx1_data_rate_offset", prefix))
 	}
-	adrAckLimit, adrAckLimitSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-ack-limit", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx2_data_rate_index", prefix))
 	}
-	if adrAckLimitSelect && adrAckLimit {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-limit", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx2_frequency", prefix))
 	}
-	adrAckDelay, adrAckDelaySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-ack-delay", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("max_duty_cycle", prefix))
 	}
-	if adrAckDelaySelect && adrAckDelay {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-delay", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejoin_time_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejoin_time_periodicity", prefix))
 	}
-	rx1Delay, rx1DelaySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1-delay", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejoin_count_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejoin_count_periodicity", prefix))
 	}
-	if rx1DelaySelect && rx1Delay {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-delay", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_frequency", prefix))
 	}
-	rx1DataRateOffset, rx1DataRateOffsetSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_data_rate_index", prefix))
 	}
-	if rx1DataRateOffsetSelect && rx1DataRateOffset {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-data-rate-offset", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("beacon_frequency", prefix))
 	}
-	rx2DataRateIndex, rx2DataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("channels", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("channels", prefix))
 	}
-	if rx2DataRateIndexSelect && rx2DataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-data-rate-index", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("uplink_dwell_time", prefix))
 	}
-	rx2Frequency, rx2FrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2-frequency", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rx2FrequencySelect && rx2Frequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-frequency", prefix)))
-	}
-	maxDutyCycle, maxDutyCycleSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max-duty-cycle", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if maxDutyCycleSelect && maxDutyCycle {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-duty-cycle", prefix)))
-	}
-	rejoinTimePeriodicity, rejoinTimePeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejoin-time-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejoinTimePeriodicitySelect && rejoinTimePeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejoin-time-periodicity", prefix)))
-	}
-	rejoinCountPeriodicity, rejoinCountPeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejoin-count-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejoinCountPeriodicitySelect && rejoinCountPeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejoin-count-periodicity", prefix)))
-	}
-	pingSlotFrequency, pingSlotFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-frequency", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pingSlotFrequencySelect && pingSlotFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-frequency", prefix)))
-	}
-	pingSlotDataRateIndex, pingSlotDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pingSlotDataRateIndexSelect && pingSlotDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-data-rate-index", prefix)))
-	}
-	beaconFrequency, beaconFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("beacon-frequency", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if beaconFrequencySelect && beaconFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("beacon-frequency", prefix)))
-	}
-	channels, channelsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("channels", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if channelsSelect && channels {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("channels", prefix)))
-	}
-	uplinkDwellTime, uplinkDwellTimeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink-dwell-time", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if uplinkDwellTimeSelect && uplinkDwellTime {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("uplink-dwell-time", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("uplink-dwell-time", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkDwellTime, downlinkDwellTimeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-dwell-time", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_dwell_time", prefix))
 	}
-	if downlinkDwellTimeSelect && downlinkDwellTime {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-dwell-time", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("downlink-dwell-time", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	adrAckLimitExponent, adrAckLimitExponentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-ack-limit-exponent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_ack_limit_exponent", prefix))
 	}
-	if adrAckLimitExponentSelect && adrAckLimitExponent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-limit-exponent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForADRAckLimitExponentValue(flags, flagsplugin.Prefix("adr-ack-limit-exponent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForADRAckLimitExponentValue(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	adrAckDelayExponent, adrAckDelayExponentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-ack-delay-exponent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_ack_delay_exponent", prefix))
 	}
-	if adrAckDelayExponentSelect && adrAckDelayExponent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-delay-exponent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForADRAckDelayExponentValue(flags, flagsplugin.Prefix("adr-ack-delay-exponent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForADRAckDelayExponentValue(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	pingSlotDataRateIndexValue, pingSlotDataRateIndexValueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-data-rate-index-value", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix))
 	}
-	if pingSlotDataRateIndexValueSelect && pingSlotDataRateIndexValue {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-data-rate-index-value", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("ping-slot-data-rate-index-value", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -408,208 +341,171 @@ func AddSetFlagsForMACParameters(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the MACParameters message from flags.
 func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	maxEirp, maxEirpSet, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("max-eirp", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("max_eirp", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.MaxEirp = val
+		paths = append(paths, flagsplugin.Prefix("max_eirp", prefix))
 	}
-	if maxEirpSet {
-		m.MaxEirp = maxEirp
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-eirp", prefix)))
-	}
-	adrDataRateIndex, adrDataRateIndexSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("adr-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if adrDataRateIndexSet {
-		enumValue, err := flagsplugin.SetEnumString(adrDataRateIndex, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("adr_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.AdrDataRateIndex = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-data-rate-index", prefix)))
+		paths = append(paths, flagsplugin.Prefix("adr_data_rate_index", prefix))
 	}
-	adrTxPowerIndex, adrTxPowerIndexSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr-tx-power-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_tx_power_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AdrTxPowerIndex = val
+		paths = append(paths, flagsplugin.Prefix("adr_tx_power_index", prefix))
 	}
-	if adrTxPowerIndexSet {
-		m.AdrTxPowerIndex = adrTxPowerIndex
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-tx-power-index", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_nb_trans", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AdrNbTrans = val
+		paths = append(paths, flagsplugin.Prefix("adr_nb_trans", prefix))
 	}
-	adrNbTrans, adrNbTransSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr-nb-trans", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_limit", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AdrAckLimit = val
+		paths = append(paths, flagsplugin.Prefix("adr_ack_limit", prefix))
 	}
-	if adrNbTransSet {
-		m.AdrNbTrans = adrNbTrans
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-nb-trans", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AdrAckDelay = val
+		paths = append(paths, flagsplugin.Prefix("adr_ack_delay", prefix))
 	}
-	adrAckLimit, adrAckLimitSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr-ack-limit", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if adrAckLimitSet {
-		m.AdrAckLimit = adrAckLimit
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-limit", prefix)))
-	}
-	adrAckDelay, adrAckDelaySet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr-ack-delay", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if adrAckDelaySet {
-		m.AdrAckDelay = adrAckDelay
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-ack-delay", prefix)))
-	}
-	rx1Delay, rx1DelaySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1-delay", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rx1DelaySet {
-		enumValue, err := flagsplugin.SetEnumString(rx1Delay, RxDelay_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, RxDelay_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Rx1Delay = RxDelay(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-delay", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rx1_delay", prefix))
 	}
-	rx1DataRateOffset, rx1DataRateOffsetSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rx1DataRateOffsetSet {
-		enumValue, err := flagsplugin.SetEnumString(rx1DataRateOffset, DataRateOffset_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateOffset_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Rx1DataRateOffset = DataRateOffset(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-data-rate-offset", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rx1_data_rate_offset", prefix))
 	}
-	rx2DataRateIndex, rx2DataRateIndexSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rx2DataRateIndexSet {
-		enumValue, err := flagsplugin.SetEnumString(rx2DataRateIndex, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Rx2DataRateIndex = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-data-rate-index", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rx2_data_rate_index", prefix))
 	}
-	rx2Frequency, rx2FrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("rx2-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Rx2Frequency = val
+		paths = append(paths, flagsplugin.Prefix("rx2_frequency", prefix))
 	}
-	if rx2FrequencySet {
-		m.Rx2Frequency = rx2Frequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-frequency", prefix)))
-	}
-	maxDutyCycle, maxDutyCycleSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max-duty-cycle", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if maxDutyCycleSet {
-		enumValue, err := flagsplugin.SetEnumString(maxDutyCycle, AggregatedDutyCycle_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, AggregatedDutyCycle_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.MaxDutyCycle = AggregatedDutyCycle(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-duty-cycle", prefix)))
+		paths = append(paths, flagsplugin.Prefix("max_duty_cycle", prefix))
 	}
-	rejoinTimePeriodicity, rejoinTimePeriodicitySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin-time-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejoinTimePeriodicitySet {
-		enumValue, err := flagsplugin.SetEnumString(rejoinTimePeriodicity, RejoinTimeExponent_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_time_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, RejoinTimeExponent_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.RejoinTimePeriodicity = RejoinTimeExponent(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejoin-time-periodicity", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rejoin_time_periodicity", prefix))
 	}
-	rejoinCountPeriodicity, rejoinCountPeriodicitySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin-count-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejoinCountPeriodicitySet {
-		enumValue, err := flagsplugin.SetEnumString(rejoinCountPeriodicity, RejoinCountExponent_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_count_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, RejoinCountExponent_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.RejoinCountPeriodicity = RejoinCountExponent(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejoin-count-periodicity", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rejoin_count_periodicity", prefix))
 	}
-	pingSlotFrequency, pingSlotFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("ping-slot-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PingSlotFrequency = val
+		paths = append(paths, flagsplugin.Prefix("ping_slot_frequency", prefix))
 	}
-	if pingSlotFrequencySet {
-		m.PingSlotFrequency = pingSlotFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-frequency", prefix)))
-	}
-	pingSlotDataRateIndex, pingSlotDataRateIndexSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pingSlotDataRateIndexSet {
-		enumValue, err := flagsplugin.SetEnumString(pingSlotDataRateIndex, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.PingSlotDataRateIndex = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-data-rate-index", prefix)))
+		paths = append(paths, flagsplugin.Prefix("ping_slot_data_rate_index", prefix))
 	}
-	beaconFrequency, beaconFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("beacon-frequency", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if beaconFrequencySet {
-		m.BeaconFrequency = beaconFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("beacon-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BeaconFrequency = val
+		paths = append(paths, flagsplugin.Prefix("beacon_frequency", prefix))
 	}
 	// FIXME: Skipping Channels because it does not seem to implement AddSetFlags.
-	uplinkDwellTimeSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink-dwell-time", prefix))
-	if uplinkDwellTimeSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); selected {
 		m.UplinkDwellTime = &BoolValue{}
-		if setPaths, err := m.UplinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("uplink-dwell-time", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.UplinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkDwellTimeSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-dwell-time", prefix))
-	if downlinkDwellTimeSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); selected {
 		m.DownlinkDwellTime = &BoolValue{}
-		if setPaths, err := m.DownlinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("downlink-dwell-time", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	adrAckLimitExponentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr-ack-limit-exponent", prefix))
-	if adrAckLimitExponentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); selected {
 		m.AdrAckLimitExponent = &ADRAckLimitExponentValue{}
-		if setPaths, err := m.AdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("adr-ack-limit-exponent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	adrAckDelayExponentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr-ack-delay-exponent", prefix))
-	if adrAckDelayExponentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); selected {
 		m.AdrAckDelayExponent = &ADRAckDelayExponentValue{}
-		if setPaths, err := m.AdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("adr-ack-delay-exponent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pingSlotDataRateIndexValueSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping-slot-data-rate-index-value", prefix))
-	if pingSlotDataRateIndexValueSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); selected {
 		m.PingSlotDataRateIndexValue = &DataRateIndexValue{}
-		if setPaths, err := m.PingSlotDataRateIndexValue.SetFromFlags(flags, flagsplugin.Prefix("ping-slot-data-rate-index-value", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PingSlotDataRateIndexValue.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
@@ -676,330 +572,270 @@ func AddSelectFlagsForMACSettings(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forMACSettings message from select flags.
 func PathsFromSelectFlagsForMACSettings(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	classBTimeout, classBTimeoutSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class-b-timeout", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class_b_timeout", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("class_b_timeout", prefix))
 	}
-	if classBTimeoutSelect && classBTimeout {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-b-timeout", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_periodicity", prefix))
 	}
-	pingSlotPeriodicity, pingSlotPeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pingSlotPeriodicitySelect && pingSlotPeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-periodicity", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForPingSlotPeriodValue(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForPingSlotPeriodValue(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	pingSlotDataRateIndex, pingSlotDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_data_rate_index", prefix))
 	}
-	if pingSlotDataRateIndexSelect && pingSlotDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-data-rate-index", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	pingSlotFrequency, pingSlotFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_frequency", prefix))
 	}
-	if pingSlotFrequencySelect && pingSlotFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("ping-slot-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	beaconFrequency, beaconFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("beacon-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("beacon_frequency", prefix))
 	}
-	if beaconFrequencySelect && beaconFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("beacon-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("beacon-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	classCTimeout, classCTimeoutSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class-c-timeout", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class_c_timeout", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("class_c_timeout", prefix))
 	}
-	if classCTimeoutSelect && classCTimeout {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-c-timeout", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx1_delay", prefix))
 	}
-	rx1Delay, rx1DelaySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1-delay", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rx1DelaySelect && rx1Delay {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-delay", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForRxDelayValue(flags, flagsplugin.Prefix("rx1-delay", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForRxDelayValue(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	rx1DataRateOffset, rx1DataRateOffsetSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx1_data_rate_offset", prefix))
 	}
-	if rx1DataRateOffsetSelect && rx1DataRateOffset {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx1-data-rate-offset", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateOffsetValue(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateOffsetValue(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	rx2DataRateIndex, rx2DataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx2_data_rate_index", prefix))
 	}
-	if rx2DataRateIndexSelect && rx2DataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-data-rate-index", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	rx2Frequency, rx2FrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx2_frequency", prefix))
 	}
-	if rx2FrequencySelect && rx2Frequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx2-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("rx2-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	factoryPresetFrequencies, factoryPresetFrequenciesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("factory-preset-frequencies", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("factory_preset_frequencies", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("factory_preset_frequencies", prefix))
 	}
-	if factoryPresetFrequenciesSelect && factoryPresetFrequencies {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("factory-preset-frequencies", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("max_duty_cycle", prefix))
 	}
-	maxDutyCycle, maxDutyCycleSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max-duty-cycle", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if maxDutyCycleSelect && maxDutyCycle {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-duty-cycle", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForAggregatedDutyCycleValue(flags, flagsplugin.Prefix("max-duty-cycle", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForAggregatedDutyCycleValue(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	supports32BitFCnt, supports32BitFCntSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-32-bit-f-cnt", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix))
 	}
-	if supports32BitFCntSelect && supports32BitFCnt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-32-bit-f-cnt", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("supports-32-bit-f-cnt", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	useAdr, useAdrSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use-adr", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use_adr", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("use_adr", prefix))
 	}
-	if useAdrSelect && useAdr {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("use-adr", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("use-adr", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("use_adr", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	adrMargin, adrMarginSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr-margin", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("adr_margin", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("adr_margin", prefix))
 	}
-	if adrMarginSelect && adrMargin {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-margin", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("resets_f_cnt", prefix))
 	}
-	resetsFCnt, resetsFCntSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets-f-cnt", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if resetsFCntSelect && resetsFCnt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("resets-f-cnt", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("resets-f-cnt", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForBoolValue(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	statusTimePeriodicity, statusTimePeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status-time-periodicity", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status_time_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("status_time_periodicity", prefix))
 	}
-	if statusTimePeriodicitySelect && statusTimePeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status-time-periodicity", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status_count_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("status_count_periodicity", prefix))
 	}
-	statusCountPeriodicity, statusCountPeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status-count-periodicity", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_rx1_delay", prefix))
 	}
-	if statusCountPeriodicitySelect && statusCountPeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status-count-periodicity", prefix)))
-	}
-	desiredRx1Delay, desiredRx1DelaySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-rx1-delay", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if desiredRx1DelaySelect && desiredRx1Delay {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-rx1-delay", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForRxDelayValue(flags, flagsplugin.Prefix("desired-rx1-delay", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForRxDelayValue(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredRx1DataRateOffset, desiredRx1DataRateOffsetSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix))
 	}
-	if desiredRx1DataRateOffsetSelect && desiredRx1DataRateOffset {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateOffsetValue(flags, flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateOffsetValue(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredRx2DataRateIndex, desiredRx2DataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-rx2-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix))
 	}
-	if desiredRx2DataRateIndexSelect && desiredRx2DataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-rx2-data-rate-index", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("desired-rx2-data-rate-index", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredRx2Frequency, desiredRx2FrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-rx2-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_rx2_frequency", prefix))
 	}
-	if desiredRx2FrequencySelect && desiredRx2Frequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-rx2-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired-rx2-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredMaxDutyCycle, desiredMaxDutyCycleSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-max-duty-cycle", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_max_duty_cycle", prefix))
 	}
-	if desiredMaxDutyCycleSelect && desiredMaxDutyCycle {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-max-duty-cycle", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForAggregatedDutyCycleValue(flags, flagsplugin.Prefix("desired-max-duty-cycle", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForAggregatedDutyCycleValue(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredAdrAckLimitExponent, desiredAdrAckLimitExponentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-adr-ack-limit-exponent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix))
 	}
-	if desiredAdrAckLimitExponentSelect && desiredAdrAckLimitExponent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-adr-ack-limit-exponent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForADRAckLimitExponentValue(flags, flagsplugin.Prefix("desired-adr-ack-limit-exponent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForADRAckLimitExponentValue(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredAdrAckDelayExponent, desiredAdrAckDelayExponentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-adr-ack-delay-exponent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix))
 	}
-	if desiredAdrAckDelayExponentSelect && desiredAdrAckDelayExponent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-adr-ack-delay-exponent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForADRAckDelayExponentValue(flags, flagsplugin.Prefix("desired-adr-ack-delay-exponent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForADRAckDelayExponentValue(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredPingSlotDataRateIndex, desiredPingSlotDataRateIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-ping-slot-data-rate-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix))
 	}
-	if desiredPingSlotDataRateIndexSelect && desiredPingSlotDataRateIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-ping-slot-data-rate-index", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("desired-ping-slot-data-rate-index", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDataRateIndexValue(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredPingSlotFrequency, desiredPingSlotFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-ping-slot-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_ping_slot_frequency", prefix))
 	}
-	if desiredPingSlotFrequencySelect && desiredPingSlotFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-ping-slot-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired-ping-slot-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredBeaconFrequency, desiredBeaconFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-beacon-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_beacon_frequency", prefix))
 	}
-	if desiredBeaconFrequencySelect && desiredBeaconFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-beacon-frequency", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired-beacon-frequency", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForFrequencyValue(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredMaxEirp, desiredMaxEirpSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-max-eirp", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_max_eirp", prefix))
 	}
-	if desiredMaxEirpSelect && desiredMaxEirp {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-max-eirp", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForDeviceEIRPValue(flags, flagsplugin.Prefix("desired-max-eirp", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForDeviceEIRPValue(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	classBCDownlinkInterval, classBCDownlinkIntervalSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class-b-c-downlink-interval", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if classBCDownlinkIntervalSelect && classBCDownlinkInterval {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-b-c-downlink-interval", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("class_b_c_downlink_interval", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("class_b_c_downlink_interval", prefix))
 	}
 	return paths, nil
 }
@@ -1031,13 +867,13 @@ func AddSetFlagsForMACSettings(flags *pflag.FlagSet, prefix string) {
 	flagsplugin.AddAlias(flags, flagsplugin.Prefix("supports-32-bit-f-cnt.value", prefix), flagsplugin.Prefix("supports-32-bit-f-cnt", prefix))
 	AddSetFlagsForBoolValue(flags, flagsplugin.Prefix("use-adr", prefix))
 	flagsplugin.AddAlias(flags, flagsplugin.Prefix("use-adr.value", prefix), flagsplugin.Prefix("use-adr", prefix))
-	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("adr-margin", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("adr-margin", prefix), flagsplugin.Prefix("adr-margin.value", prefix))
+	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("adr-margin.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("adr-margin.value", prefix), flagsplugin.Prefix("adr-margin", prefix))
 	AddSetFlagsForBoolValue(flags, flagsplugin.Prefix("resets-f-cnt", prefix))
 	flagsplugin.AddAlias(flags, flagsplugin.Prefix("resets-f-cnt.value", prefix), flagsplugin.Prefix("resets-f-cnt", prefix))
 	flags.AddFlag(flagsplugin.NewDurationFlag(flagsplugin.Prefix("status-time-periodicity", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("status-count-periodicity", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("status-count-periodicity", prefix), flagsplugin.Prefix("status-count-periodicity.value", prefix))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("status-count-periodicity.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("status-count-periodicity.value", prefix), flagsplugin.Prefix("status-count-periodicity", prefix))
 	AddSetFlagsForRxDelayValue(flags, flagsplugin.Prefix("desired-rx1-delay", prefix))
 	flagsplugin.AddAlias(flags, flagsplugin.Prefix("desired-rx1-delay.value", prefix), flagsplugin.Prefix("desired-rx1-delay", prefix))
 	AddSetFlagsForDataRateOffsetValue(flags, flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix))
@@ -1065,268 +901,231 @@ func AddSetFlagsForMACSettings(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the MACSettings message from flags.
 func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	classBTimeout, classBTimeoutSet, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class-b-timeout", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_timeout", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ClassBTimeout = gogo.SetDuration(val)
+		paths = append(paths, flagsplugin.Prefix("class_b_timeout", prefix))
 	}
-	if classBTimeoutSet {
-		m.ClassBTimeout = gogo.SetDuration(classBTimeout)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-b-timeout", prefix)))
-	}
-	pingSlotPeriodicitySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix))
-	if pingSlotPeriodicitySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); selected {
 		m.PingSlotPeriodicity = &PingSlotPeriodValue{}
-		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pingSlotDataRateIndexSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix))
-	if pingSlotDataRateIndexSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); selected {
 		m.PingSlotDataRateIndex = &DataRateIndexValue{}
-		if setPaths, err := m.PingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("ping-slot-data-rate-index", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pingSlotFrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping-slot-frequency", prefix))
-	if pingSlotFrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); selected {
 		m.PingSlotFrequency = &FrequencyValue{}
-		if setPaths, err := m.PingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("ping-slot-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	beaconFrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("beacon-frequency", prefix))
-	if beaconFrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("beacon_frequency", prefix)); selected {
 		m.BeaconFrequency = &FrequencyValue{}
-		if setPaths, err := m.BeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("beacon-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.BeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	classCTimeout, classCTimeoutSet, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class-c-timeout", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_c_timeout", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ClassCTimeout = gogo.SetDuration(val)
+		paths = append(paths, flagsplugin.Prefix("class_c_timeout", prefix))
 	}
-	if classCTimeoutSet {
-		m.ClassCTimeout = gogo.SetDuration(classCTimeout)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-c-timeout", prefix)))
-	}
-	rx1DelaySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1-delay", prefix))
-	if rx1DelaySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_delay", prefix)); selected {
 		m.Rx1Delay = &RxDelayValue{}
-		if setPaths, err := m.Rx1Delay.SetFromFlags(flags, flagsplugin.Prefix("rx1-delay", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.Rx1Delay.SetFromFlags(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	rx1DataRateOffsetSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix))
-	if rx1DataRateOffsetSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); selected {
 		m.Rx1DataRateOffset = &DataRateOffsetValue{}
-		if setPaths, err := m.Rx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("rx1-data-rate-offset", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.Rx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	rx2DataRateIndexSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix))
-	if rx2DataRateIndexSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); selected {
 		m.Rx2DataRateIndex = &DataRateIndexValue{}
-		if setPaths, err := m.Rx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("rx2-data-rate-index", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.Rx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	rx2FrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2-frequency", prefix))
-	if rx2FrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_frequency", prefix)); selected {
 		m.Rx2Frequency = &FrequencyValue{}
-		if setPaths, err := m.Rx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("rx2-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.Rx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	factoryPresetFrequencies, factoryPresetFrequenciesSet, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("factory-preset-frequencies", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("factory_preset_frequencies", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FactoryPresetFrequencies = val
+		paths = append(paths, flagsplugin.Prefix("factory_preset_frequencies", prefix))
 	}
-	if factoryPresetFrequenciesSet {
-		m.FactoryPresetFrequencies = factoryPresetFrequencies
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("factory-preset-frequencies", prefix)))
-	}
-	maxDutyCycleSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("max-duty-cycle", prefix))
-	if maxDutyCycleSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); selected {
 		m.MaxDutyCycle = &AggregatedDutyCycleValue{}
-		if setPaths, err := m.MaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("max-duty-cycle", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.MaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	supports32BitFCntSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("supports-32-bit-f-cnt", prefix))
-	if supports32BitFCntSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); selected {
 		m.Supports_32BitFCnt = &BoolValue{}
-		if setPaths, err := m.Supports_32BitFCnt.SetFromFlags(flags, flagsplugin.Prefix("supports-32-bit-f-cnt", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.Supports_32BitFCnt.SetFromFlags(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	useAdrSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("use-adr", prefix))
-	if useAdrSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("use_adr", prefix)); selected {
 		m.UseAdr = &BoolValue{}
-		if setPaths, err := m.UseAdr.SetFromFlags(flags, flagsplugin.Prefix("use-adr", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.UseAdr.SetFromFlags(flags, flagsplugin.Prefix("use_adr", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	adrMargin, adrMarginSet, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("adr-margin", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("adr_margin.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AdrMargin = &types.FloatValue{Value: val}
+		paths = append(paths, flagsplugin.Prefix("adr_margin", prefix))
 	}
-	if adrMarginSet {
-		m.AdrMargin = &types.FloatValue{Value: adrMargin}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("adr-margin", prefix)))
-	}
-	resetsFCntSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("resets-f-cnt", prefix))
-	if resetsFCntSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); selected {
 		m.ResetsFCnt = &BoolValue{}
-		if setPaths, err := m.ResetsFCnt.SetFromFlags(flags, flagsplugin.Prefix("resets-f-cnt", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ResetsFCnt.SetFromFlags(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	statusTimePeriodicity, statusTimePeriodicitySet, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("status-time-periodicity", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("status_time_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.StatusTimePeriodicity = gogo.SetDuration(val)
+		paths = append(paths, flagsplugin.Prefix("status_time_periodicity", prefix))
 	}
-	if statusTimePeriodicitySet {
-		m.StatusTimePeriodicity = gogo.SetDuration(statusTimePeriodicity)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status-time-periodicity", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("status_count_periodicity.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.StatusCountPeriodicity = &types.UInt32Value{Value: val}
+		paths = append(paths, flagsplugin.Prefix("status_count_periodicity", prefix))
 	}
-	statusCountPeriodicity, statusCountPeriodicitySet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("status-count-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if statusCountPeriodicitySet {
-		m.StatusCountPeriodicity = &types.UInt32Value{Value: statusCountPeriodicity}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("status-count-periodicity", prefix)))
-	}
-	desiredRx1DelaySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-rx1-delay", prefix))
-	if desiredRx1DelaySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); selected {
 		m.DesiredRx1Delay = &RxDelayValue{}
-		if setPaths, err := m.DesiredRx1Delay.SetFromFlags(flags, flagsplugin.Prefix("desired-rx1-delay", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredRx1Delay.SetFromFlags(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredRx1DataRateOffsetSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix))
-	if desiredRx1DataRateOffsetSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); selected {
 		m.DesiredRx1DataRateOffset = &DataRateOffsetValue{}
-		if setPaths, err := m.DesiredRx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("desired-rx1-data-rate-offset", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredRx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredRx2DataRateIndexSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-rx2-data-rate-index", prefix))
-	if desiredRx2DataRateIndexSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); selected {
 		m.DesiredRx2DataRateIndex = &DataRateIndexValue{}
-		if setPaths, err := m.DesiredRx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired-rx2-data-rate-index", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredRx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredRx2FrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-rx2-frequency", prefix))
-	if desiredRx2FrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); selected {
 		m.DesiredRx2Frequency = &FrequencyValue{}
-		if setPaths, err := m.DesiredRx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("desired-rx2-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredRx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredMaxDutyCycleSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-max-duty-cycle", prefix))
-	if desiredMaxDutyCycleSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); selected {
 		m.DesiredMaxDutyCycle = &AggregatedDutyCycleValue{}
-		if setPaths, err := m.DesiredMaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("desired-max-duty-cycle", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredMaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredAdrAckLimitExponentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-adr-ack-limit-exponent", prefix))
-	if desiredAdrAckLimitExponentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); selected {
 		m.DesiredAdrAckLimitExponent = &ADRAckLimitExponentValue{}
-		if setPaths, err := m.DesiredAdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("desired-adr-ack-limit-exponent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredAdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredAdrAckDelayExponentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-adr-ack-delay-exponent", prefix))
-	if desiredAdrAckDelayExponentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); selected {
 		m.DesiredAdrAckDelayExponent = &ADRAckDelayExponentValue{}
-		if setPaths, err := m.DesiredAdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("desired-adr-ack-delay-exponent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredAdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredPingSlotDataRateIndexSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-ping-slot-data-rate-index", prefix))
-	if desiredPingSlotDataRateIndexSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); selected {
 		m.DesiredPingSlotDataRateIndex = &DataRateIndexValue{}
-		if setPaths, err := m.DesiredPingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired-ping-slot-data-rate-index", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredPingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredPingSlotFrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-ping-slot-frequency", prefix))
-	if desiredPingSlotFrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); selected {
 		m.DesiredPingSlotFrequency = &FrequencyValue{}
-		if setPaths, err := m.DesiredPingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired-ping-slot-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredPingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredBeaconFrequencySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-beacon-frequency", prefix))
-	if desiredBeaconFrequencySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); selected {
 		m.DesiredBeaconFrequency = &FrequencyValue{}
-		if setPaths, err := m.DesiredBeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired-beacon-frequency", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredBeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredMaxEirpSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-max-eirp", prefix))
-	if desiredMaxEirpSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); selected {
 		m.DesiredMaxEirp = &DeviceEIRPValue{}
-		if setPaths, err := m.DesiredMaxEirp.SetFromFlags(flags, flagsplugin.Prefix("desired-max-eirp", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredMaxEirp.SetFromFlags(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	classBCDownlinkInterval, classBCDownlinkIntervalSet, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class-b-c-downlink-interval", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if classBCDownlinkIntervalSet {
-		m.ClassBCDownlinkInterval = gogo.SetDuration(classBCDownlinkInterval)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("class-b-c-downlink-interval", prefix)))
+	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_c_downlink_interval", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ClassBCDownlinkInterval = gogo.SetDuration(val)
+		paths = append(paths, flagsplugin.Prefix("class_b_c_downlink_interval", prefix))
 	}
 	return paths, nil
 }
@@ -1334,9 +1133,9 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 // AddSelectFlagsForMACState adds flags to select fields in MACState.
 func AddSelectFlagsForMACState(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("current-parameters", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("current-parameters", prefix), true)))
-	AddSelectFlagsForMACParameters(flags, flagsplugin.Prefix("current-parameters", prefix))
+	// NOTE: current_parameters (MACParameters) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("desired-parameters", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("desired-parameters", prefix), true)))
-	AddSelectFlagsForMACParameters(flags, flagsplugin.Prefix("desired-parameters", prefix))
+	// NOTE: desired_parameters (MACParameters) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("device-class", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("device-class", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("lorawan-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("lorawan-version", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-confirmed-downlink-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-confirmed-downlink-at", prefix), false)))
@@ -1344,7 +1143,7 @@ func AddSelectFlagsForMACState(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ping-slot-periodicity", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ping-slot-periodicity", prefix), true)))
 	AddSelectFlagsForPingSlotPeriodValue(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-application-downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-application-downlink", prefix), true)))
-	AddSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("pending-application-downlink", prefix))
+	// NOTE: pending_application_downlink (ApplicationDownlink) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("queued-responses", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("queued-responses", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-requests", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-requests", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("queued-join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("queued-join-accept", prefix), true)))
@@ -1365,181 +1164,125 @@ func AddSelectFlagsForMACState(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forMACState message from select flags.
 func PathsFromSelectFlagsForMACState(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	currentParameters, currentParametersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("current-parameters", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("current_parameters", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("current_parameters", prefix))
 	}
-	if currentParametersSelect && currentParameters {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("current-parameters", prefix)))
+	// NOTE: current_parameters (MACParameters) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired_parameters", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("desired_parameters", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForMACParameters(flags, flagsplugin.Prefix("current-parameters", prefix)); err != nil {
-		return paths, err
+	// NOTE: desired_parameters (MACParameters) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("device_class", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("device_class", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_confirmed_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_confirmed_downlink_at", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ping_slot_periodicity", prefix))
+	}
+	if selectPaths, err := PathsFromSelectFlagsForPingSlotPeriodValue(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	desiredParameters, desiredParametersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("desired-parameters", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_application_downlink", prefix))
 	}
-	if desiredParametersSelect && desiredParameters {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("desired-parameters", prefix)))
+	// NOTE: pending_application_downlink (ApplicationDownlink) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued_responses", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("queued_responses", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForMACParameters(flags, flagsplugin.Prefix("desired-parameters", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_requests", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_requests", prefix))
 	}
-	deviceClass, deviceClassSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("device-class", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if deviceClassSelect && deviceClass {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("device-class", prefix)))
-	}
-	lorawanVersion, lorawanVersionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lorawanVersionSelect && lorawanVersion {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-version", prefix)))
-	}
-	lastConfirmedDownlinkAt, lastConfirmedDownlinkAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-confirmed-downlink-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastConfirmedDownlinkAtSelect && lastConfirmedDownlinkAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-confirmed-downlink-at", prefix)))
-	}
-	lastDevStatusFCntUp, lastDevStatusFCntUpSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-dev-status-f-cnt-up", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDevStatusFCntUpSelect && lastDevStatusFCntUp {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-status-f-cnt-up", prefix)))
-	}
-	pingSlotPeriodicity, pingSlotPeriodicitySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pingSlotPeriodicitySelect && pingSlotPeriodicity {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ping-slot-periodicity", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForPingSlotPeriodValue(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	pendingApplicationDownlink, pendingApplicationDownlinkSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-application-downlink", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingApplicationDownlinkSelect && pendingApplicationDownlink {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-application-downlink", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationDownlink(flags, flagsplugin.Prefix("pending-application-downlink", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	queuedResponses, queuedResponsesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued-responses", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if queuedResponsesSelect && queuedResponses {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("queued-responses", prefix)))
-	}
-	pendingRequests, pendingRequestsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-requests", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingRequestsSelect && pendingRequests {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-requests", prefix)))
-	}
-	queuedJoinAccept, queuedJoinAcceptSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued-join-accept", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if queuedJoinAcceptSelect && queuedJoinAccept {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("queued-join-accept", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued_join_accept", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("queued_join_accept", prefix))
 	}
 	// NOTE: queued_join_accept (MACState_JoinAccept) does not seem to have select flags.
-	pendingJoinRequest, pendingJoinRequestSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-join-request", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingJoinRequestSelect && pendingJoinRequest {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-join-request", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_join_request", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_join_request", prefix))
 	}
 	// NOTE: pending_join_request (MACState_JoinRequest) does not seem to have select flags.
-	rxWindowsAvailable, rxWindowsAvailableSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx-windows-available", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx_windows_available", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rx_windows_available", prefix))
 	}
-	if rxWindowsAvailableSelect && rxWindowsAvailable {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx-windows-available", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("recent_uplinks", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("recent_uplinks", prefix))
 	}
-	recentUplinks, recentUplinksSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("recent-uplinks", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("recent_downlinks", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("recent_downlinks", prefix))
 	}
-	if recentUplinksSelect && recentUplinks {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("recent-uplinks", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix))
 	}
-	recentDownlinks, recentDownlinksSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("recent-downlinks", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix))
 	}
-	if recentDownlinksSelect && recentDownlinks {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("recent-downlinks", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix))
 	}
-	lastNetworkInitiatedDownlinkAt, lastNetworkInitiatedDownlinkAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-network-initiated-downlink-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected_frequencies", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejected_frequencies", prefix))
 	}
-	if lastNetworkInitiatedDownlinkAtSelect && lastNetworkInitiatedDownlinkAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-network-initiated-downlink-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_downlink_at", prefix))
 	}
-	rejectedAdrDataRateIndexes, rejectedAdrDataRateIndexesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected-adr-data-rate-indexes", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected_data_rate_ranges", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("rejected_data_rate_ranges", prefix))
 	}
-	if rejectedAdrDataRateIndexesSelect && rejectedAdrDataRateIndexes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-adr-data-rate-indexes", prefix)))
-	}
-	rejectedAdrTxPowerIndexes, rejectedAdrTxPowerIndexesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected-adr-tx-power-indexes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejectedAdrTxPowerIndexesSelect && rejectedAdrTxPowerIndexes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-adr-tx-power-indexes", prefix)))
-	}
-	rejectedFrequencies, rejectedFrequenciesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected-frequencies", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejectedFrequenciesSelect && rejectedFrequencies {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-frequencies", prefix)))
-	}
-	lastDownlinkAt, lastDownlinkAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-downlink-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDownlinkAtSelect && lastDownlinkAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-downlink-at", prefix)))
-	}
-	rejectedDataRateRanges, rejectedDataRateRangesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rejected-data-rate-ranges", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejectedDataRateRangesSelect && rejectedDataRateRanges {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-data-rate-ranges", prefix)))
-	}
-	lastAdrChangeFCntUp, lastAdrChangeFCntUpSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-adr-change-f-cnt-up", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastAdrChangeFCntUpSelect && lastAdrChangeFCntUp {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-adr-change-f-cnt-up", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix))
 	}
 	return paths, nil
 }
@@ -1573,78 +1316,66 @@ func AddSetFlagsForMACState(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the MACState message from flags.
 func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	currentParametersSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("current-parameters", prefix))
-	if currentParametersSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("current_parameters", prefix)); selected {
 		m.CurrentParameters = &MACParameters{}
-		if setPaths, err := m.CurrentParameters.SetFromFlags(flags, flagsplugin.Prefix("current-parameters", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.CurrentParameters.SetFromFlags(flags, flagsplugin.Prefix("current_parameters", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	desiredParametersSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired-parameters", prefix))
-	if desiredParametersSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_parameters", prefix)); selected {
 		m.DesiredParameters = &MACParameters{}
-		if setPaths, err := m.DesiredParameters.SetFromFlags(flags, flagsplugin.Prefix("desired-parameters", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DesiredParameters.SetFromFlags(flags, flagsplugin.Prefix("desired_parameters", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	deviceClass, deviceClassSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device-class", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if deviceClassSet {
-		enumValue, err := flagsplugin.SetEnumString(deviceClass, Class_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device_class", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, Class_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.DeviceClass = Class(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("device-class", prefix)))
+		paths = append(paths, flagsplugin.Prefix("device_class", prefix))
 	}
-	lorawanVersion, lorawanVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lorawanVersionSet {
-		enumValue, err := flagsplugin.SetEnumString(lorawanVersion, MACVersion_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, MACVersion_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.LorawanVersion = MACVersion(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-version", prefix)))
+		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
 	}
-	lastConfirmedDownlinkAt, lastConfirmedDownlinkAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last-confirmed-downlink-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_confirmed_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastConfirmedDownlinkAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("last_confirmed_downlink_at", prefix))
 	}
-	if lastConfirmedDownlinkAtSet {
-		m.LastConfirmedDownlinkAt = gogo.SetTimestamp(lastConfirmedDownlinkAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-confirmed-downlink-at", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastDevStatusFCntUp = val
+		paths = append(paths, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix))
 	}
-	lastDevStatusFCntUp, lastDevStatusFCntUpSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-dev-status-f-cnt-up", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDevStatusFCntUpSet {
-		m.LastDevStatusFCntUp = lastDevStatusFCntUp
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-status-f-cnt-up", prefix)))
-	}
-	pingSlotPeriodicitySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix))
-	if pingSlotPeriodicitySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); selected {
 		m.PingSlotPeriodicity = &PingSlotPeriodValue{}
-		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping-slot-periodicity", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pendingApplicationDownlinkSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending-application-downlink", prefix))
-	if pendingApplicationDownlinkSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); selected {
 		m.PendingApplicationDownlink = &ApplicationDownlink{}
-		if setPaths, err := m.PendingApplicationDownlink.SetFromFlags(flags, flagsplugin.Prefix("pending-application-downlink", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PendingApplicationDownlink.SetFromFlags(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
@@ -1653,70 +1384,56 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 	// FIXME: Skipping PendingRequests because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping QueuedJoinAccept because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping PendingJoinRequest because it does not seem to implement AddSetFlags.
-	rxWindowsAvailable, rxWindowsAvailableSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx-windows-available", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rxWindowsAvailableSet {
-		m.RxWindowsAvailable = rxWindowsAvailable
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rx-windows-available", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx_windows_available", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.RxWindowsAvailable = val
+		paths = append(paths, flagsplugin.Prefix("rx_windows_available", prefix))
 	}
 	// FIXME: Skipping RecentUplinks because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping RecentDownlinks because it does not seem to implement AddSetFlags.
-	lastNetworkInitiatedDownlinkAt, lastNetworkInitiatedDownlinkAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last-network-initiated-downlink-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastNetworkInitiatedDownlinkAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix))
 	}
-	if lastNetworkInitiatedDownlinkAtSet {
-		m.LastNetworkInitiatedDownlinkAt = gogo.SetTimestamp(lastNetworkInitiatedDownlinkAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-network-initiated-downlink-at", prefix)))
-	}
-	rejectedAdrDataRateIndexes, rejectedAdrDataRateIndexesSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rejected-adr-data-rate-indexes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejectedAdrDataRateIndexesSet {
-		for _, v := range rejectedAdrDataRateIndexes {
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, DataRateIndex_value)
 			if err != nil {
-				return paths, err
+				return nil, err
 			}
 			m.RejectedAdrDataRateIndexes = append(m.RejectedAdrDataRateIndexes, DataRateIndex(enumValue))
 		}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-adr-data-rate-indexes", prefix)))
+		paths = append(paths, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix))
 	}
-	rejectedAdrTxPowerIndexes, rejectedAdrTxPowerIndexesSet, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("rejected-adr-tx-power-indexes", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.RejectedAdrTxPowerIndexes = val
+		paths = append(paths, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix))
 	}
-	if rejectedAdrTxPowerIndexesSet {
-		m.RejectedAdrTxPowerIndexes = rejectedAdrTxPowerIndexes
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-adr-tx-power-indexes", prefix)))
+	if val, selected, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("rejected_frequencies", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.RejectedFrequencies = val
+		paths = append(paths, flagsplugin.Prefix("rejected_frequencies", prefix))
 	}
-	rejectedFrequencies, rejectedFrequenciesSet, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("rejected-frequencies", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rejectedFrequenciesSet {
-		m.RejectedFrequencies = rejectedFrequencies
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("rejected-frequencies", prefix)))
-	}
-	lastDownlinkAt, lastDownlinkAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last-downlink-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDownlinkAtSet {
-		m.LastDownlinkAt = gogo.SetTimestamp(lastDownlinkAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-downlink-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_downlink_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastDownlinkAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("last_downlink_at", prefix))
 	}
 	// FIXME: Skipping RejectedDataRateRanges because maps with uint64 key types are currently not supported.
-	lastAdrChangeFCntUp, lastAdrChangeFCntUpSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-adr-change-f-cnt-up", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastAdrChangeFCntUpSet {
-		m.LastAdrChangeFCntUp = lastAdrChangeFCntUp
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-adr-change-f-cnt-up", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastAdrChangeFCntUp = val
+		paths = append(paths, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix))
 	}
 	return paths, nil
 }
@@ -1724,7 +1441,7 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 // AddSelectFlagsForEndDevice adds flags to select fields in EndDevice.
 func AddSelectFlagsForEndDevice(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
+	// NOTE: ids (EndDeviceIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
@@ -1752,14 +1469,14 @@ func AddSelectFlagsForEndDevice(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("supports-join", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("supports-join", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("resets-join-nonces", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("resets-join-nonces", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("root-keys", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("root-keys", prefix), true)))
-	AddSelectFlagsForRootKeys(flags, flagsplugin.Prefix("root-keys", prefix))
+	// NOTE: root_keys (RootKeys) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("net-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("net-id", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("mac-settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("mac-settings", prefix), true)))
-	AddSelectFlagsForMACSettings(flags, flagsplugin.Prefix("mac-settings", prefix))
+	// NOTE: mac_settings (MACSettings) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("mac-state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("mac-state", prefix), true)))
-	AddSelectFlagsForMACState(flags, flagsplugin.Prefix("mac-state", prefix))
+	// NOTE: mac_state (MACState) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-mac-state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-mac-state", prefix), true)))
-	AddSelectFlagsForMACState(flags, flagsplugin.Prefix("pending-mac-state", prefix))
+	// NOTE: pending_mac_state (MACState) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session", prefix), true)))
 	// NOTE: session (Session) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-session", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-session", prefix), true)))
@@ -1788,394 +1505,274 @@ func AddSelectFlagsForEndDevice(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forEndDevice message from select flags.
 func PathsFromSelectFlagsForEndDevice(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	// NOTE: ids (EndDeviceIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("version_ids", prefix))
+	}
+	if selectPaths, err := PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service_profile_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("service_profile_id", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("network_server_address", prefix))
 	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network_server_kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("network_server_kek_label", prefix))
 	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_server_address", prefix))
 	}
-	name, nameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_server_kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_server_kek_label", prefix))
 	}
-	if nameSelect && name {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
-	description, descriptionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("join_server_address", prefix))
 	}
-	if descriptionSelect && description {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("locations", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("locations", prefix))
 	}
-	attributes, attributesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSelect && attributes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
-	}
-	versionIds, versionIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("version-ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if versionIdsSelect && versionIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("version-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	serviceProfileId, serviceProfileIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service-profile-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if serviceProfileIdSelect && serviceProfileId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service-profile-id", prefix)))
-	}
-	networkServerAddress, networkServerAddressSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network-server-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if networkServerAddressSelect && networkServerAddress {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("network-server-address", prefix)))
-	}
-	networkServerKekLabel, networkServerKekLabelSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("network-server-kek-label", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if networkServerKekLabelSelect && networkServerKekLabel {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("network-server-kek-label", prefix)))
-	}
-	applicationServerAddress, applicationServerAddressSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-server-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerAddressSelect && applicationServerAddress {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-address", prefix)))
-	}
-	applicationServerKekLabel, applicationServerKekLabelSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-server-kek-label", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerKekLabelSelect && applicationServerKekLabel {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-kek-label", prefix)))
-	}
-	applicationServerId, applicationServerIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-server-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerIdSelect && applicationServerId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-id", prefix)))
-	}
-	joinServerAddress, joinServerAddressSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join-server-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if joinServerAddressSelect && joinServerAddress {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-server-address", prefix)))
-	}
-	locations, locationsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("locations", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if locationsSelect && locations {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("locations", prefix)))
-	}
-	picture, pictureSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("picture", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pictureSelect && picture {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("picture", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("picture", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("picture", prefix))
 	}
 	// NOTE: picture (Picture) does not seem to have select flags.
-	supportsClassB, supportsClassBSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-class-b", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_b", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("supports_class_b", prefix))
 	}
-	if supportsClassBSelect && supportsClassB {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-class-b", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_c", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("supports_class_c", prefix))
 	}
-	supportsClassC, supportsClassCSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-class-c", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
 	}
-	if supportsClassCSelect && supportsClassC {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-class-c", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("lorawan_phy_version", prefix))
 	}
-	lorawanVersion, lorawanVersionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan-version", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if lorawanVersionSelect && lorawanVersion {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-version", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("min_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("min_frequency", prefix))
 	}
-	lorawanPhyVersion, lorawanPhyVersionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("lorawan-phy-version", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("max_frequency", prefix))
 	}
-	if lorawanPhyVersionSelect && lorawanPhyVersion {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-phy-version", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_join", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("supports_join", prefix))
 	}
-	frequencyPlanId, frequencyPlanIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency-plan-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets_join_nonces", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("resets_join_nonces", prefix))
 	}
-	if frequencyPlanIdSelect && frequencyPlanId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frequency-plan-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("root_keys", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("root_keys", prefix))
 	}
-	minFrequency, minFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("min-frequency", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: root_keys (RootKeys) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("net_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("net_id", prefix))
 	}
-	if minFrequencySelect && minFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("min-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("mac_settings", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("mac_settings", prefix))
 	}
-	maxFrequency, maxFrequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("max-frequency", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: mac_settings (MACSettings) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("mac_state", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("mac_state", prefix))
 	}
-	if maxFrequencySelect && maxFrequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-frequency", prefix)))
+	// NOTE: mac_state (MACState) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_mac_state", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_mac_state", prefix))
 	}
-	supportsJoin, supportsJoinSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-join", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if supportsJoinSelect && supportsJoin {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-join", prefix)))
-	}
-	resetsJoinNonces, resetsJoinNoncesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets-join-nonces", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if resetsJoinNoncesSelect && resetsJoinNonces {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("resets-join-nonces", prefix)))
-	}
-	rootKeys, rootKeysSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("root-keys", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if rootKeysSelect && rootKeys {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("root-keys", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForRootKeys(flags, flagsplugin.Prefix("root-keys", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	netId, netIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("net-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if netIdSelect && netId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("net-id", prefix)))
-	}
-	macSettings, macSettingsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("mac-settings", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if macSettingsSelect && macSettings {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("mac-settings", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForMACSettings(flags, flagsplugin.Prefix("mac-settings", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	macState, macStateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("mac-state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if macStateSelect && macState {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("mac-state", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForMACState(flags, flagsplugin.Prefix("mac-state", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	pendingMacState, pendingMacStateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-mac-state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingMacStateSelect && pendingMacState {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-mac-state", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForMACState(flags, flagsplugin.Prefix("pending-mac-state", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	session, sessionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionSelect && session {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session", prefix)))
+	// NOTE: pending_mac_state (MACState) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session", prefix))
 	}
 	// NOTE: session (Session) does not seem to have select flags.
-	pendingSession, pendingSessionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending-session", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pendingSessionSelect && pendingSession {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pending-session", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pending_session", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pending_session", prefix))
 	}
 	// NOTE: pending_session (Session) does not seem to have select flags.
-	lastDevNonce, lastDevNonceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-dev-nonce", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_dev_nonce", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_dev_nonce", prefix))
 	}
-	if lastDevNonceSelect && lastDevNonce {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-nonce", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("used_dev_nonces", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("used_dev_nonces", prefix))
 	}
-	usedDevNonces, usedDevNoncesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("used-dev-nonces", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_join_nonce", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_join_nonce", prefix))
 	}
-	if usedDevNoncesSelect && usedDevNonces {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("used-dev-nonces", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_rj_count_0", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_rj_count_0", prefix))
 	}
-	lastJoinNonce, lastJoinNonceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-join-nonce", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_rj_count_1", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_rj_count_1", prefix))
 	}
-	if lastJoinNonceSelect && lastJoinNonce {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-join-nonce", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last_dev_status_received_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("last_dev_status_received_at", prefix))
 	}
-	lastRjCount0, lastRjCount0Select, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-rj-count-0", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("power_state", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("power_state", prefix))
 	}
-	if lastRjCount0Select && lastRjCount0 {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-rj-count-0", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("battery_percentage", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("battery_percentage", prefix))
 	}
-	lastRjCount1, lastRjCount1Select, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-rj-count-1", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_margin", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_margin", prefix))
 	}
-	if lastRjCount1Select && lastRjCount1 {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-rj-count-1", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued_application_downlinks", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("queued_application_downlinks", prefix))
 	}
-	lastDevStatusReceivedAt, lastDevStatusReceivedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("last-dev-status-received-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDevStatusReceivedAtSelect && lastDevStatusReceivedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-status-received-at", prefix)))
-	}
-	powerState, powerStateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("power-state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if powerStateSelect && powerState {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("power-state", prefix)))
-	}
-	batteryPercentage, batteryPercentageSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("battery-percentage", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if batteryPercentageSelect && batteryPercentage {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("battery-percentage", prefix)))
-	}
-	downlinkMargin, downlinkMarginSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-margin", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkMarginSelect && downlinkMargin {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-margin", prefix)))
-	}
-	queuedApplicationDownlinks, queuedApplicationDownlinksSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("queued-application-downlinks", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if queuedApplicationDownlinksSelect && queuedApplicationDownlinks {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("queued-application-downlinks", prefix)))
-	}
-	formatters, formattersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("formatters", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if formattersSelect && formatters {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("formatters", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("formatters", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("formatters", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("formatters", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	provisionerId, provisionerIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provisioner-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provisioner_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("provisioner_id", prefix))
 	}
-	if provisionerIdSelect && provisionerId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provisioner-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provisioning_data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("provisioning_data", prefix))
 	}
-	provisioningData, provisioningDataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provisioning-data", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("multicast", prefix))
 	}
-	if provisioningDataSelect && provisioningData {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provisioning-data", prefix)))
-	}
-	multicast, multicastSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if multicastSelect && multicast {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("multicast", prefix)))
-	}
-	claimAuthenticationCode, claimAuthenticationCodeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("claim-authentication-code", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if claimAuthenticationCodeSelect && claimAuthenticationCode {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("claim-authentication-code", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("claim_authentication_code", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("claim_authentication_code", prefix))
 	}
 	// NOTE: claim_authentication_code (EndDeviceAuthenticationCode) does not seem to have select flags.
-	skipPayloadCrypto, skipPayloadCryptoSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}
-	if skipPayloadCryptoSelect && skipPayloadCrypto {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto_override", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto_override", prefix))
 	}
-	skipPayloadCryptoOverride, skipPayloadCryptoOverrideSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto-override", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if skipPayloadCryptoOverrideSelect && skipPayloadCryptoOverride {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto-override", prefix)))
-	}
-	activatedAt, activatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("activated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if activatedAtSelect && activatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("activated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("activated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("activated_at", prefix))
 	}
 	return paths, nil
 }
@@ -2221,8 +1818,8 @@ func AddSetFlagsForEndDevice(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("last-rj-count-1", prefix), ""))
 	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("last-dev-status-received-at", prefix), ""))
 	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("power-state", prefix), flagsplugin.EnumValueDesc(PowerState_value)))
-	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("battery-percentage", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("battery-percentage", prefix), flagsplugin.Prefix("battery-percentage.value", prefix))
+	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("battery-percentage.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("battery-percentage.value", prefix), flagsplugin.Prefix("battery-percentage", prefix))
 	flags.AddFlag(flagsplugin.NewInt32Flag(flagsplugin.Prefix("downlink-margin", prefix), ""))
 	// FIXME: Skipping QueuedApplicationDownlinks because repeated messages are currently not supported.
 	AddSetFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("formatters", prefix))
@@ -2231,382 +1828,303 @@ func AddSetFlagsForEndDevice(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("multicast", prefix), ""))
 	// FIXME: Skipping ClaimAuthenticationCode because it does not seem to implement AddSetFlags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto-override", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto-override", prefix), flagsplugin.Prefix("skip-payload-crypto-override.value", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto-override.value", prefix), ""))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto-override.value", prefix), flagsplugin.Prefix("skip-payload-crypto-override", prefix))
 	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("activated-at", prefix), ""))
 }
 
 // SetFromFlags sets the EndDevice message from flags.
 func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &EndDeviceIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Name = val
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Description = val
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	name, nameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Attributes = val
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	if nameSet {
-		m.Name = name
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
-	}
-	description, descriptionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if descriptionSet {
-		m.Description = description
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
-	}
-	attributes, attributesSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSet {
-		m.Attributes = attributes
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
-	}
-	versionIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version-ids", prefix))
-	if versionIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version_ids", prefix)); selected {
 		m.VersionIds = &EndDeviceVersionIdentifiers{}
-		if setPaths, err := m.VersionIds.SetFromFlags(flags, flagsplugin.Prefix("version-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.VersionIds.SetFromFlags(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	serviceProfileId, serviceProfileIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("service-profile-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("service_profile_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ServiceProfileId = val
+		paths = append(paths, flagsplugin.Prefix("service_profile_id", prefix))
 	}
-	if serviceProfileIdSet {
-		m.ServiceProfileId = serviceProfileId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service-profile-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.NetworkServerAddress = val
+		paths = append(paths, flagsplugin.Prefix("network_server_address", prefix))
 	}
-	networkServerAddress, networkServerAddressSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network-server-address", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.NetworkServerKekLabel = val
+		paths = append(paths, flagsplugin.Prefix("network_server_kek_label", prefix))
 	}
-	if networkServerAddressSet {
-		m.NetworkServerAddress = networkServerAddress
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("network-server-address", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ApplicationServerAddress = val
+		paths = append(paths, flagsplugin.Prefix("application_server_address", prefix))
 	}
-	networkServerKekLabel, networkServerKekLabelSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network-server-kek-label", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_kek_label", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ApplicationServerKekLabel = val
+		paths = append(paths, flagsplugin.Prefix("application_server_kek_label", prefix))
 	}
-	if networkServerKekLabelSet {
-		m.NetworkServerKekLabel = networkServerKekLabel
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("network-server-kek-label", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ApplicationServerId = val
+		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
-	applicationServerAddress, applicationServerAddressSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application-server-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerAddressSet {
-		m.ApplicationServerAddress = applicationServerAddress
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-address", prefix)))
-	}
-	applicationServerKekLabel, applicationServerKekLabelSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application-server-kek-label", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerKekLabelSet {
-		m.ApplicationServerKekLabel = applicationServerKekLabel
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-kek-label", prefix)))
-	}
-	applicationServerId, applicationServerIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application-server-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if applicationServerIdSet {
-		m.ApplicationServerId = applicationServerId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-server-id", prefix)))
-	}
-	joinServerAddress, joinServerAddressSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join-server-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if joinServerAddressSet {
-		m.JoinServerAddress = joinServerAddress
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-server-address", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join_server_address", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.JoinServerAddress = val
+		paths = append(paths, flagsplugin.Prefix("join_server_address", prefix))
 	}
 	// FIXME: Skipping Locations because maps with message value types are currently not supported.
 	// FIXME: Skipping Picture because it does not seem to implement AddSetFlags.
-	supportsClassB, supportsClassBSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-class-b", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_b", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SupportsClassB = val
+		paths = append(paths, flagsplugin.Prefix("supports_class_b", prefix))
 	}
-	if supportsClassBSet {
-		m.SupportsClassB = supportsClassB
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-class-b", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_c", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SupportsClassC = val
+		paths = append(paths, flagsplugin.Prefix("supports_class_c", prefix))
 	}
-	supportsClassC, supportsClassCSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-class-c", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if supportsClassCSet {
-		m.SupportsClassC = supportsClassC
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-class-c", prefix)))
-	}
-	lorawanVersion, lorawanVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lorawanVersionSet {
-		enumValue, err := flagsplugin.SetEnumString(lorawanVersion, MACVersion_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, MACVersion_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.LorawanVersion = MACVersion(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-version", prefix)))
+		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
 	}
-	lorawanPhyVersion, lorawanPhyVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan-phy-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lorawanPhyVersionSet {
-		enumValue, err := flagsplugin.SetEnumString(lorawanPhyVersion, PHYVersion_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PHYVersion_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.LorawanPhyVersion = PHYVersion(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-phy-version", prefix)))
+		paths = append(paths, flagsplugin.Prefix("lorawan_phy_version", prefix))
 	}
-	frequencyPlanId, frequencyPlanIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency-plan-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FrequencyPlanId = val
+		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if frequencyPlanIdSet {
-		m.FrequencyPlanId = frequencyPlanId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frequency-plan-id", prefix)))
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("min_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.MinFrequency = val
+		paths = append(paths, flagsplugin.Prefix("min_frequency", prefix))
 	}
-	minFrequency, minFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("min-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("max_frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.MaxFrequency = val
+		paths = append(paths, flagsplugin.Prefix("max_frequency", prefix))
 	}
-	if minFrequencySet {
-		m.MinFrequency = minFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("min-frequency", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_join", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SupportsJoin = val
+		paths = append(paths, flagsplugin.Prefix("supports_join", prefix))
 	}
-	maxFrequency, maxFrequencySet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("max-frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets_join_nonces", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ResetsJoinNonces = val
+		paths = append(paths, flagsplugin.Prefix("resets_join_nonces", prefix))
 	}
-	if maxFrequencySet {
-		m.MaxFrequency = maxFrequency
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("max-frequency", prefix)))
-	}
-	supportsJoin, supportsJoinSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports-join", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if supportsJoinSet {
-		m.SupportsJoin = supportsJoin
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("supports-join", prefix)))
-	}
-	resetsJoinNonces, resetsJoinNoncesSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets-join-nonces", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if resetsJoinNoncesSet {
-		m.ResetsJoinNonces = resetsJoinNonces
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("resets-join-nonces", prefix)))
-	}
-	rootKeysSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("root-keys", prefix))
-	if rootKeysSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("root_keys", prefix)); selected {
 		m.RootKeys = &RootKeys{}
-		if setPaths, err := m.RootKeys.SetFromFlags(flags, flagsplugin.Prefix("root-keys", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.RootKeys.SetFromFlags(flags, flagsplugin.Prefix("root_keys", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	netId, netIdSet, err := custom_flags.GetNetID(flags, flagsplugin.Prefix("net-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := types1.GetNetID(flags, flagsplugin.Prefix("net_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.NetId = &val
+		paths = append(paths, flagsplugin.Prefix("net_id", prefix))
 	}
-	if netIdSet {
-		m.NetId = &netId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("net-id", prefix)))
-	}
-	macSettingsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac-settings", prefix))
-	if macSettingsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_settings", prefix)); selected {
 		m.MacSettings = &MACSettings{}
-		if setPaths, err := m.MacSettings.SetFromFlags(flags, flagsplugin.Prefix("mac-settings", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.MacSettings.SetFromFlags(flags, flagsplugin.Prefix("mac_settings", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	macStateSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac-state", prefix))
-	if macStateSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_state", prefix)); selected {
 		m.MacState = &MACState{}
-		if setPaths, err := m.MacState.SetFromFlags(flags, flagsplugin.Prefix("mac-state", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.MacState.SetFromFlags(flags, flagsplugin.Prefix("mac_state", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pendingMacStateSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending-mac-state", prefix))
-	if pendingMacStateSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_mac_state", prefix)); selected {
 		m.PendingMacState = &MACState{}
-		if setPaths, err := m.PendingMacState.SetFromFlags(flags, flagsplugin.Prefix("pending-mac-state", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.PendingMacState.SetFromFlags(flags, flagsplugin.Prefix("pending_mac_state", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
 	// FIXME: Skipping Session because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping PendingSession because it does not seem to implement AddSetFlags.
-	lastDevNonce, lastDevNonceSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-dev-nonce", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_nonce", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastDevNonce = val
+		paths = append(paths, flagsplugin.Prefix("last_dev_nonce", prefix))
 	}
-	if lastDevNonceSet {
-		m.LastDevNonce = lastDevNonce
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-nonce", prefix)))
+	if val, selected, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("used_dev_nonces", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UsedDevNonces = val
+		paths = append(paths, flagsplugin.Prefix("used_dev_nonces", prefix))
 	}
-	usedDevNonces, usedDevNoncesSet, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("used-dev-nonces", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_join_nonce", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastJoinNonce = val
+		paths = append(paths, flagsplugin.Prefix("last_join_nonce", prefix))
 	}
-	if usedDevNoncesSet {
-		m.UsedDevNonces = usedDevNonces
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("used-dev-nonces", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_0", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastRjCount_0 = val
+		paths = append(paths, flagsplugin.Prefix("last_rj_count_0", prefix))
 	}
-	lastJoinNonce, lastJoinNonceSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-join-nonce", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_1", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastRjCount_1 = val
+		paths = append(paths, flagsplugin.Prefix("last_rj_count_1", prefix))
 	}
-	if lastJoinNonceSet {
-		m.LastJoinNonce = lastJoinNonce
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-join-nonce", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_dev_status_received_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.LastDevStatusReceivedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("last_dev_status_received_at", prefix))
 	}
-	lastRjCount0, lastRjCount0Set, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-rj-count-0", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastRjCount0Set {
-		m.LastRjCount_0 = lastRjCount0
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-rj-count-0", prefix)))
-	}
-	lastRjCount1, lastRjCount1Set, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last-rj-count-1", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastRjCount1Set {
-		m.LastRjCount_1 = lastRjCount1
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-rj-count-1", prefix)))
-	}
-	lastDevStatusReceivedAt, lastDevStatusReceivedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last-dev-status-received-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lastDevStatusReceivedAtSet {
-		m.LastDevStatusReceivedAt = gogo.SetTimestamp(lastDevStatusReceivedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("last-dev-status-received-at", prefix)))
-	}
-	powerState, powerStateSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("power-state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if powerStateSet {
-		enumValue, err := flagsplugin.SetEnumString(powerState, PowerState_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("power_state", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PowerState_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.PowerState = PowerState(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("power-state", prefix)))
+		paths = append(paths, flagsplugin.Prefix("power_state", prefix))
 	}
-	batteryPercentage, batteryPercentageSet, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("battery-percentage", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("battery_percentage.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BatteryPercentage = &types.FloatValue{Value: val}
+		paths = append(paths, flagsplugin.Prefix("battery_percentage", prefix))
 	}
-	if batteryPercentageSet {
-		m.BatteryPercentage = &types.FloatValue{Value: batteryPercentage}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("battery-percentage", prefix)))
-	}
-	downlinkMargin, downlinkMarginSet, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("downlink-margin", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkMarginSet {
-		m.DownlinkMargin = downlinkMargin
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-margin", prefix)))
+	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("downlink_margin", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DownlinkMargin = val
+		paths = append(paths, flagsplugin.Prefix("downlink_margin", prefix))
 	}
 	// FIXME: Skipping QueuedApplicationDownlinks because it does not seem to implement AddSetFlags.
-	formattersSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("formatters", prefix))
-	if formattersSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("formatters", prefix)); selected {
 		m.Formatters = &MessagePayloadFormatters{}
 		if setPaths, err := m.Formatters.SetFromFlags(flags, flagsplugin.Prefix("formatters", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	provisionerId, provisionerIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("provisioner-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if provisionerIdSet {
-		m.ProvisionerId = provisionerId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provisioner-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("provisioner_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ProvisionerId = val
+		paths = append(paths, flagsplugin.Prefix("provisioner_id", prefix))
 	}
 	// FIXME: Skipping ProvisioningData because this WKT is not supported.
-	multicast, multicastSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if multicastSet {
-		m.Multicast = multicast
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("multicast", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Multicast = val
+		paths = append(paths, flagsplugin.Prefix("multicast", prefix))
 	}
 	// FIXME: Skipping ClaimAuthenticationCode because it does not seem to implement AddSetFlags.
-	skipPayloadCrypto, skipPayloadCryptoSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SkipPayloadCrypto = val
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}
-	if skipPayloadCryptoSet {
-		m.SkipPayloadCrypto = skipPayloadCrypto
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto_override.value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SkipPayloadCryptoOverride = &types.BoolValue{Value: val}
+		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto_override", prefix))
 	}
-	skipPayloadCryptoOverride, skipPayloadCryptoOverrideSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip-payload-crypto-override", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if skipPayloadCryptoOverrideSet {
-		m.SkipPayloadCryptoOverride = &types.BoolValue{Value: skipPayloadCryptoOverride}
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("skip-payload-crypto-override", prefix)))
-	}
-	activatedAt, activatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("activated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if activatedAtSet {
-		m.ActivatedAt = gogo.SetTimestamp(activatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("activated-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("activated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ActivatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("activated_at", prefix))
 	}
 	return paths, nil
 }

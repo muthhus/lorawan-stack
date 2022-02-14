@@ -19,19 +19,15 @@ func AddSelectFlagsForLoRaDataRate(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forLoRaDataRate message from select flags.
 func PathsFromSelectFlagsForLoRaDataRate(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	bandwidth, bandwidthSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("bandwidth", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("bandwidth", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("bandwidth", prefix))
 	}
-	if bandwidthSelect && bandwidth {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("bandwidth", prefix)))
-	}
-	spreadingFactor, spreadingFactorSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("spreading-factor", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if spreadingFactorSelect && spreadingFactor {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("spreading-factor", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("spreading_factor", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("spreading_factor", prefix))
 	}
 	return paths, nil
 }
@@ -43,12 +39,10 @@ func AddSelectFlagsForFSKDataRate(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forFSKDataRate message from select flags.
 func PathsFromSelectFlagsForFSKDataRate(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	bitRate, bitRateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("bit-rate", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if bitRateSelect && bitRate {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("bit-rate", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("bit_rate", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("bit_rate", prefix))
 	}
 	return paths, nil
 }
@@ -62,26 +56,20 @@ func AddSelectFlagsForLRFHSSDataRate(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forLRFHSSDataRate message from select flags.
 func PathsFromSelectFlagsForLRFHSSDataRate(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	modulationType, modulationTypeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation-type", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation_type", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("modulation_type", prefix))
 	}
-	if modulationTypeSelect && modulationType {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("modulation-type", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("operating_channel_width", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("operating_channel_width", prefix))
 	}
-	operatingChannelWidth, operatingChannelWidthSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("operating-channel-width", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if operatingChannelWidthSelect && operatingChannelWidth {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("operating-channel-width", prefix)))
-	}
-	codingRate, codingRateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("coding-rate", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if codingRateSelect && codingRate {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("coding-rate", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("coding_rate", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("coding_rate", prefix))
 	}
 	return paths, nil
 }
@@ -98,39 +86,33 @@ func AddSelectFlagsForDataRate(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forDataRate message from select flags.
 func PathsFromSelectFlagsForDataRate(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	lora, loraSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.lora", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if loraSelect && lora {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("modulation.lora", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.lora", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("modulation.lora", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForLoRaDataRate(flags, flagsplugin.Prefix("modulation.lora", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	fsk, fskSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.fsk", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fskSelect && fsk {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("modulation.fsk", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.fsk", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("modulation.fsk", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForFSKDataRate(flags, flagsplugin.Prefix("modulation.fsk", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	lrfhss, lrfhssSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.lrfhss", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lrfhssSelect && lrfhss {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("modulation.lrfhss", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("modulation.lrfhss", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("modulation.lrfhss", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForLRFHSSDataRate(flags, flagsplugin.Prefix("modulation.lrfhss", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -146,26 +128,20 @@ func AddSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forTxSettings_Downlink message from select flags.
 func PathsFromSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	antennaIndex, antennaIndexSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna-index", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_index", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("antenna_index", prefix))
 	}
-	if antennaIndexSelect && antennaIndex {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("antenna-index", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tx_power", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("tx_power", prefix))
 	}
-	txPower, txPowerSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tx-power", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if txPowerSelect && txPower {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tx-power", prefix)))
-	}
-	invertPolarization, invertPolarizationSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("invert-polarization", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if invertPolarizationSelect && invertPolarization {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("invert-polarization", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("invert_polarization", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("invert_polarization", prefix))
 	}
 	return paths, nil
 }
@@ -173,7 +149,7 @@ func PathsFromSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix str
 // AddSelectFlagsForTxSettings adds flags to select fields in TxSettings.
 func AddSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data-rate", prefix), true)))
-	AddSelectFlagsForDataRate(flags, flagsplugin.Prefix("data-rate", prefix))
+	// NOTE: data_rate (DataRate) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("coding-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("coding-rate", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enable-crc", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("enable-crc", prefix), false)))
@@ -185,62 +161,44 @@ func AddSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forTxSettings message from select flags.
 func PathsFromSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	dataRate, dataRateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data-rate", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data_rate", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("data_rate", prefix))
 	}
-	if dataRateSelect && dataRate {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("data-rate", prefix)))
+	// NOTE: data_rate (DataRate) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("coding_rate", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("coding_rate", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForDataRate(flags, flagsplugin.Prefix("data-rate", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("frequency", prefix))
 	}
-	codingRate, codingRateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("coding-rate", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable_crc", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("enable_crc", prefix))
 	}
-	if codingRateSelect && codingRate {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("coding-rate", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("timestamp", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("timestamp", prefix))
 	}
-	frequency, frequencySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("time", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("time", prefix))
 	}
-	if frequencySelect && frequency {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frequency", prefix)))
-	}
-	enableCrc, enableCrcSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable-crc", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if enableCrcSelect && enableCrc {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("enable-crc", prefix)))
-	}
-	timestamp, timestampSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("timestamp", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if timestampSelect && timestamp {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("timestamp", prefix)))
-	}
-	time, timeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("time", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if timeSelect && time {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("time", prefix)))
-	}
-	downlink, downlinkSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkSelect && downlink {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForTxSettings_Downlink(flags, flagsplugin.Prefix("downlink", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -254,12 +212,10 @@ func AddSelectFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forFrequencyValue message from select flags.
 func PathsFromSelectFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -271,13 +227,11 @@ func AddSetFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the FrequencyValue message from flags.
 func (m *FrequencyValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		m.Value = value
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Value = val
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -289,12 +243,10 @@ func AddSelectFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forDataRateOffsetValue message from select flags.
 func PathsFromSelectFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -306,17 +258,15 @@ func AddSetFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the DataRateOffsetValue message from flags.
 func (m *DataRateOffsetValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, DataRateOffset_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateOffset_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = DataRateOffset(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -328,12 +278,10 @@ func AddSelectFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forDataRateIndexValue message from select flags.
 func PathsFromSelectFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -345,17 +293,15 @@ func AddSetFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the DataRateIndexValue message from flags.
 func (m *DataRateIndexValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, DataRateIndex_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = DataRateIndex(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -367,12 +313,10 @@ func AddSelectFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forPingSlotPeriodValue message from select flags.
 func PathsFromSelectFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -384,17 +328,15 @@ func AddSetFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the PingSlotPeriodValue message from flags.
 func (m *PingSlotPeriodValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, PingSlotPeriod_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PingSlotPeriod_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = PingSlotPeriod(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -406,12 +348,10 @@ func AddSelectFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix stri
 
 // SelectFromFlags outputs the fieldmask paths forAggregatedDutyCycleValue message from select flags.
 func PathsFromSelectFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -423,17 +363,15 @@ func AddSetFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string)
 
 // SetFromFlags sets the AggregatedDutyCycleValue message from flags.
 func (m *AggregatedDutyCycleValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, AggregatedDutyCycle_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, AggregatedDutyCycle_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = AggregatedDutyCycle(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -445,12 +383,10 @@ func AddSelectFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forRxDelayValue message from select flags.
 func PathsFromSelectFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -462,17 +398,15 @@ func AddSetFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the RxDelayValue message from flags.
 func (m *RxDelayValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, RxDelay_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, RxDelay_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = RxDelay(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -484,12 +418,10 @@ func AddSelectFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix stri
 
 // SelectFromFlags outputs the fieldmask paths forADRAckLimitExponentValue message from select flags.
 func PathsFromSelectFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -501,17 +433,15 @@ func AddSetFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string)
 
 // SetFromFlags sets the ADRAckLimitExponentValue message from flags.
 func (m *ADRAckLimitExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, ADRAckLimitExponent_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ADRAckLimitExponent_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = ADRAckLimitExponent(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -523,12 +453,10 @@ func AddSelectFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix stri
 
 // SelectFromFlags outputs the fieldmask paths forADRAckDelayExponentValue message from select flags.
 func PathsFromSelectFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -540,17 +468,15 @@ func AddSetFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string)
 
 // SetFromFlags sets the ADRAckDelayExponentValue message from flags.
 func (m *ADRAckDelayExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, ADRAckDelayExponent_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ADRAckDelayExponent_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = ADRAckDelayExponent(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -562,12 +488,10 @@ func AddSelectFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forDeviceEIRPValue message from select flags.
 func PathsFromSelectFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -579,17 +503,15 @@ func AddSetFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the DeviceEIRPValue message from flags.
 func (m *DeviceEIRPValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	value, valueSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		enumValue, err := flagsplugin.SetEnumString(value, DeviceEIRP_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, DeviceEIRP_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Value = DeviceEIRP(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }

@@ -21,24 +21,20 @@ func AddSelectFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix 
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSubIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIds, applicationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_ids", prefix))
 	}
-	if applicationIdsSelect && applicationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	pubSubId, pubSubIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pub-sub-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pubSubIdSelect && pubSubId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pub-sub-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("pub_sub_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("pub_sub_id", prefix))
 	}
 	return paths, nil
 }
@@ -51,22 +47,19 @@ func AddSetFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix str
 
 // SetFromFlags sets the ApplicationPubSubIdentifiers message from flags.
 func (m *ApplicationPubSubIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	pubSubId, pubSubIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("pub-sub-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pubSubIdSet {
-		m.PubSubId = pubSubId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("pub-sub-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("pub_sub_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PubSubId = val
+		paths = append(paths, flagsplugin.Prefix("pub_sub_id", prefix))
 	}
 	return paths, nil
 }
@@ -78,12 +71,10 @@ func AddSelectFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefi
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_NATSProvider message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	serverUrl, serverUrlSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("server-url", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if serverUrlSelect && serverUrl {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("server-url", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("server_url", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("server_url", prefix))
 	}
 	return paths, nil
 }
@@ -95,13 +86,11 @@ func AddSetFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix s
 
 // SetFromFlags sets the ApplicationPubSub_NATSProvider message from flags.
 func (m *ApplicationPubSub_NATSProvider) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	serverUrl, serverUrlSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("server-url", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if serverUrlSet {
-		m.ServerUrl = serverUrl
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("server-url", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("server_url", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ServerUrl = val
+		paths = append(paths, flagsplugin.Prefix("server_url", prefix))
 	}
 	return paths, nil
 }
@@ -123,82 +112,60 @@ func AddSelectFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefi
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_MQTTProvider message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	serverUrl, serverUrlSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("server-url", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("server_url", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("server_url", prefix))
 	}
-	if serverUrlSelect && serverUrl {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("server-url", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("client_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("client_id", prefix))
 	}
-	clientId, clientIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("client-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("username", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("username", prefix))
 	}
-	if clientIdSelect && clientId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("client-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("password", prefix))
 	}
-	username, usernameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("username", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("subscribe_qos", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("subscribe_qos", prefix))
 	}
-	if usernameSelect && username {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("username", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("publish_qos", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("publish_qos", prefix))
 	}
-	password, passwordSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use_tls", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("use_tls", prefix))
 	}
-	if passwordSelect && password {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls_ca", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("tls_ca", prefix))
 	}
-	subscribeQos, subscribeQosSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("subscribe-qos", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls_client_cert", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("tls_client_cert", prefix))
 	}
-	if subscribeQosSelect && subscribeQos {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("subscribe-qos", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls_client_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("tls_client_key", prefix))
 	}
-	publishQos, publishQosSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("publish-qos", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if publishQosSelect && publishQos {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("publish-qos", prefix)))
-	}
-	useTls, useTlsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use-tls", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if useTlsSelect && useTls {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("use-tls", prefix)))
-	}
-	tlsCa, tlsCaSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls-ca", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tlsCaSelect && tlsCa {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-ca", prefix)))
-	}
-	tlsClientCert, tlsClientCertSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls-client-cert", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tlsClientCertSelect && tlsClientCert {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-client-cert", prefix)))
-	}
-	tlsClientKey, tlsClientKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("tls-client-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tlsClientKeySelect && tlsClientKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-client-key", prefix)))
-	}
-	headers, headersSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("headers", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if headersSelect && headers {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("headers", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("headers", prefix))
 	}
 	return paths, nil
 }
@@ -220,101 +187,79 @@ func AddSetFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix s
 
 // SetFromFlags sets the ApplicationPubSub_MQTTProvider message from flags.
 func (m *ApplicationPubSub_MQTTProvider) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	serverUrl, serverUrlSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("server-url", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("server_url", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ServerUrl = val
+		paths = append(paths, flagsplugin.Prefix("server_url", prefix))
 	}
-	if serverUrlSet {
-		m.ServerUrl = serverUrl
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("server-url", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("client_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ClientId = val
+		paths = append(paths, flagsplugin.Prefix("client_id", prefix))
 	}
-	clientId, clientIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("client-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("username", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Username = val
+		paths = append(paths, flagsplugin.Prefix("username", prefix))
 	}
-	if clientIdSet {
-		m.ClientId = clientId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("client-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Password = val
+		paths = append(paths, flagsplugin.Prefix("password", prefix))
 	}
-	username, usernameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("username", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if usernameSet {
-		m.Username = username
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("username", prefix)))
-	}
-	password, passwordSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if passwordSet {
-		m.Password = password
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password", prefix)))
-	}
-	subscribeQos, subscribeQosSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("subscribe-qos", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if subscribeQosSet {
-		enumValue, err := flagsplugin.SetEnumString(subscribeQos, ApplicationPubSub_MQTTProvider_QoS_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("subscribe_qos", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ApplicationPubSub_MQTTProvider_QoS_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.SubscribeQos = ApplicationPubSub_MQTTProvider_QoS(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("subscribe-qos", prefix)))
+		paths = append(paths, flagsplugin.Prefix("subscribe_qos", prefix))
 	}
-	publishQos, publishQosSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("publish-qos", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if publishQosSet {
-		enumValue, err := flagsplugin.SetEnumString(publishQos, ApplicationPubSub_MQTTProvider_QoS_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("publish_qos", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, ApplicationPubSub_MQTTProvider_QoS_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.PublishQos = ApplicationPubSub_MQTTProvider_QoS(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("publish-qos", prefix)))
+		paths = append(paths, flagsplugin.Prefix("publish_qos", prefix))
 	}
-	useTls, useTlsSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use-tls", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("use_tls", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UseTls = val
+		paths = append(paths, flagsplugin.Prefix("use_tls", prefix))
 	}
-	if useTlsSet {
-		m.UseTls = useTls
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("use-tls", prefix)))
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls_ca", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TlsCa = val
+		paths = append(paths, flagsplugin.Prefix("tls_ca", prefix))
 	}
-	tlsCa, tlsCaSet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls-ca", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls_client_cert", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TlsClientCert = val
+		paths = append(paths, flagsplugin.Prefix("tls_client_cert", prefix))
 	}
-	if tlsCaSet {
-		m.TlsCa = tlsCa
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-ca", prefix)))
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls_client_key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TlsClientKey = val
+		paths = append(paths, flagsplugin.Prefix("tls_client_key", prefix))
 	}
-	tlsClientCert, tlsClientCertSet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls-client-cert", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tlsClientCertSet {
-		m.TlsClientCert = tlsClientCert
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-client-cert", prefix)))
-	}
-	tlsClientKey, tlsClientKeySet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("tls-client-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if tlsClientKeySet {
-		m.TlsClientKey = tlsClientKey
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("tls-client-key", prefix)))
-	}
-	headers, headersSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if headersSet {
-		m.Headers = headers
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("headers", prefix)))
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Headers = val
+		paths = append(paths, flagsplugin.Prefix("headers", prefix))
 	}
 	return paths, nil
 }
@@ -328,26 +273,20 @@ func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.Fl
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_AccessKey message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	accessKeyId, accessKeyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("access-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("access_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("access_key_id", prefix))
 	}
-	if accessKeyIdSelect && accessKeyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("access-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("secret_access_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("secret_access_key", prefix))
 	}
-	secretAccessKey, secretAccessKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("secret-access-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if secretAccessKeySelect && secretAccessKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("secret-access-key", prefix)))
-	}
-	sessionToken, sessionTokenSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-token", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionTokenSelect && sessionToken {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-token", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_token", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_token", prefix))
 	}
 	return paths, nil
 }
@@ -361,29 +300,23 @@ func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagS
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_AccessKey message from flags.
 func (m *ApplicationPubSub_AWSIoTProvider_AccessKey) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	accessKeyId, accessKeyIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("access-key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("access_key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.AccessKeyId = val
+		paths = append(paths, flagsplugin.Prefix("access_key_id", prefix))
 	}
-	if accessKeyIdSet {
-		m.AccessKeyId = accessKeyId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("access-key-id", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("secret_access_key", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SecretAccessKey = val
+		paths = append(paths, flagsplugin.Prefix("secret_access_key", prefix))
 	}
-	secretAccessKey, secretAccessKeySet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("secret-access-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if secretAccessKeySet {
-		m.SecretAccessKey = secretAccessKey
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("secret-access-key", prefix)))
-	}
-	sessionToken, sessionTokenSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("session-token", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionTokenSet {
-		m.SessionToken = sessionToken
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-token", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("session_token", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SessionToken = val
+		paths = append(paths, flagsplugin.Prefix("session_token", prefix))
 	}
 	return paths, nil
 }
@@ -397,26 +330,20 @@ func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.F
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_AssumeRole message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	arn, arnSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("arn", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("arn", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("arn", prefix))
 	}
-	if arnSelect && arn {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("arn", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("external_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("external_id", prefix))
 	}
-	externalId, externalIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("external-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if externalIdSelect && externalId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("external-id", prefix)))
-	}
-	sessionDuration, sessionDurationSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session-duration", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionDurationSelect && sessionDuration {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-duration", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("session_duration", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("session_duration", prefix))
 	}
 	return paths, nil
 }
@@ -430,29 +357,23 @@ func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.Flag
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_AssumeRole message from flags.
 func (m *ApplicationPubSub_AWSIoTProvider_AssumeRole) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	arn, arnSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("arn", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("arn", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Arn = val
+		paths = append(paths, flagsplugin.Prefix("arn", prefix))
 	}
-	if arnSet {
-		m.Arn = arn
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("arn", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("external_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.ExternalId = val
+		paths = append(paths, flagsplugin.Prefix("external_id", prefix))
 	}
-	externalId, externalIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("external-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if externalIdSet {
-		m.ExternalId = externalId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("external-id", prefix)))
-	}
-	sessionDuration, sessionDurationSet, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("session-duration", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sessionDurationSet {
-		m.SessionDuration = gogo.SetDuration(sessionDuration)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("session-duration", prefix)))
+	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("session_duration", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.SessionDuration = gogo.SetDuration(val)
+		paths = append(paths, flagsplugin.Prefix("session_duration", prefix))
 	}
 	return paths, nil
 }
@@ -464,12 +385,10 @@ func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags 
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_DefaultIntegration message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	stackName, stackNameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("stack-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if stackNameSelect && stackName {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("stack-name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("stack_name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("stack_name", prefix))
 	}
 	return paths, nil
 }
@@ -481,13 +400,11 @@ func AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pf
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_DefaultIntegration message from flags.
 func (m *ApplicationPubSub_AWSIoTProvider_DefaultIntegration) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	stackName, stackNameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("stack-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if stackNameSet {
-		m.StackName = stackName
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("stack-name", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("stack_name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.StackName = val
+		paths = append(paths, flagsplugin.Prefix("stack_name", prefix))
 	}
 	return paths, nil
 }
@@ -498,7 +415,7 @@ func AddSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, pre
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("access-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("access-key", prefix), true)))
 	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("assume-role", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("assume-role", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags, flagsplugin.Prefix("assume-role", prefix))
+	// NOTE: assume_role (ApplicationPubSub_AWSIoTProvider_AssumeRole) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endpoint-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("endpoint-address", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deployment.default", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deployment.default", prefix), true)))
 	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix))
@@ -506,53 +423,39 @@ func AddSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, pre
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	region, regionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("region", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("region", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("region", prefix))
 	}
-	if regionSelect && region {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("region", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("access_key", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("access_key", prefix))
 	}
-	accessKey, accessKeySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("access-key", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if accessKeySelect && accessKey {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("access-key", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access_key", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	assumeRole, assumeRoleSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("assume-role", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("assume_role", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("assume_role", prefix))
 	}
-	if assumeRoleSelect && assumeRole {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("assume-role", prefix)))
+	// NOTE: assume_role (ApplicationPubSub_AWSIoTProvider_AssumeRole) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("endpoint_address", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("endpoint_address", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags, flagsplugin.Prefix("assume-role", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	endpointAddress, endpointAddressSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("endpoint-address", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if endpointAddressSelect && endpointAddress {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("endpoint-address", prefix)))
-	}
-	defaultVal, defaultValSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deployment.default", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if defaultValSelect && defaultVal {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deployment.default", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deployment.default", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("deployment.default", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -570,46 +473,39 @@ func AddSetFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider message from flags.
 func (m *ApplicationPubSub_AWSIoTProvider) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	region, regionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("region", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("region", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Region = val
+		paths = append(paths, flagsplugin.Prefix("region", prefix))
 	}
-	if regionSet {
-		m.Region = region
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("region", prefix)))
-	}
-	accessKeySet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("access-key", prefix))
-	if accessKeySet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("access_key", prefix)); selected {
 		m.AccessKey = &ApplicationPubSub_AWSIoTProvider_AccessKey{}
-		if setPaths, err := m.AccessKey.SetFromFlags(flags, flagsplugin.Prefix("access-key", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AccessKey.SetFromFlags(flags, flagsplugin.Prefix("access_key", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	assumeRoleSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("assume-role", prefix))
-	if assumeRoleSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("assume_role", prefix)); selected {
 		m.AssumeRole = &ApplicationPubSub_AWSIoTProvider_AssumeRole{}
-		if setPaths, err := m.AssumeRole.SetFromFlags(flags, flagsplugin.Prefix("assume-role", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.AssumeRole.SetFromFlags(flags, flagsplugin.Prefix("assume_role", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	endpointAddress, endpointAddressSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("endpoint-address", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("endpoint_address", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.EndpointAddress = val
+		paths = append(paths, flagsplugin.Prefix("endpoint_address", prefix))
 	}
-	if endpointAddressSet {
-		m.EndpointAddress = endpointAddress
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("endpoint-address", prefix)))
-	}
-	defaultValSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("deployment.default", prefix))
-	if defaultValSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("deployment.default", prefix)); selected {
 		ov := &ApplicationPubSub_AWSIoTProvider_Default{}
 		ov.Default = &ApplicationPubSub_AWSIoTProvider_DefaultIntegration{}
 		if setPaths, err := ov.Default.SetFromFlags(flags, flagsplugin.Prefix("deployment.default", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
@@ -625,12 +521,10 @@ func AddSelectFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix str
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_Message message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	topic, topicSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("topic", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if topicSelect && topic {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("topic", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("topic", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("topic", prefix))
 	}
 	return paths, nil
 }
@@ -642,13 +536,11 @@ func AddSetFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string
 
 // SetFromFlags sets the ApplicationPubSub_Message message from flags.
 func (m *ApplicationPubSub_Message) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	topic, topicSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("topic", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if topicSet {
-		m.Topic = topic
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("topic", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("topic", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Topic = val
+		paths = append(paths, flagsplugin.Prefix("topic", prefix))
 	}
 	return paths, nil
 }
@@ -656,16 +548,16 @@ func (m *ApplicationPubSub_Message) SetFromFlags(flags *pflag.FlagSet, prefix st
 // AddSelectFlagsForApplicationPubSub adds flags to select fields in ApplicationPubSub.
 func AddSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForApplicationPubSubIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
+	// NOTE: ids (ApplicationPubSubIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("format", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.nats", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.nats", prefix), true)))
 	AddSelectFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.mqtt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.mqtt", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_MQTTProvider(flags, flagsplugin.Prefix("provider.mqtt", prefix))
+	// NOTE: mqtt (ApplicationPubSub_MQTTProvider) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.aws-iot", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.aws-iot", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_AWSIoTProvider(flags, flagsplugin.Prefix("provider.aws-iot", prefix))
+	// NOTE: aws_iot (ApplicationPubSub_AWSIoTProvider) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-topic", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-topic", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-push", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-push", prefix), true)))
 	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix))
@@ -695,223 +587,171 @@ func AddSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub message from select flags.
 func PathsFromSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	// NOTE: ids (ApplicationPubSubIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSubIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("format", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("format", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
-	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	format, formatSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("format", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if formatSelect && format {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("format", prefix)))
-	}
-	nats, natsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.nats", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if natsSelect && nats {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provider.nats", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.nats", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("provider.nats", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	mqtt, mqttSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.mqtt", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.mqtt", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("provider.mqtt", prefix))
 	}
-	if mqttSelect && mqtt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provider.mqtt", prefix)))
+	// NOTE: mqtt (ApplicationPubSub_MQTTProvider) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.aws_iot", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("provider.aws_iot", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_MQTTProvider(flags, flagsplugin.Prefix("provider.mqtt", prefix)); err != nil {
-		return paths, err
+	// NOTE: aws_iot (ApplicationPubSub_AWSIoTProvider) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("base_topic", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("base_topic", prefix))
+	}
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_push", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_push", prefix))
+	}
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_push", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	awsIot, awsIotSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("provider.aws-iot", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_replace", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_replace", prefix))
 	}
-	if awsIotSelect && awsIot {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("provider.aws-iot", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider(flags, flagsplugin.Prefix("provider.aws-iot", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_replace", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	baseTopic, baseTopicSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("base-topic", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("uplink_message", prefix))
 	}
-	if baseTopicSelect && baseTopic {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("base-topic", prefix)))
-	}
-	downlinkPush, downlinkPushSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-push", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if downlinkPushSelect && downlinkPush {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-push", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkReplace, downlinkReplaceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-replace", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("join_accept", prefix))
 	}
-	if downlinkReplaceSelect && downlinkReplace {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-replace", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-replace", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	uplinkMessage, uplinkMessageSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("uplink-message", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_ack", prefix))
 	}
-	if uplinkMessageSelect && uplinkMessage {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("uplink-message", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink-message", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	joinAccept, joinAcceptSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("join-accept", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_nack", prefix))
 	}
-	if joinAcceptSelect && joinAccept {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("join-accept", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join-accept", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkAck, downlinkAckSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_sent", prefix))
 	}
-	if downlinkAckSelect && downlinkAck {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-ack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-ack", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkNack, downlinkNackSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_failed", prefix))
 	}
-	if downlinkNackSelect && downlinkNack {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-nack", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-nack", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkSent, downlinkSentSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_queued", prefix))
 	}
-	if downlinkSentSelect && downlinkSent {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-sent", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-sent", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkFailed, downlinkFailedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("downlink_queue_invalidated", prefix))
 	}
-	if downlinkFailedSelect && downlinkFailed {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-failed", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-failed", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkQueued, downlinkQueuedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("location_solved", prefix))
 	}
-	if downlinkQueuedSelect && downlinkQueued {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-queued", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queued", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	downlinkQueueInvalidated, downlinkQueueInvalidatedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("service_data", prefix))
 	}
-	if downlinkQueueInvalidatedSelect && downlinkQueueInvalidated {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	locationSolved, locationSolvedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location-solved", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if locationSolvedSelect && locationSolved {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("location-solved", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location-solved", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	serviceData, serviceDataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("service-data", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if serviceDataSelect && serviceData {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("service-data", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service-data", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
@@ -944,184 +784,160 @@ func AddSetFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ApplicationPubSub message from flags.
 func (m *ApplicationPubSub) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &ApplicationPubSubIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Format = val
+		paths = append(paths, flagsplugin.Prefix("format", prefix))
 	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	format, formatSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if formatSet {
-		m.Format = format
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("format", prefix)))
-	}
-	natsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.nats", prefix))
-	if natsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.nats", prefix)); selected {
 		ov := &ApplicationPubSub_Nats{}
 		ov.Nats = &ApplicationPubSub_NATSProvider{}
 		if setPaths, err := ov.Nats.SetFromFlags(flags, flagsplugin.Prefix("provider.nats", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 		m.Provider = ov
 	}
-	mqttSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.mqtt", prefix))
-	if mqttSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.mqtt", prefix)); selected {
 		ov := &ApplicationPubSub_Mqtt{}
 		ov.Mqtt = &ApplicationPubSub_MQTTProvider{}
 		if setPaths, err := ov.Mqtt.SetFromFlags(flags, flagsplugin.Prefix("provider.mqtt", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 		m.Provider = ov
 	}
-	awsIotSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.aws-iot", prefix))
-	if awsIotSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("provider.aws_iot", prefix)); selected {
 		ov := &ApplicationPubSub_AwsIot{}
 		ov.AwsIot = &ApplicationPubSub_AWSIoTProvider{}
-		if setPaths, err := ov.AwsIot.SetFromFlags(flags, flagsplugin.Prefix("provider.aws-iot", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := ov.AwsIot.SetFromFlags(flags, flagsplugin.Prefix("provider.aws_iot", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 		m.Provider = ov
 	}
-	baseTopic, baseTopicSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base-topic", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base_topic", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.BaseTopic = val
+		paths = append(paths, flagsplugin.Prefix("base_topic", prefix))
 	}
-	if baseTopicSet {
-		m.BaseTopic = baseTopic
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("base-topic", prefix)))
-	}
-	downlinkPushSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-push", prefix))
-	if downlinkPushSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_push", prefix)); selected {
 		m.DownlinkPush = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkPush.SetFromFlags(flags, flagsplugin.Prefix("downlink-push", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkPush.SetFromFlags(flags, flagsplugin.Prefix("downlink_push", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkReplaceSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-replace", prefix))
-	if downlinkReplaceSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_replace", prefix)); selected {
 		m.DownlinkReplace = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkReplace.SetFromFlags(flags, flagsplugin.Prefix("downlink-replace", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkReplace.SetFromFlags(flags, flagsplugin.Prefix("downlink_replace", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	uplinkMessageSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink-message", prefix))
-	if uplinkMessageSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_message", prefix)); selected {
 		m.UplinkMessage = &ApplicationPubSub_Message{}
-		if setPaths, err := m.UplinkMessage.SetFromFlags(flags, flagsplugin.Prefix("uplink-message", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.UplinkMessage.SetFromFlags(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	joinAcceptSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join-accept", prefix))
-	if joinAcceptSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join_accept", prefix)); selected {
 		m.JoinAccept = &ApplicationPubSub_Message{}
-		if setPaths, err := m.JoinAccept.SetFromFlags(flags, flagsplugin.Prefix("join-accept", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.JoinAccept.SetFromFlags(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkAckSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	if downlinkAckSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_ack", prefix)); selected {
 		m.DownlinkAck = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkAck.SetFromFlags(flags, flagsplugin.Prefix("downlink-ack", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkAck.SetFromFlags(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkNackSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	if downlinkNackSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_nack", prefix)); selected {
 		m.DownlinkNack = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkNack.SetFromFlags(flags, flagsplugin.Prefix("downlink-nack", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkNack.SetFromFlags(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkSentSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	if downlinkSentSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_sent", prefix)); selected {
 		m.DownlinkSent = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkSent.SetFromFlags(flags, flagsplugin.Prefix("downlink-sent", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkSent.SetFromFlags(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkFailedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	if downlinkFailedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_failed", prefix)); selected {
 		m.DownlinkFailed = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkFailed.SetFromFlags(flags, flagsplugin.Prefix("downlink-failed", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkFailed.SetFromFlags(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkQueuedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	if downlinkQueuedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queued", prefix)); selected {
 		m.DownlinkQueued = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkQueued.SetFromFlags(flags, flagsplugin.Prefix("downlink-queued", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkQueued.SetFromFlags(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	downlinkQueueInvalidatedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	if downlinkQueueInvalidatedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); selected {
 		m.DownlinkQueueInvalidated = &ApplicationPubSub_Message{}
-		if setPaths, err := m.DownlinkQueueInvalidated.SetFromFlags(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.DownlinkQueueInvalidated.SetFromFlags(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	locationSolvedSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location-solved", prefix))
-	if locationSolvedSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location_solved", prefix)); selected {
 		m.LocationSolved = &ApplicationPubSub_Message{}
-		if setPaths, err := m.LocationSolved.SetFromFlags(flags, flagsplugin.Prefix("location-solved", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.LocationSolved.SetFromFlags(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	serviceDataSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service-data", prefix))
-	if serviceDataSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service_data", prefix)); selected {
 		m.ServiceData = &ApplicationPubSub_Message{}
-		if setPaths, err := m.ServiceData.SetFromFlags(flags, flagsplugin.Prefix("service-data", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ServiceData.SetFromFlags(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
@@ -1137,22 +953,19 @@ func AddSetFlagsForListApplicationPubSubsRequest(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ListApplicationPubSubsRequest message from flags.
 func (m *ListApplicationPubSubsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	fieldMask, fieldMaskSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fieldMaskSet {
-		m.FieldMask = gogo.SetFieldMask(fieldMask)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FieldMask = gogo.SetFieldMask(val)
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
 	return paths, nil
 }

@@ -112,3 +112,43 @@ func (ebv *ExactBytesSliceValue) String() string {
 	}
 	return "[" + flagsplugin.JoinSliceElements(vs) + "]"
 }
+
+func New16BytesFlag(name, usage string) *pflag.Flag {
+	return &pflag.Flag{
+		Name:  name,
+		Usage: usage,
+		Value: &ExactBytesValue{length: 16},
+	}
+}
+
+func New8BytesFlag(name, usage string) *pflag.Flag {
+	return &pflag.Flag{
+		Name:  name,
+		Usage: usage,
+		Value: &ExactBytesValue{length: 8},
+	}
+}
+
+func New8BytesSliceFlag(name, usage string) *pflag.Flag {
+	return &pflag.Flag{
+		Name:  name,
+		Usage: usage,
+		Value: &ExactBytesSliceValue{length: 8},
+	}
+}
+
+func New4BytesFlag(name, usage string) *pflag.Flag {
+	return &pflag.Flag{
+		Name:  name,
+		Usage: usage,
+		Value: &ExactBytesValue{length: 16},
+	}
+}
+
+func New3BytesFlag(name, usage string) *pflag.Flag {
+	return &pflag.Flag{
+		Name:  name,
+		Usage: usage,
+		Value: &ExactBytesValue{length: 3},
+	}
+}

@@ -19,67 +19,53 @@ func AddSelectFlagsForErrorDetails(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-id", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("cause", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("cause", prefix), true)))
+	// NOTE: cause (ErrorDetails) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("code", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("code", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("details", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forErrorDetails message from select flags.
 func PathsFromSelectFlagsForErrorDetails(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	namespace, namespaceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("namespace", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("namespace", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("namespace", prefix))
 	}
-	if namespaceSelect && namespace {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("namespace", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	name, nameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("message_format", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("message_format", prefix))
 	}
-	if nameSelect && name {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	messageFormat, messageFormatSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("message-format", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("correlation_id", prefix))
 	}
-	if messageFormatSelect && messageFormat {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("message-format", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("cause", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("cause", prefix))
 	}
-	attributes, attributesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
+	// NOTE: cause (ErrorDetails) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("code", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("code", prefix))
 	}
-	if attributesSelect && attributes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
-	}
-	correlationId, correlationIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("correlation-id", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if correlationIdSelect && correlationId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("correlation-id", prefix)))
-	}
-	cause, causeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("cause", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if causeSelect && cause {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("cause", prefix)))
-	}
-	code, codeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("code", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if codeSelect && code {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("code", prefix)))
-	}
-	details, detailsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("details", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if detailsSelect && details {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("details", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("details", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("details", prefix))
 	}
 	return paths, nil
 }

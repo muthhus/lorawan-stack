@@ -41,12 +41,11 @@ message FieldOptions {
   optional bool select = 1;
   // Generate setter flags for this field.
   optional bool set = 2;
-  // Custom flag value type. Specified as github.com/username/repo/package.TypeName.
-  optional string custom_flag_type = 3;
-  // Custom value getter from the custom flag type. If two getters specified, first one
-  // is applied the first one gets the gogo-proto custom type, and the second one to 
-  // the vanilla golang protos.
-  repeated string get_flags = 4;
+  // New flag definition for custom type flag.
+  // Specified as github.com/username/repo/package.New{CustomType}Flag.
+  optional string set_flag_new_func = 3;
+  // Custom value getter from the custom flag type.
+  optional string get_flag = 4;
 }
 
 extend google.protobuf.FieldOptions {

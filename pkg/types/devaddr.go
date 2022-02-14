@@ -21,7 +21,10 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin"
 	"github.com/TheThingsIndustries/protoc-gen-go-json/jsonplugin"
+	"github.com/spf13/pflag"
+	"go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags"
 	"go.thethings.network/lorawan-stack/v3/pkg/errors"
 )
 
@@ -445,4 +448,19 @@ func (prefix DevAddrPrefix) Matches(addr DevAddr) bool {
 func (addr DevAddr) Copy(x *DevAddr) *DevAddr {
 	copy(x[:], addr[:])
 	return x
+}
+
+func GetDevAddr(fs *pflag.FlagSet, name string) (value DevAddr, set bool, err error) {
+	flag := fs.Lookup(name)
+	var devAddr DevAddr
+	if flag == nil {
+		return devAddr, false, &flagsplugin.ErrFlagNotFound{FlagName: name}
+	}
+	if !flag.Changed {
+		return devAddr, flag.Changed, nil
+	}
+	if err := devAddr.Unmarshal(flag.Value.(*custom_flags.ExactBytesValue).Value); err != nil {
+		return devAddr, false, err
+	}
+	return devAddr, flag.Changed, nil
 }

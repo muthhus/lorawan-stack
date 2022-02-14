@@ -40,150 +40,110 @@ func AddSelectFlagsForUser(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forUser message from select flags.
 func PathsFromSelectFlagsForUser(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
 	if selectPaths, err := PathsFromSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	deletedAt, deletedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if deletedAtSelect && deletedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	name, nameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_info", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("contact_info", prefix))
 	}
-	if nameSelect && name {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("primary_email_address", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("primary_email_address", prefix))
 	}
-	description, descriptionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("primary_email_address_validated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("primary_email_address_validated_at", prefix))
 	}
-	if descriptionSelect && description {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("password", prefix))
 	}
-	attributes, attributesSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password_updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("password_updated_at", prefix))
 	}
-	if attributesSelect && attributes {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_password_update", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("require_password_update", prefix))
 	}
-	contactInfo, contactInfoSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact-info", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("state", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("state", prefix))
 	}
-	if contactInfoSelect && contactInfo {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("contact-info", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("state_description", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("state_description", prefix))
 	}
-	primaryEmailAddress, primaryEmailAddressSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("primary-email-address", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("admin", prefix))
 	}
-	if primaryEmailAddressSelect && primaryEmailAddress {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("primary-email-address", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary_password", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("temporary_password", prefix))
 	}
-	primaryEmailAddressValidatedAt, primaryEmailAddressValidatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("primary-email-address-validated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary_password_created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("temporary_password_created_at", prefix))
 	}
-	if primaryEmailAddressValidatedAtSelect && primaryEmailAddressValidatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary_password_expires_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("temporary_password_expires_at", prefix))
 	}
-	password, passwordSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if passwordSelect && password {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password", prefix)))
-	}
-	passwordUpdatedAt, passwordUpdatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("password-updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if passwordUpdatedAtSelect && passwordUpdatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password-updated-at", prefix)))
-	}
-	requirePasswordUpdate, requirePasswordUpdateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require-password-update", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if requirePasswordUpdateSelect && requirePasswordUpdate {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("require-password-update", prefix)))
-	}
-	state, stateSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if stateSelect && state {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("state", prefix)))
-	}
-	stateDescription, stateDescriptionSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("state-description", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if stateDescriptionSelect && stateDescription {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("state-description", prefix)))
-	}
-	admin, adminSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if adminSelect && admin {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("admin", prefix)))
-	}
-	temporaryPassword, temporaryPasswordSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary-password", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordSelect && temporaryPassword {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password", prefix)))
-	}
-	temporaryPasswordCreatedAt, temporaryPasswordCreatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary-password-created-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordCreatedAtSelect && temporaryPasswordCreatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password-created-at", prefix)))
-	}
-	temporaryPasswordExpiresAt, temporaryPasswordExpiresAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("temporary-password-expires-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordExpiresAtSelect && temporaryPasswordExpiresAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix)))
-	}
-	profilePicture, profilePictureSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("profile-picture", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if profilePictureSelect && profilePicture {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("profile-picture", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("profile_picture", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("profile_picture", prefix))
 	}
 	// NOTE: profile_picture (Picture) does not seem to have select flags.
 	return paths, nil
@@ -215,155 +175,120 @@ func AddSetFlagsForUser(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the User message from flags.
 func (m *User) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &UserIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.DeletedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Name = val
+		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	deletedAt, deletedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Description = val
+		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if deletedAtSet {
-		m.DeletedAt = gogo.SetTimestamp(deletedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted-at", prefix)))
-	}
-	name, nameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if nameSet {
-		m.Name = name
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("name", prefix)))
-	}
-	description, descriptionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if descriptionSet {
-		m.Description = description
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("description", prefix)))
-	}
-	attributes, attributesSet, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if attributesSet {
-		m.Attributes = attributes
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("attributes", prefix)))
+	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Attributes = val
+		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
 	// FIXME: Skipping ContactInfo because it does not seem to implement AddSetFlags.
-	primaryEmailAddress, primaryEmailAddressSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("primary-email-address", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("primary_email_address", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PrimaryEmailAddress = val
+		paths = append(paths, flagsplugin.Prefix("primary_email_address", prefix))
 	}
-	if primaryEmailAddressSet {
-		m.PrimaryEmailAddress = primaryEmailAddress
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("primary-email-address", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("primary_email_address_validated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PrimaryEmailAddressValidatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("primary_email_address_validated_at", prefix))
 	}
-	primaryEmailAddressValidatedAt, primaryEmailAddressValidatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("primary-email-address-validated-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Password = val
+		paths = append(paths, flagsplugin.Prefix("password", prefix))
 	}
-	if primaryEmailAddressValidatedAtSet {
-		m.PrimaryEmailAddressValidatedAt = gogo.SetTimestamp(primaryEmailAddressValidatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("password_updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PasswordUpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("password_updated_at", prefix))
 	}
-	password, passwordSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_password_update", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.RequirePasswordUpdate = val
+		paths = append(paths, flagsplugin.Prefix("require_password_update", prefix))
 	}
-	if passwordSet {
-		m.Password = password
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password", prefix)))
-	}
-	passwordUpdatedAt, passwordUpdatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("password-updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if passwordUpdatedAtSet {
-		m.PasswordUpdatedAt = gogo.SetTimestamp(passwordUpdatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("password-updated-at", prefix)))
-	}
-	requirePasswordUpdate, requirePasswordUpdateSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require-password-update", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if requirePasswordUpdateSet {
-		m.RequirePasswordUpdate = requirePasswordUpdate
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("require-password-update", prefix)))
-	}
-	state, stateSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if stateSet {
-		enumValue, err := flagsplugin.SetEnumString(state, State_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, State_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.State = State(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("state", prefix)))
+		paths = append(paths, flagsplugin.Prefix("state", prefix))
 	}
-	stateDescription, stateDescriptionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state-description", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state_description", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.StateDescription = val
+		paths = append(paths, flagsplugin.Prefix("state_description", prefix))
 	}
-	if stateDescriptionSet {
-		m.StateDescription = stateDescription
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("state-description", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Admin = val
+		paths = append(paths, flagsplugin.Prefix("admin", prefix))
 	}
-	admin, adminSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("temporary_password", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TemporaryPassword = val
+		paths = append(paths, flagsplugin.Prefix("temporary_password", prefix))
 	}
-	if adminSet {
-		m.Admin = admin
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("admin", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TemporaryPasswordCreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("temporary_password_created_at", prefix))
 	}
-	temporaryPassword, temporaryPasswordSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("temporary-password", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordSet {
-		m.TemporaryPassword = temporaryPassword
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password", prefix)))
-	}
-	temporaryPasswordCreatedAt, temporaryPasswordCreatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary-password-created-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordCreatedAtSet {
-		m.TemporaryPasswordCreatedAt = gogo.SetTimestamp(temporaryPasswordCreatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password-created-at", prefix)))
-	}
-	temporaryPasswordExpiresAt, temporaryPasswordExpiresAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary-password-expires-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if temporaryPasswordExpiresAtSet {
-		m.TemporaryPasswordExpiresAt = gogo.SetTimestamp(temporaryPasswordExpiresAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_expires_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.TemporaryPasswordExpiresAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("temporary_password_expires_at", prefix))
 	}
 	// FIXME: Skipping ProfilePicture because it does not seem to implement AddSetFlags.
 	return paths, nil
@@ -380,40 +305,30 @@ func AddSelectFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forListUsersRequest message from select flags.
 func PathsFromSelectFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	fieldMask, fieldMaskSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if fieldMaskSelect && fieldMask {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	order, orderSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("order", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if orderSelect && order {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("order", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	limit, limitSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("limit", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if limitSelect && limit {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("limit", prefix)))
-	}
-	page, pageSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("page", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pageSelect && page {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("page", prefix)))
-	}
-	deleted, deletedSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if deletedSelect && deleted {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
 	return paths, nil
 }
@@ -429,45 +344,35 @@ func AddSetFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the ListUsersRequest message from flags.
 func (m *ListUsersRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	fieldMask, fieldMaskSet, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field-mask", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FieldMask = gogo.SetFieldMask(val)
+		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if fieldMaskSet {
-		m.FieldMask = gogo.SetFieldMask(fieldMask)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("field-mask", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Order = val
+		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	order, orderSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Limit = val
+		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if orderSet {
-		m.Order = order
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("order", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Page = val
+		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	limit, limitSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if limitSet {
-		m.Limit = limit
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("limit", prefix)))
-	}
-	page, pageSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if pageSet {
-		m.Page = page
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("page", prefix)))
-	}
-	deleted, deletedSet, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if deletedSet {
-		m.Deleted = deleted
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("deleted", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Deleted = val
+		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
 	return paths, nil
 }

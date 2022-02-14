@@ -22,40 +22,30 @@ func AddSelectFlagsForLocation(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forLocation message from select flags.
 func PathsFromSelectFlagsForLocation(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	latitude, latitudeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("latitude", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("latitude", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("latitude", prefix))
 	}
-	if latitudeSelect && latitude {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("latitude", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("longitude", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("longitude", prefix))
 	}
-	longitude, longitudeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("longitude", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("altitude", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("altitude", prefix))
 	}
-	if longitudeSelect && longitude {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("longitude", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("accuracy", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("accuracy", prefix))
 	}
-	altitude, altitudeSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("altitude", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if altitudeSelect && altitude {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("altitude", prefix)))
-	}
-	accuracy, accuracySelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("accuracy", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if accuracySelect && accuracy {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("accuracy", prefix)))
-	}
-	source, sourceSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("source", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sourceSelect && source {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("source", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("source", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("source", prefix))
 	}
 	return paths, nil
 }
@@ -71,49 +61,39 @@ func AddSetFlagsForLocation(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the Location message from flags.
 func (m *Location) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	latitude, latitudeSet, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("latitude", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("latitude", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Latitude = val
+		paths = append(paths, flagsplugin.Prefix("latitude", prefix))
 	}
-	if latitudeSet {
-		m.Latitude = latitude
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("latitude", prefix)))
+	if val, selected, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("longitude", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Longitude = val
+		paths = append(paths, flagsplugin.Prefix("longitude", prefix))
 	}
-	longitude, longitudeSet, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("longitude", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("altitude", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Altitude = val
+		paths = append(paths, flagsplugin.Prefix("altitude", prefix))
 	}
-	if longitudeSet {
-		m.Longitude = longitude
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("longitude", prefix)))
+	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("accuracy", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Accuracy = val
+		paths = append(paths, flagsplugin.Prefix("accuracy", prefix))
 	}
-	altitude, altitudeSet, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("altitude", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if altitudeSet {
-		m.Altitude = altitude
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("altitude", prefix)))
-	}
-	accuracy, accuracySet, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("accuracy", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if accuracySet {
-		m.Accuracy = accuracy
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("accuracy", prefix)))
-	}
-	source, sourceSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("source", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if sourceSet {
-		enumValue, err := flagsplugin.SetEnumString(source, LocationSource_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("source", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, LocationSource_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.Source = LocationSource(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("source", prefix)))
+		paths = append(paths, flagsplugin.Prefix("source", prefix))
 	}
 	return paths, nil
 }

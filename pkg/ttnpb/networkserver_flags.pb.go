@@ -19,25 +19,21 @@ func AddSetFlagsForGetDefaultMACSettingsRequest(flags *pflag.FlagSet, prefix str
 
 // SetFromFlags sets the GetDefaultMACSettingsRequest message from flags.
 func (m *GetDefaultMACSettingsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	frequencyPlanId, frequencyPlanIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency-plan-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FrequencyPlanId = val
+		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if frequencyPlanIdSet {
-		m.FrequencyPlanId = frequencyPlanId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("frequency-plan-id", prefix)))
-	}
-	lorawanPhyVersion, lorawanPhyVersionSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan-phy-version", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if lorawanPhyVersionSet {
-		enumValue, err := flagsplugin.SetEnumString(lorawanPhyVersion, PHYVersion_value)
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		enumValue, err := flagsplugin.SetEnumString(val, PHYVersion_value)
 		if err != nil {
-			return paths, err
+			return nil, err
 		}
 		m.LorawanPhyVersion = PHYVersion(enumValue)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("lorawan-phy-version", prefix)))
+		paths = append(paths, flagsplugin.Prefix("lorawan_phy_version", prefix))
 	}
 	return paths, nil
 }

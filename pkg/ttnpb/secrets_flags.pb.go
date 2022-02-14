@@ -19,19 +19,15 @@ func AddSelectFlagsForSecret(flags *pflag.FlagSet, prefix string) {
 
 // SelectFromFlags outputs the fieldmask paths forSecret message from select flags.
 func PathsFromSelectFlagsForSecret(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	keyId, keyIdSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("key_id", prefix))
 	}
-	if keyIdSelect && keyId {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key-id", prefix)))
-	}
-	value, valueSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSelect && value {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }
@@ -44,21 +40,17 @@ func AddSetFlagsForSecret(flags *pflag.FlagSet, prefix string) {
 
 // SetFromFlags sets the Secret message from flags.
 func (m *Secret) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	keyId, keyIdSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key-id", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key_id", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.KeyId = val
+		paths = append(paths, flagsplugin.Prefix("key_id", prefix))
 	}
-	if keyIdSet {
-		m.KeyId = keyId
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("key-id", prefix)))
-	}
-	value, valueSet, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("value", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if valueSet {
-		m.Value = value
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("value", prefix)))
+	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.Value = val
+		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
 	return paths, nil
 }

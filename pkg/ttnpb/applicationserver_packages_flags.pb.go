@@ -15,30 +15,22 @@ import (
 // AddSelectFlagsForApplicationPackageAssociationIdentifiers adds flags to select fields in ApplicationPackageAssociationIdentifiers.
 func AddSelectFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true)))
-	AddSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix))
+	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false)))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageAssociationIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	endDeviceIds, endDeviceIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("end-device-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("end_device_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("end_device_ids", prefix))
 	}
-	if endDeviceIdsSelect && endDeviceIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("end-device-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
-	}
-	fPort, fPortSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fPortSelect && fPort {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
 	return paths, nil
 }
@@ -51,22 +43,19 @@ func AddSetFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet
 
 // SetFromFlags sets the ApplicationPackageAssociationIdentifiers message from flags.
 func (m *ApplicationPackageAssociationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	endDeviceIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("end-device-ids", prefix))
-	if endDeviceIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("end_device_ids", prefix)); selected {
 		m.EndDeviceIds = &EndDeviceIdentifiers{}
-		if setPaths, err := m.EndDeviceIds.SetFromFlags(flags, flagsplugin.Prefix("end-device-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.EndDeviceIds.SetFromFlags(flags, flagsplugin.Prefix("end_device_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	fPort, fPortSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fPortSet {
-		m.FPort = fPort
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FPort = val
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
 	return paths, nil
 }
@@ -74,7 +63,7 @@ func (m *ApplicationPackageAssociationIdentifiers) SetFromFlags(flags *pflag.Fla
 // AddSelectFlagsForApplicationPackageAssociation adds flags to select fields in ApplicationPackageAssociation.
 func AddSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForApplicationPackageAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
+	// NOTE: ids (ApplicationPackageAssociationIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false)))
@@ -83,45 +72,31 @@ func AddSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageAssociation message from select flags.
 func PathsFromSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	// NOTE: ids (ApplicationPackageAssociationIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPackageAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
-	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	packageName, packageNameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("package-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if packageNameSelect && packageName {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("package-name", prefix)))
-	}
-	data, dataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if dataSelect && data {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("data", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("data", prefix))
 	}
 	return paths, nil
 }
@@ -137,38 +112,31 @@ func AddSetFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationPackageAssociation message from flags.
 func (m *ApplicationPackageAssociation) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &ApplicationPackageAssociationIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	packageName, packageNameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if packageNameSet {
-		m.PackageName = packageName
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("package-name", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PackageName = val
+		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}
 	// FIXME: Skipping Data because this WKT is not supported.
 	return paths, nil
@@ -183,24 +151,20 @@ func AddSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pfl
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageDefaultAssociationIdentifiers message from select flags.
 func PathsFromSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIds, applicationIdsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application-ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("application_ids", prefix))
 	}
-	if applicationIdsSelect && applicationIds {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("application-ids", prefix)))
-	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-		return paths, err
+	if selectPaths, err := PathsFromSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+		return nil, err
 	} else {
 		paths = append(paths, selectPaths...)
 	}
-	fPort, fPortSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fPortSelect && fPort {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
 	return paths, nil
 }
@@ -213,22 +177,19 @@ func AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.
 
 // SetFromFlags sets the ApplicationPackageDefaultAssociationIdentifiers message from flags.
 func (m *ApplicationPackageDefaultAssociationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	applicationIdsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application-ids", prefix))
-	if applicationIdsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
 		m.ApplicationIds = &ApplicationIdentifiers{}
-		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application-ids", prefix)); err != nil {
-			return paths, err
+		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	fPort, fPortSet, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f-port", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if fPortSet {
-		m.FPort = fPort
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("f-port", prefix)))
+	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.FPort = val
+		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
 	return paths, nil
 }
@@ -236,7 +197,7 @@ func (m *ApplicationPackageDefaultAssociationIdentifiers) SetFromFlags(flags *pf
 // AddSelectFlagsForApplicationPackageDefaultAssociation adds flags to select fields in ApplicationPackageDefaultAssociation.
 func AddSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string) {
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
+	// NOTE: ids (ApplicationPackageDefaultAssociationIdentifiers) does not seem to have select flags.
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
 	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false)))
@@ -245,45 +206,31 @@ func AddSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet,
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageDefaultAssociation message from select flags.
 func PathsFromSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	ids, idsSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("ids", prefix))
 	}
-	if idsSelect && ids {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("ids", prefix)))
+	// NOTE: ids (ApplicationPackageDefaultAssociationIdentifiers) does not seem to have select flags.
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if selectPaths, err := PathsFromSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-		return paths, err
-	} else {
-		paths = append(paths, selectPaths...)
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	createdAt, createdAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}
-	if createdAtSelect && createdAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
-	}
-	updatedAt, updatedAtSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSelect && updatedAt {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	packageName, packageNameSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("package-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if packageNameSelect && packageName {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("package-name", prefix)))
-	}
-	data, dataSelect, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if dataSelect && data {
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("data", prefix)))
+	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("data", prefix)); err != nil {
+		return nil, err
+	} else if selected && val {
+		paths = append(paths, flagsplugin.Prefix("data", prefix))
 	}
 	return paths, nil
 }
@@ -299,38 +246,31 @@ func AddSetFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, pr
 
 // SetFromFlags sets the ApplicationPackageDefaultAssociation message from flags.
 func (m *ApplicationPackageDefaultAssociation) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	idsSet := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix))
-	if idsSet {
+	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
 		m.Ids = &ApplicationPackageDefaultAssociationIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
-			return paths, err
+			return nil, err
 		} else {
 			paths = append(paths, setPaths...)
 		}
 	}
-	createdAt, createdAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created-at", prefix))
-	if err != nil {
-		return paths, err
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.CreatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if createdAtSet {
-		m.CreatedAt = gogo.SetTimestamp(createdAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("created-at", prefix)))
+	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.UpdatedAt = gogo.SetTimestamp(val)
+		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	updatedAt, updatedAtSet, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated-at", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if updatedAtSet {
-		m.UpdatedAt = gogo.SetTimestamp(updatedAt)
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("updated-at", prefix)))
-	}
-	packageName, packageNameSet, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package-name", prefix))
-	if err != nil {
-		return paths, err
-	}
-	if packageNameSet {
-		m.PackageName = packageName
-		paths = append(paths, flagsplugin.FieldMaskFlag(flagsplugin.Prefix("package-name", prefix)))
+	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+		return nil, err
+	} else if selected {
+		m.PackageName = val
+		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}
 	// FIXME: Skipping Data because this WKT is not supported.
 	return paths, nil

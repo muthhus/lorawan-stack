@@ -31,9 +31,8 @@ message KeyEnvelope {
   bytes key = 1 [
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.AES128Key",
     (thethings.flags.field) = {
-      custom_flag_type: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New16BytesFlag",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetAESKey",
-      get_flags: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New16BytesFlag",
+      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
   ];
   // The label of the RFC 3394 key-encryption-key (KEK) that was used to encrypt the key.
