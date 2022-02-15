@@ -222,3 +222,10 @@ type EUIStore interface {
 	CreateEUIBlock(ctx context.Context, euiType string, block ttntypes.EUI64Prefix, initCounterValue int64) (err error)
 	IssueDevEUIForApplication(ctx context.Context, id *ttnpb.ApplicationIdentifiers, applicationLimit int) (*ttntypes.EUI64, error)
 }
+
+// NotificationStore interface for notifications.
+type NotificationStore interface {
+	CreateNotification(ctx context.Context, notification *ttnpb.Notification, receiverIDs []*ttnpb.UserIdentifiers) (*ttnpb.Notification, error)
+	ListNotifications(ctx context.Context, receiverIDs *ttnpb.UserIdentifiers, statuses []ttnpb.NotificationStatus) ([]*ttnpb.Notification, error)
+	UpdateNotificationStatus(ctx context.Context, receiverIDs *ttnpb.UserIdentifiers, ids []string, status ttnpb.NotificationStatus) error
+}
