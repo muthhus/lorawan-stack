@@ -37,15 +37,18 @@ extend google.protobuf.MessageOptions {
 }
 
 message FieldOptions {
-  // Generate (field mask) selector flags for this field.
-  optional bool select = 1;
-  // Generate setter flags for this field.
-  optional bool set = 2;
+  // Skip generating (field mask) selector flags for this field.
+  optional bool skip_select = 1;
+  // Skip generating setter flags for this field.
+  optional bool skip_set = 2;
   // New flag definition for custom type flag.
   // Specified as github.com/username/repo/package.New{CustomType}Flag.
   optional string set_flag_new_func = 3;
   // Custom value getter from the custom flag type.
-  optional string get_flag = 4;
+  // Specified as github.com/username/repo/package.Get{CustomType}FromFlag.
+  optional string set_flag_getter_func = 4;
+  // Set flag and all of its subfield flags to hidden.
+  optional bool hidden = 5;
 }
 
 extend google.protobuf.FieldOptions {

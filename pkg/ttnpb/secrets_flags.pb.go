@@ -12,9 +12,9 @@ import (
 )
 
 // AddSelectFlagsForSecret adds flags to select fields in Secret.
-func AddSelectFlagsForSecret(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForSecret(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forSecret message from select flags.
@@ -33,9 +33,9 @@ func PathsFromSelectFlagsForSecret(flags *pflag.FlagSet, prefix string) (paths [
 }
 
 // AddSetFlagsForSecret adds flags to select fields in Secret.
-func AddSetFlagsForSecret(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("key-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("value", prefix), ""))
+func AddSetFlagsForSecret(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("key-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("value", prefix), "", hidden))
 }
 
 // SetFromFlags sets the Secret message from flags.

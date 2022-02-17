@@ -12,9 +12,9 @@ import (
 )
 
 // AddSetFlagsForGetDefaultMACSettingsRequest adds flags to select fields in GetDefaultMACSettingsRequest.
-func AddSetFlagsForGetDefaultMACSettingsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("frequency-plan-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("lorawan-phy-version", prefix), flagsplugin.EnumValueDesc(PHYVersion_value)))
+func AddSetFlagsForGetDefaultMACSettingsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("frequency-plan-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("lorawan-phy-version", prefix), flagsplugin.EnumValueDesc(PHYVersion_value), hidden))
 }
 
 // SetFromFlags sets the GetDefaultMACSettingsRequest message from flags.

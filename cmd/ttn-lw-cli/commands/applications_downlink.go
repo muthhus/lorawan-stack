@@ -146,11 +146,11 @@ var (
 )
 
 func init() {
-	ttnpb.AddSetFlagsForApplicationDownlink(applicationsDownlinkPushCommand.Flags(), "")
+	ttnpb.AddSetFlagsForApplicationDownlink(applicationsDownlinkPushCommand.Flags(), "", false)
 	AddGatewayAntennaIdentifierFlags(applicationsDownlinkPushCommand.Flags(), "class-b-c")
 	applicationsDownlinkPushCommand.Flags().AddFlagSet(endDeviceIDFlags())
 	applicationsDownlinkCommand.AddCommand(applicationsDownlinkPushCommand)
-	ttnpb.AddSetFlagsForApplicationDownlink(applicationsDownlinkReplaceCommand.Flags(), "")
+	ttnpb.AddSetFlagsForApplicationDownlink(applicationsDownlinkReplaceCommand.Flags(), "", false)
 	AddGatewayAntennaIdentifierFlags(applicationsDownlinkReplaceCommand.Flags(), "class-b-c")
 	applicationsDownlinkReplaceCommand.Flags().AddFlagSet(endDeviceIDFlags())
 	applicationsDownlinkCommand.AddCommand(applicationsDownlinkReplaceCommand)

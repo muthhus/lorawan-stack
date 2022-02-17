@@ -13,28 +13,28 @@ import (
 )
 
 // AddSelectFlagsForUser adds flags to select fields in User.
-func AddSelectFlagsForUser(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("primary-email-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("primary-email-address", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("primary-email-address-validated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password-updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password-updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-password-update", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("require-password-update", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state-description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state-description", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("admin", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("admin", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password-created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password-created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password-expires-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("profile-picture", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("profile-picture", prefix), true)))
+func AddSelectFlagsForUser(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
+	AddSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("primary-email-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("primary-email-address", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("primary-email-address-validated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password-updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password-updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-password-update", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("require-password-update", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state-description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state-description", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("admin", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("admin", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password-created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password-created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("temporary-password-expires-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("profile-picture", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("profile-picture", prefix), true), hidden))
 	// NOTE: profile_picture (Picture) does not seem to have select flags.
 }
 
@@ -150,26 +150,26 @@ func PathsFromSelectFlagsForUser(flags *pflag.FlagSet, prefix string) (paths []s
 }
 
 // AddSetFlagsForUser adds flags to select fields in User.
-func AddSetFlagsForUser(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), ""))
+func AddSetFlagsForUser(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), "", hidden))
 	// FIXME: Skipping ContactInfo because repeated messages are currently not supported.
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("primary-email-address", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("password", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("password-updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-password-update", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state", prefix), flagsplugin.EnumValueDesc(State_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state-description", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("admin", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("temporary-password", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("temporary-password-created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix), ""))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("primary-email-address", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("primary-email-address-validated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("password", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("password-updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-password-update", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state", prefix), flagsplugin.EnumValueDesc(State_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state-description", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("admin", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("temporary-password", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("temporary-password-created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("temporary-password-expires-at", prefix), "", hidden))
 	// FIXME: Skipping ProfilePicture because it does not seem to implement AddSetFlags.
 }
 
@@ -295,12 +295,12 @@ func (m *User) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string
 }
 
 // AddSelectFlagsForListUsersRequest adds flags to select fields in ListUsersRequest.
-func AddSelectFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("order", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("order", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("limit", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("limit", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("page", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("page", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted", prefix), false)))
+func AddSelectFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("order", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("order", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("limit", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("limit", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("page", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("page", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forListUsersRequest message from select flags.
@@ -334,12 +334,12 @@ func PathsFromSelectFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string
 }
 
 // AddSetFlagsForListUsersRequest adds flags to select fields in ListUsersRequest.
-func AddSetFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ListUsersRequest message from flags.

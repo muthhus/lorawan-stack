@@ -12,9 +12,9 @@ import (
 )
 
 // AddSelectFlagsForLoRaDataRate adds flags to select fields in LoRaDataRate.
-func AddSelectFlagsForLoRaDataRate(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("bandwidth", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("bandwidth", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("spreading-factor", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("spreading-factor", prefix), false)))
+func AddSelectFlagsForLoRaDataRate(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("bandwidth", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("bandwidth", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("spreading-factor", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("spreading-factor", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forLoRaDataRate message from select flags.
@@ -33,8 +33,8 @@ func PathsFromSelectFlagsForLoRaDataRate(flags *pflag.FlagSet, prefix string) (p
 }
 
 // AddSelectFlagsForFSKDataRate adds flags to select fields in FSKDataRate.
-func AddSelectFlagsForFSKDataRate(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("bit-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("bit-rate", prefix), false)))
+func AddSelectFlagsForFSKDataRate(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("bit-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("bit-rate", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forFSKDataRate message from select flags.
@@ -48,10 +48,10 @@ func PathsFromSelectFlagsForFSKDataRate(flags *pflag.FlagSet, prefix string) (pa
 }
 
 // AddSelectFlagsForLRFHSSDataRate adds flags to select fields in LRFHSSDataRate.
-func AddSelectFlagsForLRFHSSDataRate(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation-type", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation-type", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("operating-channel-width", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("operating-channel-width", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("coding-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("coding-rate", prefix), false)))
+func AddSelectFlagsForLRFHSSDataRate(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation-type", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation-type", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("operating-channel-width", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("operating-channel-width", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("coding-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("coding-rate", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forLRFHSSDataRate message from select flags.
@@ -75,13 +75,13 @@ func PathsFromSelectFlagsForLRFHSSDataRate(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSelectFlagsForDataRate adds flags to select fields in DataRate.
-func AddSelectFlagsForDataRate(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.lora", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.lora", prefix), true)))
-	AddSelectFlagsForLoRaDataRate(flags, flagsplugin.Prefix("modulation.lora", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.fsk", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.fsk", prefix), true)))
-	AddSelectFlagsForFSKDataRate(flags, flagsplugin.Prefix("modulation.fsk", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.lrfhss", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.lrfhss", prefix), true)))
-	AddSelectFlagsForLRFHSSDataRate(flags, flagsplugin.Prefix("modulation.lrfhss", prefix))
+func AddSelectFlagsForDataRate(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.lora", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.lora", prefix), true), hidden))
+	AddSelectFlagsForLoRaDataRate(flags, flagsplugin.Prefix("modulation.lora", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.fsk", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.fsk", prefix), true), hidden))
+	AddSelectFlagsForFSKDataRate(flags, flagsplugin.Prefix("modulation.fsk", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("modulation.lrfhss", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("modulation.lrfhss", prefix), true), hidden))
+	AddSelectFlagsForLRFHSSDataRate(flags, flagsplugin.Prefix("modulation.lrfhss", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forDataRate message from select flags.
@@ -120,10 +120,10 @@ func PathsFromSelectFlagsForDataRate(flags *pflag.FlagSet, prefix string) (paths
 }
 
 // AddSelectFlagsForTxSettings_Downlink adds flags to select fields in TxSettings_Downlink.
-func AddSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-index", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("antenna-index", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tx-power", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tx-power", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("invert-polarization", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("invert-polarization", prefix), false)))
+func AddSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-index", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("antenna-index", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tx-power", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tx-power", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("invert-polarization", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("invert-polarization", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forTxSettings_Downlink message from select flags.
@@ -147,16 +147,16 @@ func PathsFromSelectFlagsForTxSettings_Downlink(flags *pflag.FlagSet, prefix str
 }
 
 // AddSelectFlagsForTxSettings adds flags to select fields in TxSettings.
-func AddSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data-rate", prefix), true)))
+func AddSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data-rate", prefix), true), hidden))
 	// NOTE: data_rate (DataRate) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("coding-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("coding-rate", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enable-crc", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("enable-crc", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("timestamp", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("timestamp", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("time", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("time", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink", prefix), true)))
-	AddSelectFlagsForTxSettings_Downlink(flags, flagsplugin.Prefix("downlink", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("coding-rate", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("coding-rate", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enable-crc", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("enable-crc", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("timestamp", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("timestamp", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("time", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("time", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink", prefix), true), hidden))
+	AddSelectFlagsForTxSettings_Downlink(flags, flagsplugin.Prefix("downlink", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forTxSettings message from select flags.
@@ -206,8 +206,8 @@ func PathsFromSelectFlagsForTxSettings(flags *pflag.FlagSet, prefix string) (pat
 }
 
 // AddSelectFlagsForFrequencyValue adds flags to select fields in FrequencyValue.
-func AddSelectFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forFrequencyValue message from select flags.
@@ -221,8 +221,8 @@ func PathsFromSelectFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSetFlagsForFrequencyValue adds flags to select fields in FrequencyValue.
-func AddSetFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewUint64Flag(flagsplugin.Prefix("value", prefix), ""))
+func AddSetFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewUint64Flag(flagsplugin.Prefix("value", prefix), "", hidden))
 }
 
 // SetFromFlags sets the FrequencyValue message from flags.
@@ -237,8 +237,8 @@ func (m *FrequencyValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (path
 }
 
 // AddSelectFlagsForDataRateOffsetValue adds flags to select fields in DataRateOffsetValue.
-func AddSelectFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forDataRateOffsetValue message from select flags.
@@ -252,8 +252,8 @@ func PathsFromSelectFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix str
 }
 
 // AddSetFlagsForDataRateOffsetValue adds flags to select fields in DataRateOffsetValue.
-func AddSetFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DataRateOffset_value)))
+func AddSetFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DataRateOffset_value), hidden))
 }
 
 // SetFromFlags sets the DataRateOffsetValue message from flags.
@@ -272,8 +272,8 @@ func (m *DataRateOffsetValue) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSelectFlagsForDataRateIndexValue adds flags to select fields in DataRateIndexValue.
-func AddSelectFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forDataRateIndexValue message from select flags.
@@ -287,8 +287,8 @@ func PathsFromSelectFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix stri
 }
 
 // AddSetFlagsForDataRateIndexValue adds flags to select fields in DataRateIndexValue.
-func AddSetFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DataRateIndex_value)))
+func AddSetFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DataRateIndex_value), hidden))
 }
 
 // SetFromFlags sets the DataRateIndexValue message from flags.
@@ -307,8 +307,8 @@ func (m *DataRateIndexValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 }
 
 // AddSelectFlagsForPingSlotPeriodValue adds flags to select fields in PingSlotPeriodValue.
-func AddSelectFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forPingSlotPeriodValue message from select flags.
@@ -322,8 +322,8 @@ func PathsFromSelectFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix str
 }
 
 // AddSetFlagsForPingSlotPeriodValue adds flags to select fields in PingSlotPeriodValue.
-func AddSetFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(PingSlotPeriod_value)))
+func AddSetFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(PingSlotPeriod_value), hidden))
 }
 
 // SetFromFlags sets the PingSlotPeriodValue message from flags.
@@ -342,8 +342,8 @@ func (m *PingSlotPeriodValue) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSelectFlagsForAggregatedDutyCycleValue adds flags to select fields in AggregatedDutyCycleValue.
-func AddSelectFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forAggregatedDutyCycleValue message from select flags.
@@ -357,8 +357,8 @@ func PathsFromSelectFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefi
 }
 
 // AddSetFlagsForAggregatedDutyCycleValue adds flags to select fields in AggregatedDutyCycleValue.
-func AddSetFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(AggregatedDutyCycle_value)))
+func AddSetFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(AggregatedDutyCycle_value), hidden))
 }
 
 // SetFromFlags sets the AggregatedDutyCycleValue message from flags.
@@ -377,8 +377,8 @@ func (m *AggregatedDutyCycleValue) SetFromFlags(flags *pflag.FlagSet, prefix str
 }
 
 // AddSelectFlagsForRxDelayValue adds flags to select fields in RxDelayValue.
-func AddSelectFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forRxDelayValue message from select flags.
@@ -392,8 +392,8 @@ func PathsFromSelectFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) (p
 }
 
 // AddSetFlagsForRxDelayValue adds flags to select fields in RxDelayValue.
-func AddSetFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(RxDelay_value)))
+func AddSetFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(RxDelay_value), hidden))
 }
 
 // SetFromFlags sets the RxDelayValue message from flags.
@@ -412,8 +412,8 @@ func (m *RxDelayValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths 
 }
 
 // AddSelectFlagsForADRAckLimitExponentValue adds flags to select fields in ADRAckLimitExponentValue.
-func AddSelectFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forADRAckLimitExponentValue message from select flags.
@@ -427,8 +427,8 @@ func PathsFromSelectFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefi
 }
 
 // AddSetFlagsForADRAckLimitExponentValue adds flags to select fields in ADRAckLimitExponentValue.
-func AddSetFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(ADRAckLimitExponent_value)))
+func AddSetFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(ADRAckLimitExponent_value), hidden))
 }
 
 // SetFromFlags sets the ADRAckLimitExponentValue message from flags.
@@ -447,8 +447,8 @@ func (m *ADRAckLimitExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix str
 }
 
 // AddSelectFlagsForADRAckDelayExponentValue adds flags to select fields in ADRAckDelayExponentValue.
-func AddSelectFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forADRAckDelayExponentValue message from select flags.
@@ -462,8 +462,8 @@ func PathsFromSelectFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefi
 }
 
 // AddSetFlagsForADRAckDelayExponentValue adds flags to select fields in ADRAckDelayExponentValue.
-func AddSetFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(ADRAckDelayExponent_value)))
+func AddSetFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(ADRAckDelayExponent_value), hidden))
 }
 
 // SetFromFlags sets the ADRAckDelayExponentValue message from flags.
@@ -482,8 +482,8 @@ func (m *ADRAckDelayExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix str
 }
 
 // AddSelectFlagsForDeviceEIRPValue adds flags to select fields in DeviceEIRPValue.
-func AddSelectFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
+func AddSelectFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forDeviceEIRPValue message from select flags.
@@ -497,8 +497,8 @@ func PathsFromSelectFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string)
 }
 
 // AddSetFlagsForDeviceEIRPValue adds flags to select fields in DeviceEIRPValue.
-func AddSetFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DeviceEIRP_value)))
+func AddSetFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), flagsplugin.EnumValueDesc(DeviceEIRP_value), hidden))
 }
 
 // SetFromFlags sets the DeviceEIRPValue message from flags.

@@ -13,11 +13,11 @@ import (
 )
 
 // AddSelectFlagsForGatewayVersionIdentifiers adds flags to select fields in GatewayVersionIdentifiers.
-func AddSelectFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("brand-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("brand-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("model-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("model-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("hardware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("hardware-version", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("firmware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("firmware-version", prefix), false)))
+func AddSelectFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("brand-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("brand-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("model-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("model-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("hardware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("hardware-version", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("firmware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("firmware-version", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGatewayVersionIdentifiers message from select flags.
@@ -46,11 +46,11 @@ func PathsFromSelectFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, pref
 }
 
 // AddSetFlagsForGatewayVersionIdentifiers adds flags to select fields in GatewayVersionIdentifiers.
-func AddSetFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("brand-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("model-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("hardware-version", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("firmware-version", prefix), ""))
+func AddSetFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("brand-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("model-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("hardware-version", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("firmware-version", prefix), "", hidden))
 }
 
 // SetFromFlags sets the GatewayVersionIdentifiers message from flags.
@@ -83,11 +83,11 @@ func (m *GatewayVersionIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix st
 }
 
 // AddSelectFlagsForGatewayClaimAuthenticationCode adds flags to select fields in GatewayClaimAuthenticationCode.
-func AddSelectFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret", prefix), true)))
-	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("secret", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("valid-from", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("valid-from", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("valid-to", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("valid-to", prefix), false)))
+func AddSelectFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret", prefix), true), hidden))
+	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("secret", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("valid-from", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("valid-from", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("valid-to", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("valid-to", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGatewayClaimAuthenticationCode message from select flags.
@@ -116,10 +116,10 @@ func PathsFromSelectFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet,
 }
 
 // AddSetFlagsForGatewayClaimAuthenticationCode adds flags to select fields in GatewayClaimAuthenticationCode.
-func AddSetFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForSecret(flags, flagsplugin.Prefix("secret", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("valid-from", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("valid-to", prefix), ""))
+func AddSetFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForSecret(flags, flagsplugin.Prefix("secret", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("valid-from", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("valid-to", prefix), "", hidden))
 }
 
 // SetFromFlags sets the GatewayClaimAuthenticationCode message from flags.
@@ -148,8 +148,8 @@ func (m *GatewayClaimAuthenticationCode) SetFromFlags(flags *pflag.FlagSet, pref
 }
 
 // AddSelectFlagsForGateway_LRFHSS adds flags to select fields in Gateway_LRFHSS.
-func AddSelectFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("supported", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("supported", prefix), false)))
+func AddSelectFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("supported", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("supported", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGateway_LRFHSS message from select flags.
@@ -163,8 +163,8 @@ func PathsFromSelectFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSetFlagsForGateway_LRFHSS adds flags to select fields in Gateway_LRFHSS.
-func AddSetFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("supported", prefix), ""))
+func AddSetFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("supported", prefix), "", hidden))
 }
 
 // SetFromFlags sets the Gateway_LRFHSS message from flags.
@@ -179,46 +179,46 @@ func (m *Gateway_LRFHSS) SetFromFlags(flags *pflag.FlagSet, prefix string) (path
 }
 
 // AddSelectFlagsForGateway adds flags to select fields in Gateway.
-func AddSelectFlagsForGateway(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForGatewayIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("administrative-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("administrative-contact", prefix), true)))
+func AddSelectFlagsForGateway(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
+	AddSelectFlagsForGatewayIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("administrative-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("administrative-contact", prefix), true), hidden))
 	// NOTE: administrative_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("technical-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("technical-contact", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("technical-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("technical-contact", prefix), true), hidden))
 	// NOTE: technical_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("version-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("version-ids", prefix), true)))
-	AddSelectFlagsForGatewayVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateway-server-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateway-server-address", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("auto-update", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("auto-update", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-channel", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("update-channel", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency-plan-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency-plan-ids", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antennas", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("antennas", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status-public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status-public", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-public", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-downlink-late", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("schedule-downlink-late", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enforce-duty-cycle", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("enforce-duty-cycle", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-path-constraint", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-path-constraint", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-anytime-delay", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("schedule-anytime-delay", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-location-from-status", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("update-location-from-status", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("lbs-lns-secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("lbs-lns-secret", prefix), true)))
-	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("lbs-lns-secret", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("claim-authentication-code", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("claim-authentication-code", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("version-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("version-ids", prefix), true), hidden))
+	AddSelectFlagsForGatewayVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateway-server-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateway-server-address", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("auto-update", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("auto-update", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-channel", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("update-channel", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency-plan-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frequency-plan-ids", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antennas", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("antennas", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status-public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status-public", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-public", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-downlink-late", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("schedule-downlink-late", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enforce-duty-cycle", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("enforce-duty-cycle", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-path-constraint", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-path-constraint", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-anytime-delay", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("schedule-anytime-delay", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-location-from-status", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("update-location-from-status", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("lbs-lns-secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("lbs-lns-secret", prefix), true), hidden))
+	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("lbs-lns-secret", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("claim-authentication-code", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("claim-authentication-code", prefix), true), hidden))
 	// NOTE: claim_authentication_code (GatewayClaimAuthenticationCode) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("target-cups-uri", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("target-cups-uri", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("target-cups-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("target-cups-key", prefix), true)))
-	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("target-cups-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-authenticated-connection", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("require-authenticated-connection", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("lrfhss", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("lrfhss", prefix), true)))
-	AddSelectFlagsForGateway_LRFHSS(flags, flagsplugin.Prefix("lrfhss", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("target-cups-uri", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("target-cups-uri", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("target-cups-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("target-cups-key", prefix), true), hidden))
+	AddSelectFlagsForSecret(flags, flagsplugin.Prefix("target-cups-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-authenticated-connection", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("require-authenticated-connection", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("lrfhss", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("lrfhss", prefix), true), hidden))
+	AddSelectFlagsForGateway_LRFHSS(flags, flagsplugin.Prefix("lrfhss", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGateway message from select flags.
@@ -410,38 +410,38 @@ func PathsFromSelectFlagsForGateway(flags *pflag.FlagSet, prefix string) (paths 
 }
 
 // AddSetFlagsForGateway adds flags to select fields in Gateway.
-func AddSetFlagsForGateway(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForGatewayIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), ""))
+func AddSetFlagsForGateway(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForGatewayIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), "", hidden))
 	// FIXME: Skipping ContactInfo because repeated messages are currently not supported.
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix))
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix))
-	AddSetFlagsForGatewayVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("gateway-server-address", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("auto-update", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("update-channel", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("frequency-plan-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("frequency-plan-ids", prefix), ""))
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix), hidden)
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix), hidden)
+	AddSetFlagsForGatewayVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("gateway-server-address", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("auto-update", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("update-channel", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("frequency-plan-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("frequency-plan-ids", prefix), "", hidden))
 	// FIXME: Skipping Antennas because repeated messages are currently not supported.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status-public", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-public", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-downlink-late", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enforce-duty-cycle", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("downlink-path-constraint", prefix), flagsplugin.EnumValueDesc(DownlinkPathConstraint_value)))
-	flags.AddFlag(flagsplugin.NewDurationFlag(flagsplugin.Prefix("schedule-anytime-delay", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-location-from-status", prefix), ""))
-	AddSetFlagsForSecret(flags, flagsplugin.Prefix("lbs-lns-secret", prefix))
-	AddSetFlagsForGatewayClaimAuthenticationCode(flags, flagsplugin.Prefix("claim-authentication-code", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("target-cups-uri", prefix), ""))
-	AddSetFlagsForSecret(flags, flagsplugin.Prefix("target-cups-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-authenticated-connection", prefix), ""))
-	AddSetFlagsForGateway_LRFHSS(flags, flagsplugin.Prefix("lrfhss", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), ""))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status-public", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-public", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("schedule-downlink-late", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("enforce-duty-cycle", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("downlink-path-constraint", prefix), flagsplugin.EnumValueDesc(DownlinkPathConstraint_value), hidden))
+	flags.AddFlag(flagsplugin.NewDurationFlag(flagsplugin.Prefix("schedule-anytime-delay", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("update-location-from-status", prefix), "", hidden))
+	AddSetFlagsForSecret(flags, flagsplugin.Prefix("lbs-lns-secret", prefix), hidden)
+	AddSetFlagsForGatewayClaimAuthenticationCode(flags, flagsplugin.Prefix("claim-authentication-code", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("target-cups-uri", prefix), "", hidden))
+	AddSetFlagsForSecret(flags, flagsplugin.Prefix("target-cups-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("require-authenticated-connection", prefix), "", hidden))
+	AddSetFlagsForGateway_LRFHSS(flags, flagsplugin.Prefix("lrfhss", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("disable-packet-broker-forwarding", prefix), "", hidden))
 }
 
 // SetFromFlags sets the Gateway message from flags.
@@ -646,13 +646,13 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 }
 
 // AddSetFlagsForListGatewaysRequest adds flags to select fields in ListGatewaysRequest.
-func AddSetFlagsForListGatewaysRequest(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("collaborator", prefix))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForListGatewaysRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("collaborator", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ListGatewaysRequest message from flags.
@@ -699,12 +699,12 @@ func (m *ListGatewaysRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSelectFlagsForGatewayAntenna adds flags to select fields in GatewayAntenna.
-func AddSelectFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gain", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gain", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location", prefix), true)))
-	AddSelectFlagsForLocation(flags, flagsplugin.Prefix("location", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("placement", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("placement", prefix), false)))
+func AddSelectFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gain", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gain", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location", prefix), true), hidden))
+	AddSelectFlagsForLocation(flags, flagsplugin.Prefix("location", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("placement", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("placement", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGatewayAntenna message from select flags.
@@ -738,11 +738,11 @@ func PathsFromSelectFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSetFlagsForGatewayAntenna adds flags to select fields in GatewayAntenna.
-func AddSetFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("gain", prefix), ""))
-	AddSetFlagsForLocation(flags, flagsplugin.Prefix("location", prefix))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("placement", prefix), flagsplugin.EnumValueDesc(GatewayAntennaPlacement_value)))
+func AddSetFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewFloat32Flag(flagsplugin.Prefix("gain", prefix), "", hidden))
+	AddSetFlagsForLocation(flags, flagsplugin.Prefix("location", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("placement", prefix), flagsplugin.EnumValueDesc(GatewayAntennaPlacement_value), hidden))
 }
 
 // SetFromFlags sets the GatewayAntenna message from flags.

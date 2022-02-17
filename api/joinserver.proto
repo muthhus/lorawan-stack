@@ -244,7 +244,7 @@ message ApplicationActivationSettings {
     (gogoproto.customtype) = "go.thethings.network/lorawan-stack/v3/pkg/types.NetID",
     (thethings.flags.field) = {
       set_flag_new_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.New3BytesFlag",
-      get_flag: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
+      set_flag_getter_func: "go.thethings.network/lorawan-stack/v3/cmd/ttn-lw-cli/custom_flags.GetExactBytes"
     }
   ];
   // The AS-ID of the Application Server to use.

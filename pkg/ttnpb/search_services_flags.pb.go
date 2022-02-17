@@ -13,16 +13,16 @@ import (
 )
 
 // AddSetFlagsForSearchApplicationsRequest adds flags to select fields in SearchApplicationsRequest.
-func AddSetFlagsForSearchApplicationsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForSearchApplicationsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchApplicationsRequest message from flags.
@@ -85,17 +85,17 @@ func (m *SearchApplicationsRequest) SetFromFlags(flags *pflag.FlagSet, prefix st
 }
 
 // AddSetFlagsForSearchClientsRequest adds flags to select fields in SearchClientsRequest.
-func AddSetFlagsForSearchClientsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("state", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForSearchClientsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("state", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchClientsRequest message from flags.
@@ -170,17 +170,17 @@ func (m *SearchClientsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string)
 }
 
 // AddSetFlagsForSearchGatewaysRequest adds flags to select fields in SearchGatewaysRequest.
-func AddSetFlagsForSearchGatewaysRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("eui-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForSearchGatewaysRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("eui-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchGatewaysRequest message from flags.
@@ -249,16 +249,16 @@ func (m *SearchGatewaysRequest) SetFromFlags(flags *pflag.FlagSet, prefix string
 }
 
 // AddSetFlagsForSearchOrganizationsRequest adds flags to select fields in SearchOrganizationsRequest.
-func AddSetFlagsForSearchOrganizationsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForSearchOrganizationsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchOrganizationsRequest message from flags.
@@ -321,17 +321,17 @@ func (m *SearchOrganizationsRequest) SetFromFlags(flags *pflag.FlagSet, prefix s
 }
 
 // AddSetFlagsForSearchUsersRequest adds flags to select fields in SearchUsersRequest.
-func AddSetFlagsForSearchUsersRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("state", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForSearchUsersRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("state", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchUsersRequest message from flags.
@@ -406,19 +406,19 @@ func (m *SearchUsersRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 }
 
 // AddSetFlagsForSearchEndDevicesRequest adds flags to select fields in SearchEndDevicesRequest.
-func AddSetFlagsForSearchEndDevicesRequest(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("dev-eui-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("join-eui-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("dev-addr-contains", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
+func AddSetFlagsForSearchEndDevicesRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes-contain", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("dev-eui-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("join-eui-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("dev-addr-contains", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SearchEndDevicesRequest message from flags.

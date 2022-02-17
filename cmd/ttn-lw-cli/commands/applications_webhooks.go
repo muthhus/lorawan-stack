@@ -216,7 +216,7 @@ var (
 )
 
 func init() {
-	ttnpb.AddSelectFlagsForApplicationWebhook(selectApplicationWebhookFlags, "")
+	ttnpb.AddSelectFlagsForApplicationWebhook(selectApplicationWebhookFlags, "", false)
 	applicationsWebhooksCommand.AddCommand(applicationsWebhooksGetFormatsCommand)
 	applicationsWebhooksGetCommand.Flags().AddFlagSet(applicationWebhookIDFlags())
 	applicationsWebhooksGetCommand.Flags().AddFlagSet(selectApplicationWebhookFlags)
@@ -226,9 +226,9 @@ func init() {
 	applicationsWebhooksListCommand.Flags().AddFlagSet(selectApplicationWebhookFlags)
 	applicationsWebhooksListCommand.Flags().AddFlagSet(selectAllApplicationWebhookFlags)
 	applicationsWebhooksCommand.AddCommand(applicationsWebhooksListCommand)
-	ttnpb.AddSetFlagsForApplicationWebhook(applicationsWebhooksSetCommand.Flags(), "")
-	flagsplugin.AddAlias(applicationsWebhooksSetCommand.Flags(), "ids.application-ids.application-id", "application-id")
-	flagsplugin.AddAlias(applicationsWebhooksSetCommand.Flags(), "ids.webhook-id", "webhook-id")
+	ttnpb.AddSetFlagsForApplicationWebhook(applicationsWebhooksSetCommand.Flags(), "", false)
+	flagsplugin.AddAlias(applicationsWebhooksSetCommand.Flags(), "ids.application-ids.application-id", "application-id", false)
+	flagsplugin.AddAlias(applicationsWebhooksSetCommand.Flags(), "ids.webhook-id", "webhook-id", false)
 	applicationsWebhooksCommand.AddCommand(applicationsWebhooksSetCommand)
 	applicationsWebhooksDeleteCommand.Flags().AddFlagSet(applicationWebhookIDFlags())
 	applicationsWebhooksCommand.AddCommand(applicationsWebhooksDeleteCommand)

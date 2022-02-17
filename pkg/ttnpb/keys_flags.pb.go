@@ -14,10 +14,10 @@ import (
 )
 
 // AddSelectFlagsForKeyEnvelope adds flags to select fields in KeyEnvelope.
-func AddSelectFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek-label", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek-label", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("encrypted-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("encrypted-key", prefix), false)))
+func AddSelectFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek-label", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek-label", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("encrypted-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("encrypted-key", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forKeyEnvelope message from select flags.
@@ -41,10 +41,10 @@ func PathsFromSelectFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) (pa
 }
 
 // AddSetFlagsForKeyEnvelope adds flags to select fields in KeyEnvelope.
-func AddSetFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(custom_flags.New16BytesFlag(flagsplugin.Prefix("key", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("kek-label", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("encrypted-key", prefix), ""))
+func AddSetFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(custom_flags.New16BytesFlag(flagsplugin.Prefix("key", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("kek-label", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("encrypted-key", prefix), "", hidden))
 }
 
 // SetFromFlags sets the KeyEnvelope message from flags.
@@ -71,12 +71,12 @@ func (m *KeyEnvelope) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 }
 
 // AddSelectFlagsForRootKeys adds flags to select fields in RootKeys.
-func AddSelectFlagsForRootKeys(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("root-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("root-key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-key", prefix), true)))
-	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("nwk-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("nwk-key", prefix), true)))
-	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk-key", prefix))
+func AddSelectFlagsForRootKeys(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("root-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("root-key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-key", prefix), true), hidden))
+	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("nwk-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("nwk-key", prefix), true), hidden))
+	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk-key", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forRootKeys message from select flags.
@@ -110,10 +110,10 @@ func PathsFromSelectFlagsForRootKeys(flags *pflag.FlagSet, prefix string) (paths
 }
 
 // AddSetFlagsForRootKeys adds flags to select fields in RootKeys.
-func AddSetFlagsForRootKeys(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("root-key-id", prefix), ""))
-	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-key", prefix))
-	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk-key", prefix))
+func AddSetFlagsForRootKeys(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("root-key-id", prefix), "", hidden))
+	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-key", prefix), hidden)
+	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("nwk-key", prefix), hidden)
 }
 
 // SetFromFlags sets the RootKeys message from flags.

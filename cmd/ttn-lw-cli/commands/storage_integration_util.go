@@ -39,7 +39,7 @@ func getStoredUpFlags() *pflag.FlagSet {
 	flags.AddFlagSet(timestampFlags("before", "query upstream messages before specified timestamp"))
 	flags.Duration("last", 0, "query upstream messages in the last hours or minutes")
 
-	ttnpb.AddSelectFlagsForApplicationUp(flags, "")
+	ttnpb.AddSelectFlagsForApplicationUp(flags, "", false)
 
 	types := make([]string, 0, len(ttnpb.StoredApplicationUpTypes))
 	for k := range ttnpb.StoredApplicationUpTypes {

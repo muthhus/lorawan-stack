@@ -14,8 +14,8 @@ import (
 )
 
 // AddSelectFlagsForApplicationIdentifiers adds flags to select fields in ApplicationIdentifiers.
-func AddSelectFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-id", prefix), false)))
+func AddSelectFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationIdentifiers message from select flags.
@@ -29,8 +29,8 @@ func PathsFromSelectFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix 
 }
 
 // AddSetFlagsForApplicationIdentifiers adds flags to select fields in ApplicationIdentifiers.
-func AddSetFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("application-id", prefix), ""))
+func AddSetFlagsForApplicationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("application-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationIdentifiers message from flags.
@@ -45,8 +45,8 @@ func (m *ApplicationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix strin
 }
 
 // AddSelectFlagsForClientIdentifiers adds flags to select fields in ClientIdentifiers.
-func AddSelectFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("client-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("client-id", prefix), false)))
+func AddSelectFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("client-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("client-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forClientIdentifiers message from select flags.
@@ -60,8 +60,8 @@ func PathsFromSelectFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix strin
 }
 
 // AddSetFlagsForClientIdentifiers adds flags to select fields in ClientIdentifiers.
-func AddSetFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("client-id", prefix), ""))
+func AddSetFlagsForClientIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("client-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ClientIdentifiers message from flags.
@@ -76,13 +76,13 @@ func (m *ClientIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (p
 }
 
 // AddSelectFlagsForEndDeviceIdentifiers adds flags to select fields in EndDeviceIdentifiers.
-func AddSelectFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("device-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("device-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
-	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("dev-eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("dev-eui", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-eui", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("dev-addr", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("dev-addr", prefix), false)))
+func AddSelectFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("device-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("device-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("dev-eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("dev-eui", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-eui", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("dev-addr", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("dev-addr", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forEndDeviceIdentifiers message from select flags.
@@ -121,12 +121,12 @@ func PathsFromSelectFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix st
 }
 
 // AddSetFlagsForEndDeviceIdentifiers adds flags to select fields in EndDeviceIdentifiers.
-func AddSetFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("device-id", prefix), ""))
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("dev-eui", prefix), ""))
-	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("join-eui", prefix), ""))
-	flags.AddFlag(custom_flags.New4BytesFlag(flagsplugin.Prefix("dev-addr", prefix), ""))
+func AddSetFlagsForEndDeviceIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("device-id", prefix), "", hidden))
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("dev-eui", prefix), "", hidden))
+	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("join-eui", prefix), "", hidden))
+	flags.AddFlag(custom_flags.New4BytesFlag(flagsplugin.Prefix("dev-addr", prefix), "", hidden))
 }
 
 // SetFromFlags sets the EndDeviceIdentifiers message from flags.
@@ -167,9 +167,9 @@ func (m *EndDeviceIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string)
 }
 
 // AddSelectFlagsForGatewayIdentifiers adds flags to select fields in GatewayIdentifiers.
-func AddSelectFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateway-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateway-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("eui", prefix), false)))
+func AddSelectFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateway-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateway-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("eui", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("eui", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forGatewayIdentifiers message from select flags.
@@ -188,9 +188,9 @@ func PathsFromSelectFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix stri
 }
 
 // AddSetFlagsForGatewayIdentifiers adds flags to select fields in GatewayIdentifiers.
-func AddSetFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("gateway-id", prefix), ""))
-	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("eui", prefix), ""))
+func AddSetFlagsForGatewayIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("gateway-id", prefix), "", hidden))
+	flags.AddFlag(custom_flags.New8BytesFlag(flagsplugin.Prefix("eui", prefix), "", hidden))
 }
 
 // SetFromFlags sets the GatewayIdentifiers message from flags.
@@ -211,8 +211,8 @@ func (m *GatewayIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 }
 
 // AddSelectFlagsForOrganizationIdentifiers adds flags to select fields in OrganizationIdentifiers.
-func AddSelectFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("organization-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("organization-id", prefix), false)))
+func AddSelectFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("organization-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("organization-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forOrganizationIdentifiers message from select flags.
@@ -226,8 +226,8 @@ func PathsFromSelectFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix
 }
 
 // AddSetFlagsForOrganizationIdentifiers adds flags to select fields in OrganizationIdentifiers.
-func AddSetFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("organization-id", prefix), ""))
+func AddSetFlagsForOrganizationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("organization-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the OrganizationIdentifiers message from flags.
@@ -242,9 +242,9 @@ func (m *OrganizationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix stri
 }
 
 // AddSelectFlagsForUserIdentifiers adds flags to select fields in UserIdentifiers.
-func AddSelectFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("user-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("user-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("email", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("email", prefix), false)))
+func AddSelectFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("user-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("user-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("email", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("email", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forUserIdentifiers message from select flags.
@@ -263,9 +263,9 @@ func PathsFromSelectFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string)
 }
 
 // AddSetFlagsForUserIdentifiers adds flags to select fields in UserIdentifiers.
-func AddSetFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("user-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("email", prefix), ""))
+func AddSetFlagsForUserIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("user-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("email", prefix), "", hidden))
 }
 
 // SetFromFlags sets the UserIdentifiers message from flags.
@@ -286,11 +286,11 @@ func (m *UserIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (pat
 }
 
 // AddSelectFlagsForOrganizationOrUserIdentifiers adds flags to select fields in OrganizationOrUserIdentifiers.
-func AddSelectFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids.organization-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids.organization-ids", prefix), true)))
-	AddSelectFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids.user-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids.user-ids", prefix), true)))
-	AddSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user-ids", prefix))
+func AddSelectFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids.organization-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids.organization-ids", prefix), true), hidden))
+	AddSelectFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids.user-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids.user-ids", prefix), true), hidden))
+	AddSelectFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user-ids", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forOrganizationOrUserIdentifiers message from select flags.
@@ -319,9 +319,9 @@ func PathsFromSelectFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, 
 }
 
 // AddSetFlagsForOrganizationOrUserIdentifiers adds flags to select fields in OrganizationOrUserIdentifiers.
-func AddSetFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization-ids", prefix))
-	AddSetFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user-ids", prefix))
+func AddSetFlagsForOrganizationOrUserIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForOrganizationIdentifiers(flags, flagsplugin.Prefix("ids.organization-ids", prefix), hidden)
+	AddSetFlagsForUserIdentifiers(flags, flagsplugin.Prefix("ids.user-ids", prefix), hidden)
 }
 
 // SetFromFlags sets the OrganizationOrUserIdentifiers message from flags.
@@ -350,12 +350,12 @@ func (m *OrganizationOrUserIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefi
 }
 
 // AddSelectFlagsForEndDeviceVersionIdentifiers adds flags to select fields in EndDeviceVersionIdentifiers.
-func AddSelectFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("brand-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("brand-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("model-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("model-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("hardware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("hardware-version", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("firmware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("firmware-version", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("band-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("band-id", prefix), false)))
+func AddSelectFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("brand-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("brand-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("model-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("model-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("hardware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("hardware-version", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("firmware-version", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("firmware-version", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("band-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("band-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forEndDeviceVersionIdentifiers message from select flags.
@@ -389,12 +389,12 @@ func PathsFromSelectFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, pr
 }
 
 // AddSetFlagsForEndDeviceVersionIdentifiers adds flags to select fields in EndDeviceVersionIdentifiers.
-func AddSetFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("brand-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("model-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("hardware-version", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("firmware-version", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("band-id", prefix), ""))
+func AddSetFlagsForEndDeviceVersionIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("brand-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("model-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("hardware-version", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("firmware-version", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("band-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the EndDeviceVersionIdentifiers message from flags.
@@ -433,10 +433,10 @@ func (m *EndDeviceVersionIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix 
 }
 
 // AddSelectFlagsForNetworkIdentifiers adds flags to select fields in NetworkIdentifiers.
-func AddSelectFlagsForNetworkIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("net-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("net-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tenant-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tenant-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("cluster-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("cluster-id", prefix), false)))
+func AddSelectFlagsForNetworkIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("net-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("net-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tenant-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tenant-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("cluster-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("cluster-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forNetworkIdentifiers message from select flags.

@@ -113,42 +113,47 @@ func (ebv *ExactBytesSliceValue) String() string {
 	return "[" + flagsplugin.JoinSliceElements(vs) + "]"
 }
 
-func New16BytesFlag(name, usage string) *pflag.Flag {
+func New16BytesFlag(name, usage string, hidden bool) *pflag.Flag {
 	return &pflag.Flag{
-		Name:  name,
-		Usage: usage,
-		Value: &ExactBytesValue{length: 16},
+		Name:   name,
+		Usage:  usage,
+		Value:  &ExactBytesValue{length: 16},
+		Hidden: hidden,
 	}
 }
 
-func New8BytesFlag(name, usage string) *pflag.Flag {
+func New8BytesFlag(name, usage string, hidden bool) *pflag.Flag {
 	return &pflag.Flag{
-		Name:  name,
-		Usage: usage,
-		Value: &ExactBytesValue{length: 8},
+		Name:   name,
+		Usage:  usage,
+		Value:  &ExactBytesValue{length: 8},
+		Hidden: hidden,
 	}
 }
 
-func New8BytesSliceFlag(name, usage string) *pflag.Flag {
+func New8BytesSliceFlag(name, usage string, hidden bool) *pflag.Flag {
 	return &pflag.Flag{
-		Name:  name,
-		Usage: usage,
-		Value: &ExactBytesSliceValue{length: 8},
+		Name:   name,
+		Usage:  usage,
+		Value:  &ExactBytesSliceValue{length: 8},
+		Hidden: hidden,
 	}
 }
 
-func New4BytesFlag(name, usage string) *pflag.Flag {
+func New4BytesFlag(name, usage string, hidden bool) *pflag.Flag {
 	return &pflag.Flag{
-		Name:  name,
-		Usage: usage,
-		Value: &ExactBytesValue{length: 16},
+		Name:   name,
+		Usage:  usage,
+		Value:  &ExactBytesValue{length: 16},
+		Hidden: hidden,
 	}
 }
 
-func New3BytesFlag(name, usage string) *pflag.Flag {
+func New3BytesFlag(name, usage string, hidden bool) *pflag.Flag {
 	return &pflag.Flag{
-		Name:  name,
-		Usage: usage,
-		Value: &ExactBytesValue{length: 3},
+		Name:   name,
+		Usage:  usage,
+		Value:  &ExactBytesValue{length: 3},
+		Hidden: hidden,
 	}
 }

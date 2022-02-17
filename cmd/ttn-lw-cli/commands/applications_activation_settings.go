@@ -124,13 +124,13 @@ var (
 )
 
 func init() {
-	ttnpb.AddSelectFlagsForApplicationActivationSettings(selectApplicationActivationSettingsFlags, "")
+	ttnpb.AddSelectFlagsForApplicationActivationSettings(selectApplicationActivationSettingsFlags, "", false)
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(applicationIDFlags())
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(selectApplicationActivationSettingsFlags)
 	applicationActivationSettingsGetCommand.Flags().AddFlagSet(selectAllApplicationActivationSettingsFlags)
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsGetCommand)
 	applicationActivationSettingsSetCommand.Flags().AddFlagSet(applicationIDFlags())
-	ttnpb.AddSetFlagsForApplicationActivationSettings(applicationActivationSettingsSetCommand.Flags(), "")
+	ttnpb.AddSetFlagsForApplicationActivationSettings(applicationActivationSettingsSetCommand.Flags(), "", false)
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsSetCommand)
 	applicationActivationSettingsDeleteCommand.Flags().AddFlagSet(applicationIDFlags())
 	applicationActivationSettingsCommand.AddCommand(applicationActivationSettingsDeleteCommand)

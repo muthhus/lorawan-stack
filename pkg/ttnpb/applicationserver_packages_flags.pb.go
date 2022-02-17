@@ -13,10 +13,10 @@ import (
 )
 
 // AddSelectFlagsForApplicationPackageAssociationIdentifiers adds flags to select fields in ApplicationPackageAssociationIdentifiers.
-func AddSelectFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true)))
+func AddSelectFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true), hidden))
 	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageAssociationIdentifiers message from select flags.
@@ -36,9 +36,9 @@ func PathsFromSelectFlagsForApplicationPackageAssociationIdentifiers(flags *pfla
 }
 
 // AddSetFlagsForApplicationPackageAssociationIdentifiers adds flags to select fields in ApplicationPackageAssociationIdentifiers.
-func AddSetFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), ""))
+func AddSetFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForEndDeviceIdentifiers(flags, flagsplugin.Prefix("end-device-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPackageAssociationIdentifiers message from flags.
@@ -61,13 +61,13 @@ func (m *ApplicationPackageAssociationIdentifiers) SetFromFlags(flags *pflag.Fla
 }
 
 // AddSelectFlagsForApplicationPackageAssociation adds flags to select fields in ApplicationPackageAssociation.
-func AddSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
+func AddSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
 	// NOTE: ids (ApplicationPackageAssociationIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageAssociation message from select flags.
@@ -102,11 +102,11 @@ func PathsFromSelectFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, 
 }
 
 // AddSetFlagsForApplicationPackageAssociation adds flags to select fields in ApplicationPackageAssociation.
-func AddSetFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationPackageAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("package-name", prefix), ""))
+func AddSetFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationPackageAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("package-name", prefix), "", hidden))
 	// FIXME: Skipping Data because this WKT is currently not supported.
 }
 
@@ -143,10 +143,10 @@ func (m *ApplicationPackageAssociation) SetFromFlags(flags *pflag.FlagSet, prefi
 }
 
 // AddSelectFlagsForApplicationPackageDefaultAssociationIdentifiers adds flags to select fields in ApplicationPackageDefaultAssociationIdentifiers.
-func AddSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
-	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false)))
+func AddSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageDefaultAssociationIdentifiers message from select flags.
@@ -170,9 +170,9 @@ func PathsFromSelectFlagsForApplicationPackageDefaultAssociationIdentifiers(flag
 }
 
 // AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers adds flags to select fields in ApplicationPackageDefaultAssociationIdentifiers.
-func AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), ""))
+func AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPackageDefaultAssociationIdentifiers message from flags.
@@ -195,13 +195,13 @@ func (m *ApplicationPackageDefaultAssociationIdentifiers) SetFromFlags(flags *pf
 }
 
 // AddSelectFlagsForApplicationPackageDefaultAssociation adds flags to select fields in ApplicationPackageDefaultAssociation.
-func AddSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
+func AddSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
 	// NOTE: ids (ApplicationPackageDefaultAssociationIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("package-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("package-name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPackageDefaultAssociation message from select flags.
@@ -236,11 +236,11 @@ func PathsFromSelectFlagsForApplicationPackageDefaultAssociation(flags *pflag.Fl
 }
 
 // AddSetFlagsForApplicationPackageDefaultAssociation adds flags to select fields in ApplicationPackageDefaultAssociation.
-func AddSetFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("package-name", prefix), ""))
+func AddSetFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("package-name", prefix), "", hidden))
 	// FIXME: Skipping Data because this WKT is currently not supported.
 }
 

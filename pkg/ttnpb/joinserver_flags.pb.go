@@ -15,12 +15,12 @@ import (
 )
 
 // AddSelectFlagsForApplicationActivationSettings adds flags to select fields in ApplicationActivationSettings.
-func AddSelectFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek-label", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek-label", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek", prefix), true)))
-	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("kek", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("home-net-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("home-net-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-server-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-server-id", prefix), false)))
+func AddSelectFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek-label", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek-label", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("kek", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("kek", prefix), true), hidden))
+	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("kek", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("home-net-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("home-net-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-server-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-server-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationActivationSettings message from select flags.
@@ -54,11 +54,11 @@ func PathsFromSelectFlagsForApplicationActivationSettings(flags *pflag.FlagSet, 
 }
 
 // AddSetFlagsForApplicationActivationSettings adds flags to select fields in ApplicationActivationSettings.
-func AddSetFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("kek-label", prefix), ""))
-	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("kek", prefix))
-	flags.AddFlag(custom_flags.New3BytesFlag(flagsplugin.Prefix("home-net-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("application-server-id", prefix), ""))
+func AddSetFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("kek-label", prefix), "", hidden))
+	AddSetFlagsForKeyEnvelope(flags, flagsplugin.Prefix("kek", prefix), hidden)
+	flags.AddFlag(custom_flags.New3BytesFlag(flagsplugin.Prefix("home-net-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("application-server-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationActivationSettings message from flags.
@@ -93,12 +93,12 @@ func (m *ApplicationActivationSettings) SetFromFlags(flags *pflag.FlagSet, prefi
 }
 
 // AddSelectFlagsForSetApplicationActivationSettingsRequest adds flags to select fields in SetApplicationActivationSettingsRequest.
-func AddSelectFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
-	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true)))
+func AddSelectFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true), hidden))
 	// NOTE: settings (ApplicationActivationSettings) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forSetApplicationActivationSettingsRequest message from select flags.
@@ -128,10 +128,10 @@ func PathsFromSelectFlagsForSetApplicationActivationSettingsRequest(flags *pflag
 }
 
 // AddSetFlagsForSetApplicationActivationSettingsRequest adds flags to select fields in SetApplicationActivationSettingsRequest.
-func AddSetFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	AddSetFlagsForApplicationActivationSettings(flags, flagsplugin.Prefix("settings", prefix))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
+func AddSetFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	AddSetFlagsForApplicationActivationSettings(flags, flagsplugin.Prefix("settings", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
 }
 
 // SetFromFlags sets the SetApplicationActivationSettingsRequest message from flags.

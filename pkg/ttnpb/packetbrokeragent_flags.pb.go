@@ -13,9 +13,9 @@ import (
 )
 
 // AddSetFlagsForPacketBrokerRegisterRequest adds flags to select fields in PacketBrokerRegisterRequest.
-func AddSetFlagsForPacketBrokerRegisterRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("listed.value", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("listed.value", prefix), flagsplugin.Prefix("listed", prefix))
+func AddSetFlagsForPacketBrokerRegisterRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("listed.value", prefix), "", hidden))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("listed.value", prefix), flagsplugin.Prefix("listed", prefix), hidden)
 }
 
 // SetFromFlags sets the PacketBrokerRegisterRequest message from flags.
@@ -30,15 +30,15 @@ func (m *PacketBrokerRegisterRequest) SetFromFlags(flags *pflag.FlagSet, prefix 
 }
 
 // AddSetFlagsForPacketBrokerGatewayVisibility adds flags to select fields in PacketBrokerGatewayVisibility.
-func AddSetFlagsForPacketBrokerGatewayVisibility(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-placement", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-count", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("fine-timestamps", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("packet-rates", prefix), ""))
+func AddSetFlagsForPacketBrokerGatewayVisibility(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-placement", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("antenna-count", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("fine-timestamps", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frequency-plan", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("packet-rates", prefix), "", hidden))
 }
 
 // SetFromFlags sets the PacketBrokerGatewayVisibility message from flags.

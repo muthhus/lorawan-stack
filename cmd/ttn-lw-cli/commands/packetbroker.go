@@ -547,7 +547,7 @@ Specify default to configure the default gateway visibility.`,
 
 func init() {
 	packetBrokerCommand.AddCommand(packetBrokerInfoCommand)
-	ttnpb.AddSetFlagsForPacketBrokerRegisterRequest(packetBrokerRegisterCommand.Flags(), "")
+	ttnpb.AddSetFlagsForPacketBrokerRegisterRequest(packetBrokerRegisterCommand.Flags(), "", false)
 	packetBrokerCommand.AddCommand(packetBrokerRegisterCommand)
 	packetBrokerCommand.AddCommand(packetBrokerDeregisterCommand)
 	packetBrokerNetworksListCommand.Flags().AddFlagSet(paginationFlags())
@@ -565,7 +565,7 @@ func init() {
 	packetBrokerHomeNetworksPoliciesCommand.AddCommand(packetBrokerHomeNetworksPolicyDeleteCommand)
 	packetBrokerHomeNetworksCommand.AddCommand(packetBrokerHomeNetworksPoliciesCommand)
 	packetBrokerHomeNetworksGatewayVisibilitiesCommand.AddCommand(packetBrokerHomeNetworksGatewayVisibilityGetCommand)
-	ttnpb.AddSetFlagsForPacketBrokerGatewayVisibility(packetBrokerHomeNetworksGatewayVisibilitySetCommand.Flags(), "")
+	ttnpb.AddSetFlagsForPacketBrokerGatewayVisibility(packetBrokerHomeNetworksGatewayVisibilitySetCommand.Flags(), "", false)
 	packetBrokerHomeNetworksGatewayVisibilitySetCommand.Flags().Bool("all", false, "")
 	packetBrokerHomeNetworksGatewayVisibilitiesCommand.AddCommand(packetBrokerHomeNetworksGatewayVisibilitySetCommand)
 	packetBrokerHomeNetworksGatewayVisibilitiesCommand.AddCommand(packetBrokerHomeNetworksGatewayVisibilityDeleteCommand)

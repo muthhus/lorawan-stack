@@ -13,10 +13,10 @@ import (
 )
 
 // AddSelectFlagsForApplicationPubSubIdentifiers adds flags to select fields in ApplicationPubSubIdentifiers.
-func AddSelectFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
-	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pub-sub-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pub-sub-id", prefix), false)))
+func AddSelectFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pub-sub-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pub-sub-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSubIdentifiers message from select flags.
@@ -40,9 +40,9 @@ func PathsFromSelectFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, p
 }
 
 // AddSetFlagsForApplicationPubSubIdentifiers adds flags to select fields in ApplicationPubSubIdentifiers.
-func AddSetFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("pub-sub-id", prefix), ""))
+func AddSetFlagsForApplicationPubSubIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("pub-sub-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSubIdentifiers message from flags.
@@ -65,8 +65,8 @@ func (m *ApplicationPubSubIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix
 }
 
 // AddSelectFlagsForApplicationPubSub_NATSProvider adds flags to select fields in ApplicationPubSub_NATSProvider.
-func AddSelectFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("server-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("server-url", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("server-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("server-url", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_NATSProvider message from select flags.
@@ -80,8 +80,8 @@ func PathsFromSelectFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet,
 }
 
 // AddSetFlagsForApplicationPubSub_NATSProvider adds flags to select fields in ApplicationPubSub_NATSProvider.
-func AddSetFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("server-url", prefix), ""))
+func AddSetFlagsForApplicationPubSub_NATSProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("server-url", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_NATSProvider message from flags.
@@ -96,18 +96,18 @@ func (m *ApplicationPubSub_NATSProvider) SetFromFlags(flags *pflag.FlagSet, pref
 }
 
 // AddSelectFlagsForApplicationPubSub_MQTTProvider adds flags to select fields in ApplicationPubSub_MQTTProvider.
-func AddSelectFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("server-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("server-url", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("client-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("client-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("username", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("username", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("subscribe-qos", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("subscribe-qos", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("publish-qos", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("publish-qos", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("use-tls", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("use-tls", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-ca", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-ca", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-client-cert", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-client-cert", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-client-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-client-key", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("headers", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("headers", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("server-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("server-url", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("client-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("client-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("username", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("username", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("password", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("password", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("subscribe-qos", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("subscribe-qos", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("publish-qos", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("publish-qos", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("use-tls", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("use-tls", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-ca", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-ca", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-client-cert", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-client-cert", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("tls-client-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("tls-client-key", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("headers", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("headers", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_MQTTProvider message from select flags.
@@ -171,18 +171,18 @@ func PathsFromSelectFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet,
 }
 
 // AddSetFlagsForApplicationPubSub_MQTTProvider adds flags to select fields in ApplicationPubSub_MQTTProvider.
-func AddSetFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("server-url", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("client-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("username", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("password", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("subscribe-qos", prefix), flagsplugin.EnumValueDesc(ApplicationPubSub_MQTTProvider_QoS_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("publish-qos", prefix), flagsplugin.EnumValueDesc(ApplicationPubSub_MQTTProvider_QoS_value)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("use-tls", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-ca", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-client-cert", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-client-key", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("headers", prefix), ""))
+func AddSetFlagsForApplicationPubSub_MQTTProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("server-url", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("client-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("username", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("password", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("subscribe-qos", prefix), flagsplugin.EnumValueDesc(ApplicationPubSub_MQTTProvider_QoS_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("publish-qos", prefix), flagsplugin.EnumValueDesc(ApplicationPubSub_MQTTProvider_QoS_value), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("use-tls", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-ca", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-client-cert", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBytesFlag(flagsplugin.Prefix("tls-client-key", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("headers", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_MQTTProvider message from flags.
@@ -265,10 +265,10 @@ func (m *ApplicationPubSub_MQTTProvider) SetFromFlags(flags *pflag.FlagSet, pref
 }
 
 // AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey adds flags to select fields in ApplicationPubSub_AWSIoTProvider_AccessKey.
-func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("access-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("access-key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret-access-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret-access-key", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-token", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-token", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("access-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("access-key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret-access-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret-access-key", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-token", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-token", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_AccessKey message from select flags.
@@ -292,10 +292,10 @@ func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pf
 }
 
 // AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey adds flags to select fields in ApplicationPubSub_AWSIoTProvider_AccessKey.
-func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("access-key-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("secret-access-key", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("session-token", prefix), ""))
+func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("access-key-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("secret-access-key", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("session-token", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_AccessKey message from flags.
@@ -322,10 +322,10 @@ func (m *ApplicationPubSub_AWSIoTProvider_AccessKey) SetFromFlags(flags *pflag.F
 }
 
 // AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole adds flags to select fields in ApplicationPubSub_AWSIoTProvider_AssumeRole.
-func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("arn", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("arn", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("external-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("external-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-duration", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-duration", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("arn", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("arn", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("external-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("external-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-duration", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-duration", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_AssumeRole message from select flags.
@@ -349,10 +349,10 @@ func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *p
 }
 
 // AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole adds flags to select fields in ApplicationPubSub_AWSIoTProvider_AssumeRole.
-func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("arn", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("external-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewDurationFlag(flagsplugin.Prefix("session-duration", prefix), ""))
+func AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("arn", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("external-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewDurationFlag(flagsplugin.Prefix("session-duration", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_AssumeRole message from flags.
@@ -379,8 +379,8 @@ func (m *ApplicationPubSub_AWSIoTProvider_AssumeRole) SetFromFlags(flags *pflag.
 }
 
 // AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration adds flags to select fields in ApplicationPubSub_AWSIoTProvider_DefaultIntegration.
-func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("stack-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("stack-name", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("stack-name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("stack-name", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider_DefaultIntegration message from select flags.
@@ -394,8 +394,8 @@ func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(
 }
 
 // AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration adds flags to select fields in ApplicationPubSub_AWSIoTProvider_DefaultIntegration.
-func AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("stack-name", prefix), ""))
+func AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("stack-name", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider_DefaultIntegration message from flags.
@@ -410,15 +410,15 @@ func (m *ApplicationPubSub_AWSIoTProvider_DefaultIntegration) SetFromFlags(flags
 }
 
 // AddSelectFlagsForApplicationPubSub_AWSIoTProvider adds flags to select fields in ApplicationPubSub_AWSIoTProvider.
-func AddSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("region", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("region", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("access-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("access-key", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("assume-role", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("assume-role", prefix), true)))
+func AddSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("region", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("region", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("access-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("access-key", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("assume-role", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("assume-role", prefix), true), hidden))
 	// NOTE: assume_role (ApplicationPubSub_AWSIoTProvider_AssumeRole) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endpoint-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("endpoint-address", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deployment.default", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deployment.default", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endpoint-address", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("endpoint-address", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deployment.default", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deployment.default", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_AWSIoTProvider message from select flags.
@@ -463,12 +463,12 @@ func PathsFromSelectFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSe
 }
 
 // AddSetFlagsForApplicationPubSub_AWSIoTProvider adds flags to select fields in ApplicationPubSub_AWSIoTProvider.
-func AddSetFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("region", prefix), ""))
-	AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix))
-	AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags, flagsplugin.Prefix("assume-role", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("endpoint-address", prefix), ""))
-	AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix))
+func AddSetFlagsForApplicationPubSub_AWSIoTProvider(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("region", prefix), "", hidden))
+	AddSetFlagsForApplicationPubSub_AWSIoTProvider_AccessKey(flags, flagsplugin.Prefix("access-key", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_AWSIoTProvider_AssumeRole(flags, flagsplugin.Prefix("assume-role", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("endpoint-address", prefix), "", hidden))
+	AddSetFlagsForApplicationPubSub_AWSIoTProvider_DefaultIntegration(flags, flagsplugin.Prefix("deployment.default", prefix), hidden)
 }
 
 // SetFromFlags sets the ApplicationPubSub_AWSIoTProvider message from flags.
@@ -515,8 +515,8 @@ func (m *ApplicationPubSub_AWSIoTProvider) SetFromFlags(flags *pflag.FlagSet, pr
 }
 
 // AddSelectFlagsForApplicationPubSub_Message adds flags to select fields in ApplicationPubSub_Message.
-func AddSelectFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("topic", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("topic", prefix), false)))
+func AddSelectFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("topic", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("topic", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub_Message message from select flags.
@@ -530,8 +530,8 @@ func PathsFromSelectFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, pref
 }
 
 // AddSetFlagsForApplicationPubSub_Message adds flags to select fields in ApplicationPubSub_Message.
-func AddSetFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("topic", prefix), ""))
+func AddSetFlagsForApplicationPubSub_Message(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("topic", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationPubSub_Message message from flags.
@@ -546,43 +546,43 @@ func (m *ApplicationPubSub_Message) SetFromFlags(flags *pflag.FlagSet, prefix st
 }
 
 // AddSelectFlagsForApplicationPubSub adds flags to select fields in ApplicationPubSub.
-func AddSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
+func AddSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
 	// NOTE: ids (ApplicationPubSubIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("format", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.nats", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.nats", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.mqtt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.mqtt", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("format", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.nats", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.nats", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.mqtt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.mqtt", prefix), true), hidden))
 	// NOTE: mqtt (ApplicationPubSub_MQTTProvider) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.aws-iot", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.aws-iot", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("provider.aws-iot", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("provider.aws-iot", prefix), true), hidden))
 	// NOTE: aws_iot (ApplicationPubSub_AWSIoTProvider) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-topic", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-topic", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-push", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-push", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-replace", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-replace", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-replace", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("uplink-message", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink-message", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-accept", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join-accept", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-ack", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-nack", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-sent", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-failed", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queued", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queue-invalidated", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-solved", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location-solved", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service-data", prefix), true)))
-	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service-data", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-topic", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-topic", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-push", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-push", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-replace", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-replace", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-replace", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("uplink-message", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink-message", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-accept", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join-accept", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-ack", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-ack", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-nack", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-nack", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-sent", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-sent", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-failed", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-failed", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queued", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queued", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queue-invalidated", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-solved", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location-solved", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service-data", prefix), true), hidden))
+	AddSelectFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service-data", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationPubSub message from select flags.
@@ -759,27 +759,27 @@ func PathsFromSelectFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix strin
 }
 
 // AddSetFlagsForApplicationPubSub adds flags to select fields in ApplicationPubSub.
-func AddSetFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationPubSubIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("format", prefix), ""))
-	AddSetFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix))
-	AddSetFlagsForApplicationPubSub_MQTTProvider(flags, flagsplugin.Prefix("provider.mqtt", prefix))
-	AddSetFlagsForApplicationPubSub_AWSIoTProvider(flags, flagsplugin.Prefix("provider.aws-iot", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("base-topic", prefix), ""))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-replace", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink-message", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join-accept", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location-solved", prefix))
-	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service-data", prefix))
+func AddSetFlagsForApplicationPubSub(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationPubSubIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("format", prefix), "", hidden))
+	AddSetFlagsForApplicationPubSub_NATSProvider(flags, flagsplugin.Prefix("provider.nats", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_MQTTProvider(flags, flagsplugin.Prefix("provider.mqtt", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_AWSIoTProvider(flags, flagsplugin.Prefix("provider.aws-iot", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("base-topic", prefix), "", hidden))
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-push", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-replace", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("uplink-message", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("join-accept", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-ack", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-nack", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-sent", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-failed", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queued", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("location-solved", prefix), hidden)
+	AddSetFlagsForApplicationPubSub_Message(flags, flagsplugin.Prefix("service-data", prefix), hidden)
 }
 
 // SetFromFlags sets the ApplicationPubSub message from flags.
@@ -946,9 +946,9 @@ func (m *ApplicationPubSub) SetFromFlags(flags *pflag.FlagSet, prefix string) (p
 }
 
 // AddSetFlagsForListApplicationPubSubsRequest adds flags to select fields in ListApplicationPubSubsRequest.
-func AddSetFlagsForListApplicationPubSubsRequest(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
+func AddSetFlagsForListApplicationPubSubsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ListApplicationPubSubsRequest message from flags.

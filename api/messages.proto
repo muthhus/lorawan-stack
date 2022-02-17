@@ -272,7 +272,7 @@ message ApplicationDownlink {
     (validate.rules).bytes.max_len = 2048,
     (thethings.flags.field) = {
       set_flag_new_func: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.NewHexBytesFlag",
-      get_flag: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.GetBytes"
+      set_flag_getter_func: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.GetBytes"
     }
     ];
   uint32 f_port = 2 [(validate.rules).uint32 = {gte: 1, lte: 255, not_in: [224]}];
@@ -284,7 +284,7 @@ message ApplicationDownlink {
   bytes frm_payload = 4 [
     (thethings.flags.field) = {
       set_flag_new_func: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.NewHexBytesFlag",
-      get_flag: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.GetBytes"
+      set_flag_getter_func: "github.com/TheThingsIndustries/protoc-gen-go-flags/flagsplugin.GetBytes"
     }
   ];
 

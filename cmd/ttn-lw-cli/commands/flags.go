@@ -358,12 +358,12 @@ func fieldMaskForField(paths []string, prefix string) []string {
 }
 
 func AddCollaboratorFlagAlias(flagSet *pflag.FlagSet, prefix string) {
-	flagsplugin.AddAlias(flagSet, flagsplugin.Prefix("ids.organization-ids.organization-id", prefix), "organization-id")
-	flagsplugin.AddAlias(flagSet, flagsplugin.Prefix("ids.user-ids.user-id", prefix), "user-id")
+	flagsplugin.AddAlias(flagSet, flagsplugin.Prefix("ids.organization-ids.organization-id", prefix), "organization-id", false)
+	flagsplugin.AddAlias(flagSet, flagsplugin.Prefix("ids.user-ids.user-id", prefix), "user-id", false)
 }
 
 func AddGatewayAntennaIdentifierFlags(flagSet *pflag.FlagSet, prefix string) {
-	flagSet.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("gateways", prefix), ""))
+	flagSet.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("gateways", prefix), "", false))
 }
 
 func GetGatewayAntennaIdentifiers(flagSet *pflag.FlagSet, prefix string) (antennas []*ttnpb.GatewayAntennaIdentifiers, err error) {

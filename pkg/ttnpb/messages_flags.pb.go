@@ -13,27 +13,27 @@ import (
 )
 
 // AddSelectFlagsForApplicationUplink adds flags to select fields in ApplicationUplink.
-func AddSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-cnt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-cnt", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frm-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frm-payload", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rx-metadata", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rx-metadata", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true)))
+func AddSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-cnt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-cnt", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frm-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frm-payload", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rx-metadata", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rx-metadata", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("settings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("settings", prefix), true), hidden))
 	// NOTE: settings (TxSettings) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-s-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-s-key", prefix), true)))
-	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-a-f-cnt-down", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-a-f-cnt-down", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("confirmed", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("consumed-airtime", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("consumed-airtime", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("locations", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("locations", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("version-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("version-ids", prefix), true)))
-	AddSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("network-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("network-ids", prefix), true)))
-	AddSelectFlagsForNetworkIdentifiers(flags, flagsplugin.Prefix("network-ids", prefix))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-s-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-s-key", prefix), true), hidden))
+	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-a-f-cnt-down", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-a-f-cnt-down", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("confirmed", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("consumed-airtime", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("consumed-airtime", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("locations", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("locations", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("version-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("version-ids", prefix), true), hidden))
+	AddSelectFlagsForEndDeviceVersionIdentifiers(flags, flagsplugin.Prefix("version-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("network-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("network-ids", prefix), true), hidden))
+	AddSelectFlagsForNetworkIdentifiers(flags, flagsplugin.Prefix("network-ids", prefix), hidden)
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationUplink message from select flags.
@@ -138,11 +138,11 @@ func PathsFromSelectFlagsForApplicationUplink(flags *pflag.FlagSet, prefix strin
 }
 
 // AddSelectFlagsForApplicationLocation adds flags to select fields in ApplicationLocation.
-func AddSelectFlagsForApplicationLocation(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location", prefix), true)))
-	AddSelectFlagsForLocation(flags, flagsplugin.Prefix("location", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
+func AddSelectFlagsForApplicationLocation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location", prefix), true), hidden))
+	AddSelectFlagsForLocation(flags, flagsplugin.Prefix("location", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationLocation message from select flags.
@@ -171,13 +171,13 @@ func PathsFromSelectFlagsForApplicationLocation(flags *pflag.FlagSet, prefix str
 }
 
 // AddSelectFlagsForApplicationJoinAccept adds flags to select fields in ApplicationJoinAccept.
-func AddSelectFlagsForApplicationJoinAccept(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-s-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-s-key", prefix), true)))
-	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("invalidated-downlinks", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("invalidated-downlinks", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-session", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-session", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false)))
+func AddSelectFlagsForApplicationJoinAccept(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("app-s-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("app-s-key", prefix), true), hidden))
+	AddSelectFlagsForKeyEnvelope(flags, flagsplugin.Prefix("app-s-key", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("invalidated-downlinks", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("invalidated-downlinks", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("pending-session", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("pending-session", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationJoinAccept message from select flags.
@@ -216,9 +216,9 @@ func PathsFromSelectFlagsForApplicationJoinAccept(flags *pflag.FlagSet, prefix s
 }
 
 // AddSelectFlagsForApplicationDownlink_ClassBC adds flags to select fields in ApplicationDownlink_ClassBC.
-func AddSelectFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateways", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateways", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("absolute-time", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("absolute-time", prefix), false)))
+func AddSelectFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("gateways", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("gateways", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("absolute-time", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("absolute-time", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationDownlink_ClassBC message from select flags.
@@ -237,9 +237,9 @@ func PathsFromSelectFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, pr
 }
 
 // AddSetFlagsForApplicationDownlink_ClassBC adds flags to select fields in ApplicationDownlink_ClassBC.
-func AddSetFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix string) {
+func AddSetFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix string, hidden bool) {
 	// FIXME: Skipping Gateways because repeated messages are currently not supported.
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("absolute-time", prefix), ""))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("absolute-time", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationDownlink_ClassBC message from flags.
@@ -255,18 +255,18 @@ func (m *ApplicationDownlink_ClassBC) SetFromFlags(flags *pflag.FlagSet, prefix 
 }
 
 // AddSelectFlagsForApplicationDownlink adds flags to select fields in ApplicationDownlink.
-func AddSelectFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-cnt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-cnt", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frm-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frm-payload", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("confirmed", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("class-b-c", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("class-b-c", prefix), true)))
+func AddSelectFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-port", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-port", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("f-cnt", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("f-cnt", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("frm-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("frm-payload", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("decoded-payload-warnings", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("confirmed", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("class-b-c", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("class-b-c", prefix), true), hidden))
 	// NOTE: class_b_c (ApplicationDownlink_ClassBC) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("priority", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("priority", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("priority", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("priority", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationDownlink message from select flags.
@@ -326,17 +326,17 @@ func PathsFromSelectFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix str
 }
 
 // AddSetFlagsForApplicationDownlink adds flags to select fields in ApplicationDownlink.
-func AddSetFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("session-key-id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-cnt", prefix), ""))
-	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("frm-payload", prefix), ""))
+func AddSetFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("session-key-id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-port", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("f-cnt", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewHexBytesFlag(flagsplugin.Prefix("frm-payload", prefix), "", hidden))
 	// FIXME: Skipping DecodedPayload because this WKT is currently not supported.
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), ""))
-	AddSetFlagsForApplicationDownlink_ClassBC(flags, flagsplugin.Prefix("class-b-c", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("priority", prefix), flagsplugin.EnumValueDesc(TxSchedulePriority_value)))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("correlation-ids", prefix), ""))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("decoded-payload-warnings", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("confirmed", prefix), "", hidden))
+	AddSetFlagsForApplicationDownlink_ClassBC(flags, flagsplugin.Prefix("class-b-c", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("priority", prefix), flagsplugin.EnumValueDesc(TxSchedulePriority_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("correlation-ids", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationDownlink message from flags.
@@ -406,10 +406,10 @@ func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 }
 
 // AddSelectFlagsForApplicationDownlinkFailed adds flags to select fields in ApplicationDownlinkFailed.
-func AddSelectFlagsForApplicationDownlinkFailed(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink", prefix), true)))
+func AddSelectFlagsForApplicationDownlinkFailed(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink", prefix), true), hidden))
 	// NOTE: downlink (ApplicationDownlink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("error", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("error", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("error", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("error", prefix), true), hidden))
 	// NOTE: error (ErrorDetails) does not seem to have select flags.
 }
 
@@ -431,10 +431,10 @@ func PathsFromSelectFlagsForApplicationDownlinkFailed(flags *pflag.FlagSet, pref
 }
 
 // AddSelectFlagsForApplicationInvalidatedDownlinks adds flags to select fields in ApplicationInvalidatedDownlinks.
-func AddSelectFlagsForApplicationInvalidatedDownlinks(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlinks", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlinks", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-f-cnt-down", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-f-cnt-down", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false)))
+func AddSelectFlagsForApplicationInvalidatedDownlinks(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlinks", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlinks", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-f-cnt-down", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-f-cnt-down", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("session-key-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("session-key-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationInvalidatedDownlinks message from select flags.
@@ -458,9 +458,9 @@ func PathsFromSelectFlagsForApplicationInvalidatedDownlinks(flags *pflag.FlagSet
 }
 
 // AddSelectFlagsForApplicationServiceData adds flags to select fields in ApplicationServiceData.
-func AddSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false)))
+func AddSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("data", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationServiceData message from select flags.
@@ -479,32 +479,32 @@ func PathsFromSelectFlagsForApplicationServiceData(flags *pflag.FlagSet, prefix 
 }
 
 // AddSelectFlagsForApplicationUp adds flags to select fields in ApplicationUp.
-func AddSelectFlagsForApplicationUp(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true)))
+func AddSelectFlagsForApplicationUp(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("end-device-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("end-device-ids", prefix), true), hidden))
 	// NOTE: end_device_ids (EndDeviceIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.uplink-message", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-ids", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("received-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("received-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.uplink-message", prefix), true), hidden))
 	// NOTE: uplink_message (ApplicationUplink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.join-accept", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.join-accept", prefix), true), hidden))
 	// NOTE: join_accept (ApplicationJoinAccept) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-ack", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-ack", prefix), true), hidden))
 	// NOTE: downlink_ack (ApplicationDownlink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-nack", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-nack", prefix), true), hidden))
 	// NOTE: downlink_nack (ApplicationDownlink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-sent", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-sent", prefix), true), hidden))
 	// NOTE: downlink_sent (ApplicationDownlink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-failed", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-failed", prefix), true), hidden))
 	// NOTE: downlink_failed (ApplicationDownlinkFailed) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queued", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queued", prefix), true), hidden))
 	// NOTE: downlink_queued (ApplicationDownlink) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.downlink-queue-invalidated", prefix), true), hidden))
 	// NOTE: downlink_queue_invalidated (ApplicationInvalidatedDownlinks) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.location-solved", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.location-solved", prefix), true), hidden))
 	// NOTE: location_solved (ApplicationLocation) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.service-data", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up.service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up.service-data", prefix), true), hidden))
 	// NOTE: service_data (ApplicationServiceData) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("simulated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("simulated", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("simulated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("simulated", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationUp message from select flags.
@@ -594,11 +594,11 @@ func PathsFromSelectFlagsForApplicationUp(flags *pflag.FlagSet, prefix string) (
 }
 
 // AddSelectFlagsForMessagePayloadFormatters adds flags to select fields in MessagePayloadFormatters.
-func AddSelectFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up-formatter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up-formatter", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up-formatter-parameter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up-formatter-parameter", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("down-formatter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("down-formatter", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("down-formatter-parameter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("down-formatter-parameter", prefix), false)))
+func AddSelectFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up-formatter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up-formatter", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("up-formatter-parameter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("up-formatter-parameter", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("down-formatter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("down-formatter", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("down-formatter-parameter", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("down-formatter-parameter", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forMessagePayloadFormatters message from select flags.
@@ -627,11 +627,11 @@ func PathsFromSelectFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefi
 }
 
 // AddSetFlagsForMessagePayloadFormatters adds flags to select fields in MessagePayloadFormatters.
-func AddSetFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("up-formatter", prefix), flagsplugin.EnumValueDesc(PayloadFormatter_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("up-formatter-parameter", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("down-formatter", prefix), flagsplugin.EnumValueDesc(PayloadFormatter_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("down-formatter-parameter", prefix), ""))
+func AddSetFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("up-formatter", prefix), flagsplugin.EnumValueDesc(PayloadFormatter_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("up-formatter-parameter", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("down-formatter", prefix), flagsplugin.EnumValueDesc(PayloadFormatter_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("down-formatter-parameter", prefix), "", hidden))
 }
 
 // SetFromFlags sets the MessagePayloadFormatters message from flags.

@@ -13,14 +13,14 @@ import (
 )
 
 // AddSelectFlagsForAPIKey adds flags to select fields in APIKey.
-func AddSelectFlagsForAPIKey(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rights", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rights", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("expires-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("expires-at", prefix), false)))
+func AddSelectFlagsForAPIKey(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("key", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rights", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rights", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("expires-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("expires-at", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forAPIKey message from select flags.
@@ -64,14 +64,14 @@ func PathsFromSelectFlagsForAPIKey(flags *pflag.FlagSet, prefix string) (paths [
 }
 
 // AddSetFlagsForAPIKey adds flags to select fields in APIKey.
-func AddSetFlagsForAPIKey(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("key", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("rights", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("expires-at", prefix), ""))
+func AddSetFlagsForAPIKey(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("id", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("key", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("rights", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("expires-at", prefix), "", hidden))
 }
 
 // SetFromFlags sets the APIKey message from flags.

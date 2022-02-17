@@ -143,13 +143,13 @@ var (
 )
 
 func init() {
-	ttnpb.AddSelectFlagsForApplicationLink(selectApplicationLinkFlags, "")
+	ttnpb.AddSelectFlagsForApplicationLink(selectApplicationLinkFlags, "", false)
 	applicationsLinkGetCommand.Flags().AddFlagSet(applicationIDFlags())
 	applicationsLinkGetCommand.Flags().AddFlagSet(selectApplicationLinkFlags)
 	applicationsLinkGetCommand.Flags().AddFlagSet(selectAllApplicationLinkFlags)
 	applicationsLinkCommand.AddCommand(applicationsLinkGetCommand)
 	applicationsLinkSetCommand.Flags().AddFlagSet(applicationIDFlags())
-	ttnpb.AddSetFlagsForApplicationLink(applicationsLinkSetCommand.Flags(), "")
+	ttnpb.AddSetFlagsForApplicationLink(applicationsLinkSetCommand.Flags(), "", false)
 	applicationsLinkSetCommand.Flags().AddFlagSet(payloadFormatterParameterFlags("default-formatters"))
 	applicationsLinkSetCommand.Flags().AddFlagSet(deprecatedApplicationLinkFlags())
 	applicationsLinkCommand.AddCommand(applicationsLinkSetCommand)

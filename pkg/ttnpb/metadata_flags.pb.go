@@ -12,12 +12,12 @@ import (
 )
 
 // AddSelectFlagsForLocation adds flags to select fields in Location.
-func AddSelectFlagsForLocation(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("latitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("latitude", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("longitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("longitude", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("altitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("altitude", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("accuracy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("accuracy", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("source", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("source", prefix), false)))
+func AddSelectFlagsForLocation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("latitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("latitude", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("longitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("longitude", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("altitude", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("altitude", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("accuracy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("accuracy", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("source", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("source", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forLocation message from select flags.
@@ -51,12 +51,12 @@ func PathsFromSelectFlagsForLocation(flags *pflag.FlagSet, prefix string) (paths
 }
 
 // AddSetFlagsForLocation adds flags to select fields in Location.
-func AddSetFlagsForLocation(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewFloat64Flag(flagsplugin.Prefix("latitude", prefix), ""))
-	flags.AddFlag(flagsplugin.NewFloat64Flag(flagsplugin.Prefix("longitude", prefix), ""))
-	flags.AddFlag(flagsplugin.NewInt32Flag(flagsplugin.Prefix("altitude", prefix), ""))
-	flags.AddFlag(flagsplugin.NewInt32Flag(flagsplugin.Prefix("accuracy", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("source", prefix), flagsplugin.EnumValueDesc(LocationSource_value)))
+func AddSetFlagsForLocation(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewFloat64Flag(flagsplugin.Prefix("latitude", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewFloat64Flag(flagsplugin.Prefix("longitude", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewInt32Flag(flagsplugin.Prefix("altitude", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewInt32Flag(flagsplugin.Prefix("accuracy", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("source", prefix), flagsplugin.EnumValueDesc(LocationSource_value), hidden))
 }
 
 // SetFromFlags sets the Location message from flags.

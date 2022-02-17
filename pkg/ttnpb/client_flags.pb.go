@@ -13,29 +13,29 @@ import (
 )
 
 // AddSelectFlagsForClient adds flags to select fields in Client.
-func AddSelectFlagsForClient(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
-	AddSelectFlagsForClientIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("administrative-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("administrative-contact", prefix), true)))
+func AddSelectFlagsForClient(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
+	AddSelectFlagsForClientIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("description", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-info", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-info", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("administrative-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("administrative-contact", prefix), true), hidden))
 	// NOTE: administrative_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("technical-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("technical-contact", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("technical-contact", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("technical-contact", prefix), true), hidden))
 	// NOTE: technical_contact (OrganizationOrUserIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("redirect-uris", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("redirect-uris", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("logout-redirect-uris", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("logout-redirect-uris", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state-description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state-description", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-authorization", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("skip-authorization", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endorsed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("endorsed", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("grants", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("grants", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rights", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rights", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("secret", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("secret", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("redirect-uris", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("redirect-uris", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("logout-redirect-uris", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("logout-redirect-uris", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("state-description", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("state-description", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-authorization", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("skip-authorization", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endorsed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("endorsed", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("grants", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("grants", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("rights", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("rights", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forClient message from select flags.
@@ -146,26 +146,26 @@ func PathsFromSelectFlagsForClient(flags *pflag.FlagSet, prefix string) (paths [
 }
 
 // AddSetFlagsForClient adds flags to select fields in Client.
-func AddSetFlagsForClient(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForClientIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), ""))
+func AddSetFlagsForClient(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForClientIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("deleted-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("name", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("description", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("attributes", prefix), "", hidden))
 	// FIXME: Skipping ContactInfo because repeated messages are currently not supported.
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix))
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("secret", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("redirect-uris", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("logout-redirect-uris", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state", prefix), flagsplugin.EnumValueDesc(State_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state-description", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-authorization", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endorsed", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("grants", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("rights", prefix), ""))
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("administrative-contact", prefix), hidden)
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("technical-contact", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("secret", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("redirect-uris", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("logout-redirect-uris", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state", prefix), flagsplugin.EnumValueDesc(State_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("state-description", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-authorization", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("endorsed", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("grants", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("rights", prefix), "", hidden))
 }
 
 // SetFromFlags sets the Client message from flags.
@@ -305,14 +305,14 @@ func (m *Client) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []stri
 }
 
 // AddSelectFlagsForListClientsRequest adds flags to select fields in ListClientsRequest.
-func AddSelectFlagsForListClientsRequest(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("collaborator", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("collaborator", prefix), true)))
+func AddSelectFlagsForListClientsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("collaborator", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("collaborator", prefix), true), hidden))
 	// NOTE: collaborator (OrganizationOrUserIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("order", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("order", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("limit", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("limit", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("page", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("page", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("field-mask", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("field-mask", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("order", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("order", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("limit", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("limit", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("page", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("page", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("deleted", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forListClientsRequest message from select flags.
@@ -352,13 +352,13 @@ func PathsFromSelectFlagsForListClientsRequest(flags *pflag.FlagSet, prefix stri
 }
 
 // AddSetFlagsForListClientsRequest adds flags to select fields in ListClientsRequest.
-func AddSetFlagsForListClientsRequest(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("collaborator", prefix))
-	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), ""))
-	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), ""))
+func AddSetFlagsForListClientsRequest(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForOrganizationOrUserIdentifiers(flags, flagsplugin.Prefix("collaborator", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringSliceFlag(flagsplugin.Prefix("field-mask", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("order", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("limit", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewUint32Flag(flagsplugin.Prefix("page", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("deleted", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ListClientsRequest message from flags.

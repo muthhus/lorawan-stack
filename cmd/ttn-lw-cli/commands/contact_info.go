@@ -276,11 +276,11 @@ func contactInfoCommands(entity string, getID func(cmd *cobra.Command, args []st
 			return io.Write(os.Stdout, config.OutputFormat, res)
 		},
 	}
-	ttnpb.AddSetFlagsForContactInfo(add.Flags(), "")
+	ttnpb.AddSetFlagsForContactInfo(add.Flags(), "", false)
 	cmd.AddCommand(add)
-	ttnpb.AddSetFlagsForContactInfo(list.Flags(), "")
+	ttnpb.AddSetFlagsForContactInfo(list.Flags(), "", false)
 	cmd.AddCommand(list)
-	ttnpb.AddSetFlagsForContactInfo(remove.Flags(), "")
+	ttnpb.AddSetFlagsForContactInfo(remove.Flags(), "", false)
 	cmd.AddCommand(remove)
 	cmd.AddCommand(requestValidation)
 	validate.Flags().String("reference", "", "Reference of the requested validation")

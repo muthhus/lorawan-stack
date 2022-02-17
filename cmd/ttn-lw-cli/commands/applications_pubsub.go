@@ -340,10 +340,10 @@ var (
 )
 
 func init() {
-	ttnpb.AddSelectFlagsForApplicationPubSub(selectApplicationPubSubFlags, "")
+	ttnpb.AddSelectFlagsForApplicationPubSub(selectApplicationPubSubFlags, "", false)
 	applicationsPubSubsCommand.AddCommand(applicationsPubSubsGetFormatsCommand)
-	ttnpb.AddSetFlagsForApplicationPubSubIdentifiers(applicationsPubSubsGetCommand.Flags(), "")
-	flagsplugin.AddAlias(applicationsPubSubsGetCommand.Flags(), "application-ids.application-id", "application-id")
+	ttnpb.AddSetFlagsForApplicationPubSubIdentifiers(applicationsPubSubsGetCommand.Flags(), "", false)
+	flagsplugin.AddAlias(applicationsPubSubsGetCommand.Flags(), "application-ids.application-id", "application-id", false)
 	applicationsPubSubsGetCommand.Flags().AddFlagSet(selectApplicationPubSubFlags)
 	applicationsPubSubsGetCommand.Flags().AddFlagSet(selectAllApplicationPubSubFlags)
 	applicationsPubSubsCommand.AddCommand(applicationsPubSubsGetCommand)

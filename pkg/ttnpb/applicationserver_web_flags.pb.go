@@ -13,10 +13,10 @@ import (
 )
 
 // AddSelectFlagsForApplicationWebhookIdentifiers adds flags to select fields in ApplicationWebhookIdentifiers.
-func AddSelectFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true)))
-	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("webhook-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("webhook-id", prefix), false)))
+func AddSelectFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("application-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("application-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("webhook-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("webhook-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookIdentifiers message from select flags.
@@ -40,9 +40,9 @@ func PathsFromSelectFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, 
 }
 
 // AddSetFlagsForApplicationWebhookIdentifiers adds flags to select fields in ApplicationWebhookIdentifiers.
-func AddSetFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("webhook-id", prefix), ""))
+func AddSetFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationIdentifiers(flags, flagsplugin.Prefix("application-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("webhook-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationWebhookIdentifiers message from flags.
@@ -65,8 +65,8 @@ func (m *ApplicationWebhookIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefi
 }
 
 // AddSelectFlagsForApplicationWebhookTemplateIdentifiers adds flags to select fields in ApplicationWebhookTemplateIdentifiers.
-func AddSelectFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-id", prefix), false)))
+func AddSelectFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-id", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookTemplateIdentifiers message from select flags.
@@ -80,8 +80,8 @@ func PathsFromSelectFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.F
 }
 
 // AddSetFlagsForApplicationWebhookTemplateIdentifiers adds flags to select fields in ApplicationWebhookTemplateIdentifiers.
-func AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("template-id", prefix), ""))
+func AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("template-id", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationWebhookTemplateIdentifiers message from flags.
@@ -96,7 +96,7 @@ func (m *ApplicationWebhookTemplateIdentifiers) SetFromFlags(flags *pflag.FlagSe
 }
 
 // AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy adds flags to select fields in ApplicationWebhookHealth_WebhookHealthStatusHealthy.
-func AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags *pflag.FlagSet, prefix string) {
+func AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags *pflag.FlagSet, prefix string, hidden bool) {
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhookHealth_WebhookHealthStatusHealthy message from select flags.
@@ -105,10 +105,10 @@ func PathsFromSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(
 }
 
 // AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy adds flags to select fields in ApplicationWebhookHealth_WebhookHealthStatusUnhealthy.
-func AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("failed-attempts", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("failed-attempts", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-details", prefix), true)))
+func AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealthy(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("failed-attempts", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("failed-attempts", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("last-failed-attempt-details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("last-failed-attempt-details", prefix), true), hidden))
 	// NOTE: last_failed_attempt_details (ErrorDetails) does not seem to have select flags.
 }
 
@@ -134,10 +134,10 @@ func PathsFromSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusUnhealth
 }
 
 // AddSelectFlagsForApplicationWebhookHealth adds flags to select fields in ApplicationWebhookHealth.
-func AddSelectFlagsForApplicationWebhookHealth(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.healthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.healthy", prefix), true)))
-	AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags, flagsplugin.Prefix("status.healthy", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.unhealthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.unhealthy", prefix), true)))
+func AddSelectFlagsForApplicationWebhookHealth(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.healthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.healthy", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhookHealth_WebhookHealthStatusHealthy(flags, flagsplugin.Prefix("status.healthy", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("status.unhealthy", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("status.unhealthy", prefix), true), hidden))
 	// NOTE: unhealthy (ApplicationWebhookHealth_WebhookHealthStatusUnhealthy) does not seem to have select flags.
 }
 
@@ -163,8 +163,8 @@ func PathsFromSelectFlagsForApplicationWebhookHealth(flags *pflag.FlagSet, prefi
 }
 
 // AddSelectFlagsForApplicationWebhook_Message adds flags to select fields in ApplicationWebhook_Message.
-func AddSelectFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("path", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("path", prefix), false)))
+func AddSelectFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("path", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("path", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationWebhook_Message message from select flags.
@@ -178,8 +178,8 @@ func PathsFromSelectFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, pre
 }
 
 // AddSetFlagsForApplicationWebhook_Message adds flags to select fields in ApplicationWebhook_Message.
-func AddSetFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("path", prefix), ""))
+func AddSetFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("path", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ApplicationWebhook_Message message from flags.
@@ -194,39 +194,39 @@ func (m *ApplicationWebhook_Message) SetFromFlags(flags *pflag.FlagSet, prefix s
 }
 
 // AddSelectFlagsForApplicationWebhook adds flags to select fields in ApplicationWebhook.
-func AddSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true)))
+func AddSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("ids", prefix), true), hidden))
 	// NOTE: ids (ApplicationWebhookIdentifiers) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-url", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("headers", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("headers", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("format", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-ids", prefix), true)))
-	AddSelectFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template-ids", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-fields", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-fields", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-api-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-api-key", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("uplink-message", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink-message", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-accept", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join-accept", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-ack", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-nack", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-sent", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-failed", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queued", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queue-invalidated", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-solved", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location-solved", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service-data", prefix), true)))
-	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("health-status", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("health-status", prefix), true)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("created-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("created-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("updated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("updated-at", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("base-url", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("base-url", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("headers", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("headers", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("format", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-ids", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-ids", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("template-fields", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("template-fields", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-api-key", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-api-key", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("uplink-message", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("uplink-message", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink-message", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("join-accept", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("join-accept", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join-accept", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-ack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-ack", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-ack", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-nack", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-nack", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-nack", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-sent", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-sent", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-sent", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-failed", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-failed", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-failed", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queued", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queued", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queued", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("downlink-queue-invalidated", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("downlink-queue-invalidated", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("location-solved", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("location-solved", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location-solved", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("service-data", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("service-data", prefix), true), hidden))
+	AddSelectFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("health-status", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("health-status", prefix), true), hidden))
 	// NOTE: health_status (ApplicationWebhookHealth) does not seem to have select flags.
 }
 
@@ -393,26 +393,26 @@ func PathsFromSelectFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix stri
 }
 
 // AddSetFlagsForApplicationWebhook adds flags to select fields in ApplicationWebhook.
-func AddSetFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForApplicationWebhookIdentifiers(flags, flagsplugin.Prefix("ids", prefix))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("base-url", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("headers", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("format", prefix), ""))
-	AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template-ids", prefix))
-	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("template-fields", prefix), ""))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("downlink-api-key", prefix), ""))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink-message", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join-accept", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-ack", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-nack", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-sent", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-failed", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queued", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location-solved", prefix))
-	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix))
+func AddSetFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForApplicationWebhookIdentifiers(flags, flagsplugin.Prefix("ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("created-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("updated-at", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("base-url", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("headers", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("format", prefix), "", hidden))
+	AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags, flagsplugin.Prefix("template-ids", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewStringStringMapFlag(flagsplugin.Prefix("template-fields", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("downlink-api-key", prefix), "", hidden))
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("uplink-message", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("join-accept", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-ack", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-nack", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-sent", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-failed", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queued", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("downlink-queue-invalidated", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("location-solved", prefix), hidden)
+	AddSetFlagsForApplicationWebhook_Message(flags, flagsplugin.Prefix("service-data", prefix), hidden)
 	// FIXME: Skipping HealthStatus because it does not seem to implement AddSetFlags.
 }
 

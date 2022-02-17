@@ -13,12 +13,12 @@ import (
 )
 
 // AddSelectFlagsForContactInfo adds flags to select fields in ContactInfo.
-func AddSelectFlagsForContactInfo(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-type", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-type", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-method", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-method", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("public", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("validated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("validated-at", prefix), false)))
+func AddSelectFlagsForContactInfo(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-type", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-type", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("contact-method", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("contact-method", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("value", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("value", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("public", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("public", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("validated-at", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("validated-at", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forContactInfo message from select flags.
@@ -52,12 +52,12 @@ func PathsFromSelectFlagsForContactInfo(flags *pflag.FlagSet, prefix string) (pa
 }
 
 // AddSetFlagsForContactInfo adds flags to select fields in ContactInfo.
-func AddSetFlagsForContactInfo(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("contact-type", prefix), flagsplugin.EnumValueDesc(ContactType_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("contact-method", prefix), flagsplugin.EnumValueDesc(ContactMethod_value)))
-	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), ""))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("public", prefix), ""))
-	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("validated-at", prefix), ""))
+func AddSetFlagsForContactInfo(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("contact-type", prefix), flagsplugin.EnumValueDesc(ContactType_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("contact-method", prefix), flagsplugin.EnumValueDesc(ContactMethod_value), hidden))
+	flags.AddFlag(flagsplugin.NewStringFlag(flagsplugin.Prefix("value", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("public", prefix), "", hidden))
+	flags.AddFlag(flagsplugin.NewTimestampFlag(flagsplugin.Prefix("validated-at", prefix), "", hidden))
 }
 
 // SetFromFlags sets the ContactInfo message from flags.

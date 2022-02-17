@@ -12,16 +12,16 @@ import (
 )
 
 // AddSelectFlagsForErrorDetails adds flags to select fields in ErrorDetails.
-func AddSelectFlagsForErrorDetails(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("namespace", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("namespace", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("message-format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("message-format", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-id", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("cause", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("cause", prefix), true)))
+func AddSelectFlagsForErrorDetails(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("namespace", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("namespace", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("name", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("name", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("message-format", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("message-format", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("attributes", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("attributes", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("correlation-id", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("correlation-id", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("cause", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("cause", prefix), true), hidden))
 	// NOTE: cause (ErrorDetails) does not seem to have select flags.
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("code", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("code", prefix), false)))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("details", prefix), false)))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("code", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("code", prefix), false), hidden))
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("details", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("details", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forErrorDetails message from select flags.

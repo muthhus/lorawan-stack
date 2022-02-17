@@ -13,10 +13,10 @@ import (
 )
 
 // AddSelectFlagsForApplicationLink adds flags to select fields in ApplicationLink.
-func AddSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string) {
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("default-formatters", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("default-formatters", prefix), true)))
-	AddSelectFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("skip-payload-crypto", prefix), false)))
+func AddSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("default-formatters", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("default-formatters", prefix), true), hidden))
+	AddSelectFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto", prefix), flagsplugin.SelectDesc(flagsplugin.Prefix("skip-payload-crypto", prefix), false), hidden))
 }
 
 // SelectFromFlags outputs the fieldmask paths forApplicationLink message from select flags.
@@ -40,10 +40,10 @@ func PathsFromSelectFlagsForApplicationLink(flags *pflag.FlagSet, prefix string)
 }
 
 // AddSetFlagsForApplicationLink adds flags to select fields in ApplicationLink.
-func AddSetFlagsForApplicationLink(flags *pflag.FlagSet, prefix string) {
-	AddSetFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix))
-	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto.value", prefix), ""))
-	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto.value", prefix), flagsplugin.Prefix("skip-payload-crypto", prefix))
+func AddSetFlagsForApplicationLink(flags *pflag.FlagSet, prefix string, hidden bool) {
+	AddSetFlagsForMessagePayloadFormatters(flags, flagsplugin.Prefix("default-formatters", prefix), hidden)
+	flags.AddFlag(flagsplugin.NewBoolFlag(flagsplugin.Prefix("skip-payload-crypto.value", prefix), "", hidden))
+	flagsplugin.AddAlias(flags, flagsplugin.Prefix("skip-payload-crypto.value", prefix), flagsplugin.Prefix("skip-payload-crypto", prefix), hidden)
 }
 
 // SetFromFlags sets the ApplicationLink message from flags.
