@@ -62,9 +62,9 @@ func AddSetFlagsForContactInfo(flags *pflag.FlagSet, prefix string, hidden bool)
 
 // SetFromFlags sets the ContactInfo message from flags.
 func (m *ContactInfo) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_type", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_type", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, ContactType_value)
 		if err != nil {
 			return nil, err
@@ -72,9 +72,9 @@ func (m *ContactInfo) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 		m.ContactType = ContactType(enumValue)
 		paths = append(paths, flagsplugin.Prefix("contact_type", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_method", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("contact_method", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, ContactMethod_value)
 		if err != nil {
 			return nil, err
@@ -82,21 +82,21 @@ func (m *ContactInfo) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 		m.ContactMethod = ContactMethod(enumValue)
 		paths = append(paths, flagsplugin.Prefix("contact_method", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Value = val
 		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("public", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Public = val
 		paths = append(paths, flagsplugin.Prefix("public", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("validated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("validated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ValidatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("validated_at", prefix))
 	}

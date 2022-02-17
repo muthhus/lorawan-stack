@@ -48,7 +48,7 @@ func AddSetFlagsForApplicationLink(flags *pflag.FlagSet, prefix string, hidden b
 
 // SetFromFlags sets the ApplicationLink message from flags.
 func (m *ApplicationLink) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("default_formatters", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("default_formatters", prefix)); changed {
 		m.DefaultFormatters = &MessagePayloadFormatters{}
 		if setPaths, err := m.DefaultFormatters.SetFromFlags(flags, flagsplugin.Prefix("default_formatters", prefix)); err != nil {
 			return nil, err
@@ -56,9 +56,9 @@ func (m *ApplicationLink) SetFromFlags(flags *pflag.FlagSet, prefix string) (pat
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SkipPayloadCrypto = &types.BoolValue{Value: val}
 		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}

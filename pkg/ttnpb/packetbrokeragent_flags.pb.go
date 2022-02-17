@@ -20,9 +20,9 @@ func AddSetFlagsForPacketBrokerRegisterRequest(flags *pflag.FlagSet, prefix stri
 
 // SetFromFlags sets the PacketBrokerRegisterRequest message from flags.
 func (m *PacketBrokerRegisterRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("listed.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("listed.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Listed = &types.BoolValue{Value: val}
 		paths = append(paths, flagsplugin.Prefix("listed", prefix))
 	}
@@ -43,51 +43,51 @@ func AddSetFlagsForPacketBrokerGatewayVisibility(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the PacketBrokerGatewayVisibility message from flags.
 func (m *PacketBrokerGatewayVisibility) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Location = val
 		paths = append(paths, flagsplugin.Prefix("location", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_placement", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_placement", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AntennaPlacement = val
 		paths = append(paths, flagsplugin.Prefix("antenna_placement", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_count", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("antenna_count", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AntennaCount = val
 		paths = append(paths, flagsplugin.Prefix("antenna_count", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("fine_timestamps", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("fine_timestamps", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FineTimestamps = val
 		paths = append(paths, flagsplugin.Prefix("fine_timestamps", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_info", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("contact_info", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ContactInfo = val
 		paths = append(paths, flagsplugin.Prefix("contact_info", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Status = val
 		paths = append(paths, flagsplugin.Prefix("status", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency_plan", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("frequency_plan", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrequencyPlan = val
 		paths = append(paths, flagsplugin.Prefix("frequency_plan", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("packet_rates", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("packet_rates", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PacketRates = val
 		paths = append(paths, flagsplugin.Prefix("packet_rates", prefix))
 	}

@@ -43,7 +43,7 @@ func AddSetFlagsForApplicationPackageAssociationIdentifiers(flags *pflag.FlagSet
 
 // SetFromFlags sets the ApplicationPackageAssociationIdentifiers message from flags.
 func (m *ApplicationPackageAssociationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("end_device_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("end_device_ids", prefix)); changed {
 		m.EndDeviceIds = &EndDeviceIdentifiers{}
 		if setPaths, err := m.EndDeviceIds.SetFromFlags(flags, flagsplugin.Prefix("end_device_ids", prefix)); err != nil {
 			return nil, err
@@ -51,9 +51,9 @@ func (m *ApplicationPackageAssociationIdentifiers) SetFromFlags(flags *pflag.Fla
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FPort = val
 		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
@@ -112,7 +112,7 @@ func AddSetFlagsForApplicationPackageAssociation(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationPackageAssociation message from flags.
 func (m *ApplicationPackageAssociation) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &ApplicationPackageAssociationIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -120,21 +120,21 @@ func (m *ApplicationPackageAssociation) SetFromFlags(flags *pflag.FlagSet, prefi
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PackageName = val
 		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}
@@ -177,7 +177,7 @@ func AddSetFlagsForApplicationPackageDefaultAssociationIdentifiers(flags *pflag.
 
 // SetFromFlags sets the ApplicationPackageDefaultAssociationIdentifiers message from flags.
 func (m *ApplicationPackageDefaultAssociationIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); changed {
 		m.ApplicationIds = &ApplicationIdentifiers{}
 		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
 			return nil, err
@@ -185,9 +185,9 @@ func (m *ApplicationPackageDefaultAssociationIdentifiers) SetFromFlags(flags *pf
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FPort = val
 		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
@@ -246,7 +246,7 @@ func AddSetFlagsForApplicationPackageDefaultAssociation(flags *pflag.FlagSet, pr
 
 // SetFromFlags sets the ApplicationPackageDefaultAssociation message from flags.
 func (m *ApplicationPackageDefaultAssociation) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &ApplicationPackageDefaultAssociationIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -254,21 +254,21 @@ func (m *ApplicationPackageDefaultAssociation) SetFromFlags(flags *pflag.FlagSet
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("package_name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PackageName = val
 		paths = append(paths, flagsplugin.Prefix("package_name", prefix))
 	}

@@ -55,27 +55,27 @@ func AddSetFlagsForGatewayVersionIdentifiers(flags *pflag.FlagSet, prefix string
 
 // SetFromFlags sets the GatewayVersionIdentifiers message from flags.
 func (m *GatewayVersionIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("brand_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("brand_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.BrandId = val
 		paths = append(paths, flagsplugin.Prefix("brand_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("model_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("model_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ModelId = val
 		paths = append(paths, flagsplugin.Prefix("model_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("hardware_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("hardware_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.HardwareVersion = val
 		paths = append(paths, flagsplugin.Prefix("hardware_version", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("firmware_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("firmware_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FirmwareVersion = val
 		paths = append(paths, flagsplugin.Prefix("firmware_version", prefix))
 	}
@@ -124,7 +124,7 @@ func AddSetFlagsForGatewayClaimAuthenticationCode(flags *pflag.FlagSet, prefix s
 
 // SetFromFlags sets the GatewayClaimAuthenticationCode message from flags.
 func (m *GatewayClaimAuthenticationCode) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("secret", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("secret", prefix)); changed {
 		m.Secret = &Secret{}
 		if setPaths, err := m.Secret.SetFromFlags(flags, flagsplugin.Prefix("secret", prefix)); err != nil {
 			return nil, err
@@ -132,15 +132,15 @@ func (m *GatewayClaimAuthenticationCode) SetFromFlags(flags *pflag.FlagSet, pref
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("valid_from", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("valid_from", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ValidFrom = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("valid_from", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("valid_to", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("valid_to", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ValidTo = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("valid_to", prefix))
 	}
@@ -169,9 +169,9 @@ func AddSetFlagsForGateway_LRFHSS(flags *pflag.FlagSet, prefix string, hidden bo
 
 // SetFromFlags sets the Gateway_LRFHSS message from flags.
 func (m *Gateway_LRFHSS) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supported", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supported", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Supported = val
 		paths = append(paths, flagsplugin.Prefix("supported", prefix))
 	}
@@ -446,7 +446,7 @@ func AddSetFlagsForGateway(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the Gateway message from flags.
 func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &GatewayIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -454,44 +454,44 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DeletedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Name = val
 		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Description = val
 		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Attributes = val
 		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
 	// FIXME: Skipping ContactInfo because it does not seem to implement AddSetFlags.
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("administrative_contact", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("administrative_contact", prefix)); changed {
 		m.AdministrativeContact = &OrganizationOrUserIdentifiers{}
 		if setPaths, err := m.AdministrativeContact.SetFromFlags(flags, flagsplugin.Prefix("administrative_contact", prefix)); err != nil {
 			return nil, err
@@ -499,7 +499,7 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("technical_contact", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("technical_contact", prefix)); changed {
 		m.TechnicalContact = &OrganizationOrUserIdentifiers{}
 		if setPaths, err := m.TechnicalContact.SetFromFlags(flags, flagsplugin.Prefix("technical_contact", prefix)); err != nil {
 			return nil, err
@@ -507,7 +507,7 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version_ids", prefix)); changed {
 		m.VersionIds = &GatewayVersionIdentifiers{}
 		if setPaths, err := m.VersionIds.SetFromFlags(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
 			return nil, err
@@ -515,64 +515,64 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("gateway_server_address", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("gateway_server_address", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.GatewayServerAddress = val
 		paths = append(paths, flagsplugin.Prefix("gateway_server_address", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("auto_update", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("auto_update", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AutoUpdate = val
 		paths = append(paths, flagsplugin.Prefix("auto_update", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("update_channel", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("update_channel", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdateChannel = val
 		paths = append(paths, flagsplugin.Prefix("update_channel", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrequencyPlanId = val
 		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("frequency_plan_ids", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("frequency_plan_ids", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrequencyPlanIds = val
 		paths = append(paths, flagsplugin.Prefix("frequency_plan_ids", prefix))
 	}
 	// FIXME: Skipping Antennas because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status_public", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("status_public", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.StatusPublic = val
 		paths = append(paths, flagsplugin.Prefix("status_public", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location_public", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("location_public", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LocationPublic = val
 		paths = append(paths, flagsplugin.Prefix("location_public", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("schedule_downlink_late", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("schedule_downlink_late", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ScheduleDownlinkLate = val
 		paths = append(paths, flagsplugin.Prefix("schedule_downlink_late", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enforce_duty_cycle", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enforce_duty_cycle", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.EnforceDutyCycle = val
 		paths = append(paths, flagsplugin.Prefix("enforce_duty_cycle", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink_path_constraint", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink_path_constraint", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DownlinkPathConstraint_value)
 		if err != nil {
 			return nil, err
@@ -580,19 +580,19 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 		m.DownlinkPathConstraint = DownlinkPathConstraint(enumValue)
 		paths = append(paths, flagsplugin.Prefix("downlink_path_constraint", prefix))
 	}
-	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("schedule_anytime_delay", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("schedule_anytime_delay", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ScheduleAnytimeDelay = gogo.SetDuration(val)
 		paths = append(paths, flagsplugin.Prefix("schedule_anytime_delay", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("update_location_from_status", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("update_location_from_status", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdateLocationFromStatus = val
 		paths = append(paths, flagsplugin.Prefix("update_location_from_status", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("lbs_lns_secret", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("lbs_lns_secret", prefix)); changed {
 		m.LbsLnsSecret = &Secret{}
 		if setPaths, err := m.LbsLnsSecret.SetFromFlags(flags, flagsplugin.Prefix("lbs_lns_secret", prefix)); err != nil {
 			return nil, err
@@ -600,7 +600,7 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("claim_authentication_code", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("claim_authentication_code", prefix)); changed {
 		m.ClaimAuthenticationCode = &GatewayClaimAuthenticationCode{}
 		if setPaths, err := m.ClaimAuthenticationCode.SetFromFlags(flags, flagsplugin.Prefix("claim_authentication_code", prefix)); err != nil {
 			return nil, err
@@ -608,13 +608,13 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("target_cups_uri", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("target_cups_uri", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TargetCupsUri = val
 		paths = append(paths, flagsplugin.Prefix("target_cups_uri", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("target_cups_key", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("target_cups_key", prefix)); changed {
 		m.TargetCupsKey = &Secret{}
 		if setPaths, err := m.TargetCupsKey.SetFromFlags(flags, flagsplugin.Prefix("target_cups_key", prefix)); err != nil {
 			return nil, err
@@ -622,13 +622,13 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_authenticated_connection", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_authenticated_connection", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RequireAuthenticatedConnection = val
 		paths = append(paths, flagsplugin.Prefix("require_authenticated_connection", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("lrfhss", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("lrfhss", prefix)); changed {
 		m.Lrfhss = &Gateway_LRFHSS{}
 		if setPaths, err := m.Lrfhss.SetFromFlags(flags, flagsplugin.Prefix("lrfhss", prefix)); err != nil {
 			return nil, err
@@ -636,9 +636,9 @@ func (m *Gateway) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []str
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("disable_packet_broker_forwarding", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("disable_packet_broker_forwarding", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DisablePacketBrokerForwarding = val
 		paths = append(paths, flagsplugin.Prefix("disable_packet_broker_forwarding", prefix))
 	}
@@ -657,7 +657,7 @@ func AddSetFlagsForListGatewaysRequest(flags *pflag.FlagSet, prefix string, hidd
 
 // SetFromFlags sets the ListGatewaysRequest message from flags.
 func (m *ListGatewaysRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("collaborator", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("collaborator", prefix)); changed {
 		m.Collaborator = &OrganizationOrUserIdentifiers{}
 		if setPaths, err := m.Collaborator.SetFromFlags(flags, flagsplugin.Prefix("collaborator", prefix)); err != nil {
 			return nil, err
@@ -665,33 +665,33 @@ func (m *ListGatewaysRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -747,13 +747,13 @@ func AddSetFlagsForGatewayAntenna(flags *pflag.FlagSet, prefix string, hidden bo
 
 // SetFromFlags sets the GatewayAntenna message from flags.
 func (m *GatewayAntenna) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("gain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("gain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Gain = val
 		paths = append(paths, flagsplugin.Prefix("gain", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location", prefix)); changed {
 		m.Location = &Location{}
 		if setPaths, err := m.Location.SetFromFlags(flags, flagsplugin.Prefix("location", prefix)); err != nil {
 			return nil, err
@@ -761,15 +761,15 @@ func (m *GatewayAntenna) SetFromFlags(flags *pflag.FlagSet, prefix string) (path
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Attributes = val
 		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("placement", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("placement", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, GatewayAntennaPlacement_value)
 		if err != nil {
 			return nil, err

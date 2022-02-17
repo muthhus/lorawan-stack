@@ -19,15 +19,15 @@ func AddSetFlagsForGetDefaultMACSettingsRequest(flags *pflag.FlagSet, prefix str
 
 // SetFromFlags sets the GetDefaultMACSettingsRequest message from flags.
 func (m *GetDefaultMACSettingsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrequencyPlanId = val
 		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PHYVersion_value)
 		if err != nil {
 			return nil, err

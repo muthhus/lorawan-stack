@@ -37,9 +37,9 @@ func AddSetFlagsForBoolValue(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the BoolValue message from flags.
 func (m *BoolValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Value = val
 		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
@@ -96,21 +96,21 @@ func AddSetFlagsForMACParameters_Channel(flags *pflag.FlagSet, prefix string, hi
 
 // SetFromFlags sets the MACParameters_Channel message from flags.
 func (m *MACParameters_Channel) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("uplink_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("uplink_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UplinkFrequency = val
 		paths = append(paths, flagsplugin.Prefix("uplink_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("downlink_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("downlink_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DownlinkFrequency = val
 		paths = append(paths, flagsplugin.Prefix("downlink_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("min_data_rate_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("min_data_rate_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -118,9 +118,9 @@ func (m *MACParameters_Channel) SetFromFlags(flags *pflag.FlagSet, prefix string
 		m.MinDataRateIndex = DataRateIndex(enumValue)
 		paths = append(paths, flagsplugin.Prefix("min_data_rate_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_data_rate_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_data_rate_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -128,9 +128,9 @@ func (m *MACParameters_Channel) SetFromFlags(flags *pflag.FlagSet, prefix string
 		m.MaxDataRateIndex = DataRateIndex(enumValue)
 		paths = append(paths, flagsplugin.Prefix("max_data_rate_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable_uplink", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("enable_uplink", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.EnableUplink = val
 		paths = append(paths, flagsplugin.Prefix("enable_uplink", prefix))
 	}
@@ -341,15 +341,15 @@ func AddSetFlagsForMACParameters(flags *pflag.FlagSet, prefix string, hidden boo
 
 // SetFromFlags sets the MACParameters message from flags.
 func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("max_eirp", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("max_eirp", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.MaxEirp = val
 		paths = append(paths, flagsplugin.Prefix("max_eirp", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("adr_data_rate_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("adr_data_rate_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -357,33 +357,33 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.AdrDataRateIndex = DataRateIndex(enumValue)
 		paths = append(paths, flagsplugin.Prefix("adr_data_rate_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_tx_power_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_tx_power_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AdrTxPowerIndex = val
 		paths = append(paths, flagsplugin.Prefix("adr_tx_power_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_nb_trans", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_nb_trans", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AdrNbTrans = val
 		paths = append(paths, flagsplugin.Prefix("adr_nb_trans", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AdrAckLimit = val
 		paths = append(paths, flagsplugin.Prefix("adr_ack_limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_delay", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("adr_ack_delay", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AdrAckDelay = val
 		paths = append(paths, flagsplugin.Prefix("adr_ack_delay", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, RxDelay_value)
 		if err != nil {
 			return nil, err
@@ -391,9 +391,9 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.Rx1Delay = RxDelay(enumValue)
 		paths = append(paths, flagsplugin.Prefix("rx1_delay", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateOffset_value)
 		if err != nil {
 			return nil, err
@@ -401,9 +401,9 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.Rx1DataRateOffset = DataRateOffset(enumValue)
 		paths = append(paths, flagsplugin.Prefix("rx1_data_rate_offset", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -411,15 +411,15 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.Rx2DataRateIndex = DataRateIndex(enumValue)
 		paths = append(paths, flagsplugin.Prefix("rx2_data_rate_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Rx2Frequency = val
 		paths = append(paths, flagsplugin.Prefix("rx2_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, AggregatedDutyCycle_value)
 		if err != nil {
 			return nil, err
@@ -427,9 +427,9 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.MaxDutyCycle = AggregatedDutyCycle(enumValue)
 		paths = append(paths, flagsplugin.Prefix("max_duty_cycle", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_time_periodicity", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_time_periodicity", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, RejoinTimeExponent_value)
 		if err != nil {
 			return nil, err
@@ -437,9 +437,9 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.RejoinTimePeriodicity = RejoinTimeExponent(enumValue)
 		paths = append(paths, flagsplugin.Prefix("rejoin_time_periodicity", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_count_periodicity", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("rejoin_count_periodicity", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, RejoinCountExponent_value)
 		if err != nil {
 			return nil, err
@@ -447,15 +447,15 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.RejoinCountPeriodicity = RejoinCountExponent(enumValue)
 		paths = append(paths, flagsplugin.Prefix("rejoin_count_periodicity", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PingSlotFrequency = val
 		paths = append(paths, flagsplugin.Prefix("ping_slot_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -463,14 +463,14 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 		m.PingSlotDataRateIndex = DataRateIndex(enumValue)
 		paths = append(paths, flagsplugin.Prefix("ping_slot_data_rate_index", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.BeaconFrequency = val
 		paths = append(paths, flagsplugin.Prefix("beacon_frequency", prefix))
 	}
 	// FIXME: Skipping Channels because it does not seem to implement AddSetFlags.
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); changed {
 		m.UplinkDwellTime = &BoolValue{}
 		if setPaths, err := m.UplinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("uplink_dwell_time", prefix)); err != nil {
 			return nil, err
@@ -478,7 +478,7 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); changed {
 		m.DownlinkDwellTime = &BoolValue{}
 		if setPaths, err := m.DownlinkDwellTime.SetFromFlags(flags, flagsplugin.Prefix("downlink_dwell_time", prefix)); err != nil {
 			return nil, err
@@ -486,7 +486,7 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); changed {
 		m.AdrAckLimitExponent = &ADRAckLimitExponentValue{}
 		if setPaths, err := m.AdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("adr_ack_limit_exponent", prefix)); err != nil {
 			return nil, err
@@ -494,7 +494,7 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); changed {
 		m.AdrAckDelayExponent = &ADRAckDelayExponentValue{}
 		if setPaths, err := m.AdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("adr_ack_delay_exponent", prefix)); err != nil {
 			return nil, err
@@ -502,7 +502,7 @@ func (m *MACParameters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); changed {
 		m.PingSlotDataRateIndexValue = &DataRateIndexValue{}
 		if setPaths, err := m.PingSlotDataRateIndexValue.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_data_rate_index_value", prefix)); err != nil {
 			return nil, err
@@ -901,13 +901,13 @@ func AddSetFlagsForMACSettings(flags *pflag.FlagSet, prefix string, hidden bool)
 
 // SetFromFlags sets the MACSettings message from flags.
 func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_timeout", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_timeout", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ClassBTimeout = gogo.SetDuration(val)
 		paths = append(paths, flagsplugin.Prefix("class_b_timeout", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); changed {
 		m.PingSlotPeriodicity = &PingSlotPeriodValue{}
 		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
 			return nil, err
@@ -915,7 +915,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); changed {
 		m.PingSlotDataRateIndex = &DataRateIndexValue{}
 		if setPaths, err := m.PingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_data_rate_index", prefix)); err != nil {
 			return nil, err
@@ -923,7 +923,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); changed {
 		m.PingSlotFrequency = &FrequencyValue{}
 		if setPaths, err := m.PingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_frequency", prefix)); err != nil {
 			return nil, err
@@ -931,7 +931,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("beacon_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("beacon_frequency", prefix)); changed {
 		m.BeaconFrequency = &FrequencyValue{}
 		if setPaths, err := m.BeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("beacon_frequency", prefix)); err != nil {
 			return nil, err
@@ -939,13 +939,13 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_c_timeout", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_c_timeout", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ClassCTimeout = gogo.SetDuration(val)
 		paths = append(paths, flagsplugin.Prefix("class_c_timeout", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_delay", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_delay", prefix)); changed {
 		m.Rx1Delay = &RxDelayValue{}
 		if setPaths, err := m.Rx1Delay.SetFromFlags(flags, flagsplugin.Prefix("rx1_delay", prefix)); err != nil {
 			return nil, err
@@ -953,7 +953,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); changed {
 		m.Rx1DataRateOffset = &DataRateOffsetValue{}
 		if setPaths, err := m.Rx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("rx1_data_rate_offset", prefix)); err != nil {
 			return nil, err
@@ -961,7 +961,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); changed {
 		m.Rx2DataRateIndex = &DataRateIndexValue{}
 		if setPaths, err := m.Rx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("rx2_data_rate_index", prefix)); err != nil {
 			return nil, err
@@ -969,7 +969,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("rx2_frequency", prefix)); changed {
 		m.Rx2Frequency = &FrequencyValue{}
 		if setPaths, err := m.Rx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("rx2_frequency", prefix)); err != nil {
 			return nil, err
@@ -977,13 +977,13 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("factory_preset_frequencies", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("factory_preset_frequencies", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FactoryPresetFrequencies = val
 		paths = append(paths, flagsplugin.Prefix("factory_preset_frequencies", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); changed {
 		m.MaxDutyCycle = &AggregatedDutyCycleValue{}
 		if setPaths, err := m.MaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("max_duty_cycle", prefix)); err != nil {
 			return nil, err
@@ -991,7 +991,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); changed {
 		m.Supports_32BitFCnt = &BoolValue{}
 		if setPaths, err := m.Supports_32BitFCnt.SetFromFlags(flags, flagsplugin.Prefix("supports_32_bit_f_cnt", prefix)); err != nil {
 			return nil, err
@@ -999,7 +999,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("use_adr", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("use_adr", prefix)); changed {
 		m.UseAdr = &BoolValue{}
 		if setPaths, err := m.UseAdr.SetFromFlags(flags, flagsplugin.Prefix("use_adr", prefix)); err != nil {
 			return nil, err
@@ -1007,13 +1007,13 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("adr_margin.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("adr_margin.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AdrMargin = &types.FloatValue{Value: val}
 		paths = append(paths, flagsplugin.Prefix("adr_margin", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); changed {
 		m.ResetsFCnt = &BoolValue{}
 		if setPaths, err := m.ResetsFCnt.SetFromFlags(flags, flagsplugin.Prefix("resets_f_cnt", prefix)); err != nil {
 			return nil, err
@@ -1021,19 +1021,19 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("status_time_periodicity", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("status_time_periodicity", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.StatusTimePeriodicity = gogo.SetDuration(val)
 		paths = append(paths, flagsplugin.Prefix("status_time_periodicity", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("status_count_periodicity.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("status_count_periodicity.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.StatusCountPeriodicity = &types.UInt32Value{Value: val}
 		paths = append(paths, flagsplugin.Prefix("status_count_periodicity", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); changed {
 		m.DesiredRx1Delay = &RxDelayValue{}
 		if setPaths, err := m.DesiredRx1Delay.SetFromFlags(flags, flagsplugin.Prefix("desired_rx1_delay", prefix)); err != nil {
 			return nil, err
@@ -1041,7 +1041,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); changed {
 		m.DesiredRx1DataRateOffset = &DataRateOffsetValue{}
 		if setPaths, err := m.DesiredRx1DataRateOffset.SetFromFlags(flags, flagsplugin.Prefix("desired_rx1_data_rate_offset", prefix)); err != nil {
 			return nil, err
@@ -1049,7 +1049,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); changed {
 		m.DesiredRx2DataRateIndex = &DataRateIndexValue{}
 		if setPaths, err := m.DesiredRx2DataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired_rx2_data_rate_index", prefix)); err != nil {
 			return nil, err
@@ -1057,7 +1057,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); changed {
 		m.DesiredRx2Frequency = &FrequencyValue{}
 		if setPaths, err := m.DesiredRx2Frequency.SetFromFlags(flags, flagsplugin.Prefix("desired_rx2_frequency", prefix)); err != nil {
 			return nil, err
@@ -1065,7 +1065,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); changed {
 		m.DesiredMaxDutyCycle = &AggregatedDutyCycleValue{}
 		if setPaths, err := m.DesiredMaxDutyCycle.SetFromFlags(flags, flagsplugin.Prefix("desired_max_duty_cycle", prefix)); err != nil {
 			return nil, err
@@ -1073,7 +1073,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); changed {
 		m.DesiredAdrAckLimitExponent = &ADRAckLimitExponentValue{}
 		if setPaths, err := m.DesiredAdrAckLimitExponent.SetFromFlags(flags, flagsplugin.Prefix("desired_adr_ack_limit_exponent", prefix)); err != nil {
 			return nil, err
@@ -1081,7 +1081,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); changed {
 		m.DesiredAdrAckDelayExponent = &ADRAckDelayExponentValue{}
 		if setPaths, err := m.DesiredAdrAckDelayExponent.SetFromFlags(flags, flagsplugin.Prefix("desired_adr_ack_delay_exponent", prefix)); err != nil {
 			return nil, err
@@ -1089,7 +1089,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); changed {
 		m.DesiredPingSlotDataRateIndex = &DataRateIndexValue{}
 		if setPaths, err := m.DesiredPingSlotDataRateIndex.SetFromFlags(flags, flagsplugin.Prefix("desired_ping_slot_data_rate_index", prefix)); err != nil {
 			return nil, err
@@ -1097,7 +1097,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); changed {
 		m.DesiredPingSlotFrequency = &FrequencyValue{}
 		if setPaths, err := m.DesiredPingSlotFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired_ping_slot_frequency", prefix)); err != nil {
 			return nil, err
@@ -1105,7 +1105,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); changed {
 		m.DesiredBeaconFrequency = &FrequencyValue{}
 		if setPaths, err := m.DesiredBeaconFrequency.SetFromFlags(flags, flagsplugin.Prefix("desired_beacon_frequency", prefix)); err != nil {
 			return nil, err
@@ -1113,7 +1113,7 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); changed {
 		m.DesiredMaxEirp = &DeviceEIRPValue{}
 		if setPaths, err := m.DesiredMaxEirp.SetFromFlags(flags, flagsplugin.Prefix("desired_max_eirp", prefix)); err != nil {
 			return nil, err
@@ -1121,9 +1121,9 @@ func (m *MACSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths [
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_c_downlink_interval", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetDuration(flags, flagsplugin.Prefix("class_b_c_downlink_interval", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ClassBCDownlinkInterval = gogo.SetDuration(val)
 		paths = append(paths, flagsplugin.Prefix("class_b_c_downlink_interval", prefix))
 	}
@@ -1316,7 +1316,7 @@ func AddSetFlagsForMACState(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the MACState message from flags.
 func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("current_parameters", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("current_parameters", prefix)); changed {
 		m.CurrentParameters = &MACParameters{}
 		if setPaths, err := m.CurrentParameters.SetFromFlags(flags, flagsplugin.Prefix("current_parameters", prefix)); err != nil {
 			return nil, err
@@ -1324,7 +1324,7 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_parameters", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("desired_parameters", prefix)); changed {
 		m.DesiredParameters = &MACParameters{}
 		if setPaths, err := m.DesiredParameters.SetFromFlags(flags, flagsplugin.Prefix("desired_parameters", prefix)); err != nil {
 			return nil, err
@@ -1332,9 +1332,9 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device_class", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("device_class", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, Class_value)
 		if err != nil {
 			return nil, err
@@ -1342,9 +1342,9 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 		m.DeviceClass = Class(enumValue)
 		paths = append(paths, flagsplugin.Prefix("device_class", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, MACVersion_value)
 		if err != nil {
 			return nil, err
@@ -1352,19 +1352,19 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 		m.LorawanVersion = MACVersion(enumValue)
 		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_confirmed_downlink_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_confirmed_downlink_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastConfirmedDownlinkAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("last_confirmed_downlink_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastDevStatusFCntUp = val
 		paths = append(paths, flagsplugin.Prefix("last_dev_status_f_cnt_up", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); changed {
 		m.PingSlotPeriodicity = &PingSlotPeriodValue{}
 		if setPaths, err := m.PingSlotPeriodicity.SetFromFlags(flags, flagsplugin.Prefix("ping_slot_periodicity", prefix)); err != nil {
 			return nil, err
@@ -1372,7 +1372,7 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); changed {
 		m.PendingApplicationDownlink = &ApplicationDownlink{}
 		if setPaths, err := m.PendingApplicationDownlink.SetFromFlags(flags, flagsplugin.Prefix("pending_application_downlink", prefix)); err != nil {
 			return nil, err
@@ -1384,23 +1384,23 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 	// FIXME: Skipping PendingRequests because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping QueuedJoinAccept because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping PendingJoinRequest because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx_windows_available", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("rx_windows_available", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RxWindowsAvailable = val
 		paths = append(paths, flagsplugin.Prefix("rx_windows_available", prefix))
 	}
 	// FIXME: Skipping RecentUplinks because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping RecentDownlinks because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastNetworkInitiatedDownlinkAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("last_network_initiated_downlink_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, DataRateIndex_value)
 			if err != nil {
@@ -1410,28 +1410,28 @@ func (m *MACState) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 		}
 		paths = append(paths, flagsplugin.Prefix("rejected_adr_data_rate_indexes", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RejectedAdrTxPowerIndexes = val
 		paths = append(paths, flagsplugin.Prefix("rejected_adr_tx_power_indexes", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("rejected_frequencies", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64Slice(flags, flagsplugin.Prefix("rejected_frequencies", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RejectedFrequencies = val
 		paths = append(paths, flagsplugin.Prefix("rejected_frequencies", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_downlink_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_downlink_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastDownlinkAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("last_downlink_at", prefix))
 	}
 	// FIXME: Skipping RejectedDataRateRanges because maps with uint64 key types are currently not supported.
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastAdrChangeFCntUp = val
 		paths = append(paths, flagsplugin.Prefix("last_adr_change_f_cnt_up", prefix))
 	}
@@ -1835,7 +1835,7 @@ func AddSetFlagsForEndDevice(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the EndDevice message from flags.
 func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &EndDeviceIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -1843,37 +1843,37 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Name = val
 		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Description = val
 		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Attributes = val
 		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("version_ids", prefix)); changed {
 		m.VersionIds = &EndDeviceVersionIdentifiers{}
 		if setPaths, err := m.VersionIds.SetFromFlags(flags, flagsplugin.Prefix("version_ids", prefix)); err != nil {
 			return nil, err
@@ -1881,65 +1881,65 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("service_profile_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("service_profile_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ServiceProfileId = val
 		paths = append(paths, flagsplugin.Prefix("service_profile_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_address", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_address", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NetworkServerAddress = val
 		paths = append(paths, flagsplugin.Prefix("network_server_address", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_kek_label", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("network_server_kek_label", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NetworkServerKekLabel = val
 		paths = append(paths, flagsplugin.Prefix("network_server_kek_label", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_address", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_address", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ApplicationServerAddress = val
 		paths = append(paths, flagsplugin.Prefix("application_server_address", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_kek_label", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_kek_label", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ApplicationServerKekLabel = val
 		paths = append(paths, flagsplugin.Prefix("application_server_kek_label", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ApplicationServerId = val
 		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join_server_address", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join_server_address", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.JoinServerAddress = val
 		paths = append(paths, flagsplugin.Prefix("join_server_address", prefix))
 	}
 	// FIXME: Skipping Locations because maps with message value types are currently not supported.
 	// FIXME: Skipping Picture because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_b", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_b", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SupportsClassB = val
 		paths = append(paths, flagsplugin.Prefix("supports_class_b", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_c", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_class_c", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SupportsClassC = val
 		paths = append(paths, flagsplugin.Prefix("supports_class_c", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, MACVersion_value)
 		if err != nil {
 			return nil, err
@@ -1947,9 +1947,9 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 		m.LorawanVersion = MACVersion(enumValue)
 		paths = append(paths, flagsplugin.Prefix("lorawan_version", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("lorawan_phy_version", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PHYVersion_value)
 		if err != nil {
 			return nil, err
@@ -1957,37 +1957,37 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 		m.LorawanPhyVersion = PHYVersion(enumValue)
 		paths = append(paths, flagsplugin.Prefix("lorawan_phy_version", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("frequency_plan_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrequencyPlanId = val
 		paths = append(paths, flagsplugin.Prefix("frequency_plan_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("min_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("min_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.MinFrequency = val
 		paths = append(paths, flagsplugin.Prefix("min_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("max_frequency", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("max_frequency", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.MaxFrequency = val
 		paths = append(paths, flagsplugin.Prefix("max_frequency", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_join", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("supports_join", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SupportsJoin = val
 		paths = append(paths, flagsplugin.Prefix("supports_join", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets_join_nonces", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("resets_join_nonces", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ResetsJoinNonces = val
 		paths = append(paths, flagsplugin.Prefix("resets_join_nonces", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("root_keys", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("root_keys", prefix)); changed {
 		m.RootKeys = &RootKeys{}
 		if setPaths, err := m.RootKeys.SetFromFlags(flags, flagsplugin.Prefix("root_keys", prefix)); err != nil {
 			return nil, err
@@ -1995,13 +1995,13 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := types1.GetNetID(flags, flagsplugin.Prefix("net_id", prefix)); err != nil {
+	if val, changed, err := types1.GetNetID(flags, flagsplugin.Prefix("net_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NetId = &val
 		paths = append(paths, flagsplugin.Prefix("net_id", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_settings", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_settings", prefix)); changed {
 		m.MacSettings = &MACSettings{}
 		if setPaths, err := m.MacSettings.SetFromFlags(flags, flagsplugin.Prefix("mac_settings", prefix)); err != nil {
 			return nil, err
@@ -2009,7 +2009,7 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_state", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("mac_state", prefix)); changed {
 		m.MacState = &MACState{}
 		if setPaths, err := m.MacState.SetFromFlags(flags, flagsplugin.Prefix("mac_state", prefix)); err != nil {
 			return nil, err
@@ -2017,7 +2017,7 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_mac_state", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("pending_mac_state", prefix)); changed {
 		m.PendingMacState = &MACState{}
 		if setPaths, err := m.PendingMacState.SetFromFlags(flags, flagsplugin.Prefix("pending_mac_state", prefix)); err != nil {
 			return nil, err
@@ -2027,45 +2027,45 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 	}
 	// FIXME: Skipping Session because it does not seem to implement AddSetFlags.
 	// FIXME: Skipping PendingSession because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_nonce", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_dev_nonce", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastDevNonce = val
 		paths = append(paths, flagsplugin.Prefix("last_dev_nonce", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("used_dev_nonces", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32Slice(flags, flagsplugin.Prefix("used_dev_nonces", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UsedDevNonces = val
 		paths = append(paths, flagsplugin.Prefix("used_dev_nonces", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_join_nonce", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_join_nonce", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastJoinNonce = val
 		paths = append(paths, flagsplugin.Prefix("last_join_nonce", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_0", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_0", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastRjCount_0 = val
 		paths = append(paths, flagsplugin.Prefix("last_rj_count_0", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_1", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("last_rj_count_1", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastRjCount_1 = val
 		paths = append(paths, flagsplugin.Prefix("last_rj_count_1", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_dev_status_received_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("last_dev_status_received_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.LastDevStatusReceivedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("last_dev_status_received_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("power_state", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("power_state", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PowerState_value)
 		if err != nil {
 			return nil, err
@@ -2073,20 +2073,20 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 		m.PowerState = PowerState(enumValue)
 		paths = append(paths, flagsplugin.Prefix("power_state", prefix))
 	}
-	if val, selected, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("battery_percentage.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat32(flags, flagsplugin.Prefix("battery_percentage.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.BatteryPercentage = &types.FloatValue{Value: val}
 		paths = append(paths, flagsplugin.Prefix("battery_percentage", prefix))
 	}
-	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("downlink_margin", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("downlink_margin", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DownlinkMargin = val
 		paths = append(paths, flagsplugin.Prefix("downlink_margin", prefix))
 	}
 	// FIXME: Skipping QueuedApplicationDownlinks because it does not seem to implement AddSetFlags.
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("formatters", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("formatters", prefix)); changed {
 		m.Formatters = &MessagePayloadFormatters{}
 		if setPaths, err := m.Formatters.SetFromFlags(flags, flagsplugin.Prefix("formatters", prefix)); err != nil {
 			return nil, err
@@ -2094,35 +2094,35 @@ func (m *EndDevice) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []s
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("provisioner_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("provisioner_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ProvisionerId = val
 		paths = append(paths, flagsplugin.Prefix("provisioner_id", prefix))
 	}
 	// FIXME: Skipping ProvisioningData because this WKT is not supported.
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("multicast", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Multicast = val
 		paths = append(paths, flagsplugin.Prefix("multicast", prefix))
 	}
 	// FIXME: Skipping ClaimAuthenticationCode because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SkipPayloadCrypto = val
 		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto_override.value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("skip_payload_crypto_override.value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SkipPayloadCryptoOverride = &types.BoolValue{Value: val}
 		paths = append(paths, flagsplugin.Prefix("skip_payload_crypto_override", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("activated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("activated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ActivatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("activated_at", prefix))
 	}

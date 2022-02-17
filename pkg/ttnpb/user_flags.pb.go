@@ -175,7 +175,7 @@ func AddSetFlagsForUser(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the User message from flags.
 func (m *User) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &UserIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -183,76 +183,76 @@ func (m *User) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("deleted_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DeletedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("deleted_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Name = val
 		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Description = val
 		paths = append(paths, flagsplugin.Prefix("description", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Attributes = val
 		paths = append(paths, flagsplugin.Prefix("attributes", prefix))
 	}
 	// FIXME: Skipping ContactInfo because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("primary_email_address", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("primary_email_address", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PrimaryEmailAddress = val
 		paths = append(paths, flagsplugin.Prefix("primary_email_address", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("primary_email_address_validated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("primary_email_address_validated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PrimaryEmailAddressValidatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("primary_email_address_validated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("password", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Password = val
 		paths = append(paths, flagsplugin.Prefix("password", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("password_updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("password_updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.PasswordUpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("password_updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_password_update", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("require_password_update", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RequirePasswordUpdate = val
 		paths = append(paths, flagsplugin.Prefix("require_password_update", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, State_value)
 		if err != nil {
 			return nil, err
@@ -260,33 +260,33 @@ func (m *User) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string
 		m.State = State(enumValue)
 		paths = append(paths, flagsplugin.Prefix("state", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state_description", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("state_description", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.StateDescription = val
 		paths = append(paths, flagsplugin.Prefix("state_description", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("admin", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Admin = val
 		paths = append(paths, flagsplugin.Prefix("admin", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("temporary_password", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("temporary_password", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TemporaryPassword = val
 		paths = append(paths, flagsplugin.Prefix("temporary_password", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TemporaryPasswordCreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("temporary_password_created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_expires_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("temporary_password_expires_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TemporaryPasswordExpiresAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("temporary_password_expires_at", prefix))
 	}
@@ -344,33 +344,33 @@ func AddSetFlagsForListUsersRequest(flags *pflag.FlagSet, prefix string, hidden 
 
 // SetFromFlags sets the ListUsersRequest message from flags.
 func (m *ListUsersRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}

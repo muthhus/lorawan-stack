@@ -27,57 +27,57 @@ func AddSetFlagsForSearchApplicationsRequest(flags *pflag.FlagSet, prefix string
 
 // SetFromFlags sets the SearchApplicationsRequest message from flags.
 func (m *SearchApplicationsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -100,33 +100,33 @@ func AddSetFlagsForSearchClientsRequest(flags *pflag.FlagSet, prefix string, hid
 
 // SetFromFlags sets the SearchClientsRequest message from flags.
 func (m *SearchClientsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("state", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("state", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, State_value)
 			if err != nil {
@@ -136,33 +136,33 @@ func (m *SearchClientsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string)
 		}
 		paths = append(paths, flagsplugin.Prefix("state", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -185,63 +185,63 @@ func AddSetFlagsForSearchGatewaysRequest(flags *pflag.FlagSet, prefix string, hi
 
 // SetFromFlags sets the SearchGatewaysRequest message from flags.
 func (m *SearchGatewaysRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("eui_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("eui_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.EuiContains = val
 		paths = append(paths, flagsplugin.Prefix("eui_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -263,57 +263,57 @@ func AddSetFlagsForSearchOrganizationsRequest(flags *pflag.FlagSet, prefix strin
 
 // SetFromFlags sets the SearchOrganizationsRequest message from flags.
 func (m *SearchOrganizationsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -336,33 +336,33 @@ func AddSetFlagsForSearchUsersRequest(flags *pflag.FlagSet, prefix string, hidde
 
 // SetFromFlags sets the SearchUsersRequest message from flags.
 func (m *SearchUsersRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("state", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("state", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, State_value)
 			if err != nil {
@@ -372,33 +372,33 @@ func (m *SearchUsersRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 		}
 		paths = append(paths, flagsplugin.Prefix("state", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("deleted", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Deleted = val
 		paths = append(paths, flagsplugin.Prefix("deleted", prefix))
 	}
@@ -423,7 +423,7 @@ func AddSetFlagsForSearchEndDevicesRequest(flags *pflag.FlagSet, prefix string, 
 
 // SetFromFlags sets the SearchEndDevicesRequest message from flags.
 func (m *SearchEndDevicesRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); changed {
 		m.ApplicationIds = &ApplicationIdentifiers{}
 		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
 			return nil, err
@@ -431,69 +431,69 @@ func (m *SearchEndDevicesRequest) SetFromFlags(flags *pflag.FlagSet, prefix stri
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.IdContains = val
 		paths = append(paths, flagsplugin.Prefix("id_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.NameContains = val
 		paths = append(paths, flagsplugin.Prefix("name_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("description_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DescriptionContains = val
 		paths = append(paths, flagsplugin.Prefix("description_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("attributes_contain", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AttributesContain = val
 		paths = append(paths, flagsplugin.Prefix("attributes_contain", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("dev_eui_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("dev_eui_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DevEuiContains = val
 		paths = append(paths, flagsplugin.Prefix("dev_eui_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join_eui_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("join_eui_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.JoinEuiContains = val
 		paths = append(paths, flagsplugin.Prefix("join_eui_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("dev_addr_contains", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("dev_addr_contains", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DevAddrContains = val
 		paths = append(paths, flagsplugin.Prefix("dev_addr_contains", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("order", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Order = val
 		paths = append(paths, flagsplugin.Prefix("order", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("limit", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Limit = val
 		paths = append(paths, flagsplugin.Prefix("limit", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("page", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Page = val
 		paths = append(paths, flagsplugin.Prefix("page", prefix))
 	}

@@ -76,27 +76,27 @@ func AddSetFlagsForAPIKey(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the APIKey message from flags.
 func (m *APIKey) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Id = val
 		paths = append(paths, flagsplugin.Prefix("id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Key = val
 		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("name", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Name = val
 		paths = append(paths, flagsplugin.Prefix("name", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rights", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("rights", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		for _, v := range val {
 			enumValue, err := flagsplugin.SetEnumString(v, Right_value)
 			if err != nil {
@@ -106,21 +106,21 @@ func (m *APIKey) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []stri
 		}
 		paths = append(paths, flagsplugin.Prefix("rights", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("expires_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("expires_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ExpiresAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("expires_at", prefix))
 	}

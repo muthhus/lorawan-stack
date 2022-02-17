@@ -47,7 +47,7 @@ func AddSetFlagsForApplicationWebhookIdentifiers(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationWebhookIdentifiers message from flags.
 func (m *ApplicationWebhookIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); changed {
 		m.ApplicationIds = &ApplicationIdentifiers{}
 		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
 			return nil, err
@@ -55,9 +55,9 @@ func (m *ApplicationWebhookIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefi
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("webhook_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("webhook_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.WebhookId = val
 		paths = append(paths, flagsplugin.Prefix("webhook_id", prefix))
 	}
@@ -86,9 +86,9 @@ func AddSetFlagsForApplicationWebhookTemplateIdentifiers(flags *pflag.FlagSet, p
 
 // SetFromFlags sets the ApplicationWebhookTemplateIdentifiers message from flags.
 func (m *ApplicationWebhookTemplateIdentifiers) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("template_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("template_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TemplateId = val
 		paths = append(paths, flagsplugin.Prefix("template_id", prefix))
 	}
@@ -184,9 +184,9 @@ func AddSetFlagsForApplicationWebhook_Message(flags *pflag.FlagSet, prefix strin
 
 // SetFromFlags sets the ApplicationWebhook_Message message from flags.
 func (m *ApplicationWebhook_Message) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("path", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("path", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Path = val
 		paths = append(paths, flagsplugin.Prefix("path", prefix))
 	}
@@ -418,7 +418,7 @@ func AddSetFlagsForApplicationWebhook(flags *pflag.FlagSet, prefix string, hidde
 
 // SetFromFlags sets the ApplicationWebhook message from flags.
 func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("ids", prefix)); changed {
 		m.Ids = &ApplicationWebhookIdentifiers{}
 		if setPaths, err := m.Ids.SetFromFlags(flags, flagsplugin.Prefix("ids", prefix)); err != nil {
 			return nil, err
@@ -426,37 +426,37 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("created_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CreatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("created_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("updated_at", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpdatedAt = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("updated_at", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base_url", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("base_url", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.BaseUrl = val
 		paths = append(paths, flagsplugin.Prefix("base_url", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("headers", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Headers = val
 		paths = append(paths, flagsplugin.Prefix("headers", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("format", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Format = val
 		paths = append(paths, flagsplugin.Prefix("format", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("template_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("template_ids", prefix)); changed {
 		m.TemplateIds = &ApplicationWebhookTemplateIdentifiers{}
 		if setPaths, err := m.TemplateIds.SetFromFlags(flags, flagsplugin.Prefix("template_ids", prefix)); err != nil {
 			return nil, err
@@ -464,19 +464,19 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("template_fields", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringStringMap(flags, flagsplugin.Prefix("template_fields", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.TemplateFields = val
 		paths = append(paths, flagsplugin.Prefix("template_fields", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink_api_key", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("downlink_api_key", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DownlinkApiKey = val
 		paths = append(paths, flagsplugin.Prefix("downlink_api_key", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_message", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("uplink_message", prefix)); changed {
 		m.UplinkMessage = &ApplicationWebhook_Message{}
 		if setPaths, err := m.UplinkMessage.SetFromFlags(flags, flagsplugin.Prefix("uplink_message", prefix)); err != nil {
 			return nil, err
@@ -484,7 +484,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join_accept", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("join_accept", prefix)); changed {
 		m.JoinAccept = &ApplicationWebhook_Message{}
 		if setPaths, err := m.JoinAccept.SetFromFlags(flags, flagsplugin.Prefix("join_accept", prefix)); err != nil {
 			return nil, err
@@ -492,7 +492,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_ack", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_ack", prefix)); changed {
 		m.DownlinkAck = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkAck.SetFromFlags(flags, flagsplugin.Prefix("downlink_ack", prefix)); err != nil {
 			return nil, err
@@ -500,7 +500,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_nack", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_nack", prefix)); changed {
 		m.DownlinkNack = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkNack.SetFromFlags(flags, flagsplugin.Prefix("downlink_nack", prefix)); err != nil {
 			return nil, err
@@ -508,7 +508,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_sent", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_sent", prefix)); changed {
 		m.DownlinkSent = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkSent.SetFromFlags(flags, flagsplugin.Prefix("downlink_sent", prefix)); err != nil {
 			return nil, err
@@ -516,7 +516,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_failed", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_failed", prefix)); changed {
 		m.DownlinkFailed = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkFailed.SetFromFlags(flags, flagsplugin.Prefix("downlink_failed", prefix)); err != nil {
 			return nil, err
@@ -524,7 +524,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queued", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queued", prefix)); changed {
 		m.DownlinkQueued = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkQueued.SetFromFlags(flags, flagsplugin.Prefix("downlink_queued", prefix)); err != nil {
 			return nil, err
@@ -532,7 +532,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); changed {
 		m.DownlinkQueueInvalidated = &ApplicationWebhook_Message{}
 		if setPaths, err := m.DownlinkQueueInvalidated.SetFromFlags(flags, flagsplugin.Prefix("downlink_queue_invalidated", prefix)); err != nil {
 			return nil, err
@@ -540,7 +540,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location_solved", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("location_solved", prefix)); changed {
 		m.LocationSolved = &ApplicationWebhook_Message{}
 		if setPaths, err := m.LocationSolved.SetFromFlags(flags, flagsplugin.Prefix("location_solved", prefix)); err != nil {
 			return nil, err
@@ -548,7 +548,7 @@ func (m *ApplicationWebhook) SetFromFlags(flags *pflag.FlagSet, prefix string) (
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service_data", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("service_data", prefix)); changed {
 		m.ServiceData = &ApplicationWebhook_Message{}
 		if setPaths, err := m.ServiceData.SetFromFlags(flags, flagsplugin.Prefix("service_data", prefix)); err != nil {
 			return nil, err

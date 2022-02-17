@@ -40,15 +40,15 @@ func AddSetFlagsForSecret(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the Secret message from flags.
 func (m *Secret) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("key_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.KeyId = val
 		paths = append(paths, flagsplugin.Prefix("key_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Value = val
 		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}

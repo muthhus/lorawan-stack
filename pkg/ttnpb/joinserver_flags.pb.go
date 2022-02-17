@@ -63,13 +63,13 @@ func AddSetFlagsForApplicationActivationSettings(flags *pflag.FlagSet, prefix st
 
 // SetFromFlags sets the ApplicationActivationSettings message from flags.
 func (m *ApplicationActivationSettings) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.KekLabel = val
 		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("kek", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("kek", prefix)); changed {
 		m.Kek = &KeyEnvelope{}
 		if setPaths, err := m.Kek.SetFromFlags(flags, flagsplugin.Prefix("kek", prefix)); err != nil {
 			return nil, err
@@ -77,15 +77,15 @@ func (m *ApplicationActivationSettings) SetFromFlags(flags *pflag.FlagSet, prefi
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := types.GetNetID(flags, flagsplugin.Prefix("home_net_id", prefix)); err != nil {
+	if val, changed, err := types.GetNetID(flags, flagsplugin.Prefix("home_net_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.HomeNetId = &val
 		paths = append(paths, flagsplugin.Prefix("home_net_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("application_server_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.ApplicationServerId = val
 		paths = append(paths, flagsplugin.Prefix("application_server_id", prefix))
 	}
@@ -136,7 +136,7 @@ func AddSetFlagsForSetApplicationActivationSettingsRequest(flags *pflag.FlagSet,
 
 // SetFromFlags sets the SetApplicationActivationSettingsRequest message from flags.
 func (m *SetApplicationActivationSettingsRequest) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("application_ids", prefix)); changed {
 		m.ApplicationIds = &ApplicationIdentifiers{}
 		if setPaths, err := m.ApplicationIds.SetFromFlags(flags, flagsplugin.Prefix("application_ids", prefix)); err != nil {
 			return nil, err
@@ -144,7 +144,7 @@ func (m *SetApplicationActivationSettingsRequest) SetFromFlags(flags *pflag.Flag
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("settings", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("settings", prefix)); changed {
 		m.Settings = &ApplicationActivationSettings{}
 		if setPaths, err := m.Settings.SetFromFlags(flags, flagsplugin.Prefix("settings", prefix)); err != nil {
 			return nil, err
@@ -152,9 +152,9 @@ func (m *SetApplicationActivationSettingsRequest) SetFromFlags(flags *pflag.Flag
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("field_mask", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FieldMask = gogo.SetFieldMask(val)
 		paths = append(paths, flagsplugin.Prefix("field_mask", prefix))
 	}

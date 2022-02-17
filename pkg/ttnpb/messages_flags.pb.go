@@ -245,9 +245,9 @@ func AddSetFlagsForApplicationDownlink_ClassBC(flags *pflag.FlagSet, prefix stri
 // SetFromFlags sets the ApplicationDownlink_ClassBC message from flags.
 func (m *ApplicationDownlink_ClassBC) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
 	// FIXME: Skipping Gateways because it does not seem to implement AddSetFlags.
-	if val, selected, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("absolute_time", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetTimestamp(flags, flagsplugin.Prefix("absolute_time", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.AbsoluteTime = gogo.SetTimestamp(val)
 		paths = append(paths, flagsplugin.Prefix("absolute_time", prefix))
 	}
@@ -341,44 +341,44 @@ func AddSetFlagsForApplicationDownlink(flags *pflag.FlagSet, prefix string, hidd
 
 // SetFromFlags sets the ApplicationDownlink message from flags.
 func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("session_key_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.SessionKeyId = val
 		paths = append(paths, flagsplugin.Prefix("session_key_id", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_port", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FPort = val
 		paths = append(paths, flagsplugin.Prefix("f_port", prefix))
 	}
-	if val, selected, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_cnt", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint32(flags, flagsplugin.Prefix("f_cnt", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FCnt = val
 		paths = append(paths, flagsplugin.Prefix("f_cnt", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("frm_payload", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("frm_payload", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.FrmPayload = val
 		paths = append(paths, flagsplugin.Prefix("frm_payload", prefix))
 	}
 	// FIXME: Skipping DecodedPayload because this WKT is not supported.
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("decoded_payload_warnings", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("decoded_payload_warnings", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DecodedPayloadWarnings = val
 		paths = append(paths, flagsplugin.Prefix("decoded_payload_warnings", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBool(flags, flagsplugin.Prefix("confirmed", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Confirmed = val
 		paths = append(paths, flagsplugin.Prefix("confirmed", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("class_b_c", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("class_b_c", prefix)); changed {
 		m.ClassBC = &ApplicationDownlink_ClassBC{}
 		if setPaths, err := m.ClassBC.SetFromFlags(flags, flagsplugin.Prefix("class_b_c", prefix)); err != nil {
 			return nil, err
@@ -386,9 +386,9 @@ func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 			paths = append(paths, setPaths...)
 		}
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("priority", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("priority", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, TxSchedulePriority_value)
 		if err != nil {
 			return nil, err
@@ -396,9 +396,9 @@ func (m *ApplicationDownlink) SetFromFlags(flags *pflag.FlagSet, prefix string) 
 		m.Priority = TxSchedulePriority(enumValue)
 		paths = append(paths, flagsplugin.Prefix("priority", prefix))
 	}
-	if val, selected, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("correlation_ids", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetStringSlice(flags, flagsplugin.Prefix("correlation_ids", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.CorrelationIds = val
 		paths = append(paths, flagsplugin.Prefix("correlation_ids", prefix))
 	}
@@ -636,9 +636,9 @@ func AddSetFlagsForMessagePayloadFormatters(flags *pflag.FlagSet, prefix string,
 
 // SetFromFlags sets the MessagePayloadFormatters message from flags.
 func (m *MessagePayloadFormatters) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PayloadFormatter_value)
 		if err != nil {
 			return nil, err
@@ -646,15 +646,15 @@ func (m *MessagePayloadFormatters) SetFromFlags(flags *pflag.FlagSet, prefix str
 		m.UpFormatter = PayloadFormatter(enumValue)
 		paths = append(paths, flagsplugin.Prefix("up_formatter", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter_parameter", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("up_formatter_parameter", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.UpFormatterParameter = val
 		paths = append(paths, flagsplugin.Prefix("up_formatter_parameter", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PayloadFormatter_value)
 		if err != nil {
 			return nil, err
@@ -662,9 +662,9 @@ func (m *MessagePayloadFormatters) SetFromFlags(flags *pflag.FlagSet, prefix str
 		m.DownFormatter = PayloadFormatter(enumValue)
 		paths = append(paths, flagsplugin.Prefix("down_formatter", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter_parameter", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("down_formatter_parameter", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.DownFormatterParameter = val
 		paths = append(paths, flagsplugin.Prefix("down_formatter_parameter", prefix))
 	}

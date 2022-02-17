@@ -49,21 +49,21 @@ func AddSetFlagsForKeyEnvelope(flags *pflag.FlagSet, prefix string, hidden bool)
 
 // SetFromFlags sets the KeyEnvelope message from flags.
 func (m *KeyEnvelope) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := types.GetAES128Key(flags, flagsplugin.Prefix("key", prefix)); err != nil {
+	if val, changed, err := types.GetAES128Key(flags, flagsplugin.Prefix("key", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Key = &val
 		paths = append(paths, flagsplugin.Prefix("key", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("kek_label", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.KekLabel = val
 		paths = append(paths, flagsplugin.Prefix("kek_label", prefix))
 	}
-	if val, selected, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("encrypted_key", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetBytes(flags, flagsplugin.Prefix("encrypted_key", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.EncryptedKey = val
 		paths = append(paths, flagsplugin.Prefix("encrypted_key", prefix))
 	}
@@ -118,13 +118,13 @@ func AddSetFlagsForRootKeys(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the RootKeys message from flags.
 func (m *RootKeys) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("root_key_id", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("root_key_id", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.RootKeyId = val
 		paths = append(paths, flagsplugin.Prefix("root_key_id", prefix))
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("app_key", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("app_key", prefix)); changed {
 		m.AppKey = &KeyEnvelope{}
 		if setPaths, err := m.AppKey.SetFromFlags(flags, flagsplugin.Prefix("app_key", prefix)); err != nil {
 			return nil, err
@@ -132,7 +132,7 @@ func (m *RootKeys) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []st
 			paths = append(paths, setPaths...)
 		}
 	}
-	if selected := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("nwk_key", prefix)); selected {
+	if changed := flagsplugin.IsAnyPrefixSet(flags, flagsplugin.Prefix("nwk_key", prefix)); changed {
 		m.NwkKey = &KeyEnvelope{}
 		if setPaths, err := m.NwkKey.SetFromFlags(flags, flagsplugin.Prefix("nwk_key", prefix)); err != nil {
 			return nil, err

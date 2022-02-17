@@ -61,33 +61,33 @@ func AddSetFlagsForLocation(flags *pflag.FlagSet, prefix string, hidden bool) {
 
 // SetFromFlags sets the Location message from flags.
 func (m *Location) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("latitude", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("latitude", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Latitude = val
 		paths = append(paths, flagsplugin.Prefix("latitude", prefix))
 	}
-	if val, selected, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("longitude", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetFloat64(flags, flagsplugin.Prefix("longitude", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Longitude = val
 		paths = append(paths, flagsplugin.Prefix("longitude", prefix))
 	}
-	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("altitude", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("altitude", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Altitude = val
 		paths = append(paths, flagsplugin.Prefix("altitude", prefix))
 	}
-	if val, selected, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("accuracy", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetInt32(flags, flagsplugin.Prefix("accuracy", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Accuracy = val
 		paths = append(paths, flagsplugin.Prefix("accuracy", prefix))
 	}
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("source", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("source", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, LocationSource_value)
 		if err != nil {
 			return nil, err

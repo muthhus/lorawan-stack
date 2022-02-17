@@ -227,9 +227,9 @@ func AddSetFlagsForFrequencyValue(flags *pflag.FlagSet, prefix string, hidden bo
 
 // SetFromFlags sets the FrequencyValue message from flags.
 func (m *FrequencyValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetUint64(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		m.Value = val
 		paths = append(paths, flagsplugin.Prefix("value", prefix))
 	}
@@ -258,9 +258,9 @@ func AddSetFlagsForDataRateOffsetValue(flags *pflag.FlagSet, prefix string, hidd
 
 // SetFromFlags sets the DataRateOffsetValue message from flags.
 func (m *DataRateOffsetValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateOffset_value)
 		if err != nil {
 			return nil, err
@@ -293,9 +293,9 @@ func AddSetFlagsForDataRateIndexValue(flags *pflag.FlagSet, prefix string, hidde
 
 // SetFromFlags sets the DataRateIndexValue message from flags.
 func (m *DataRateIndexValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DataRateIndex_value)
 		if err != nil {
 			return nil, err
@@ -328,9 +328,9 @@ func AddSetFlagsForPingSlotPeriodValue(flags *pflag.FlagSet, prefix string, hidd
 
 // SetFromFlags sets the PingSlotPeriodValue message from flags.
 func (m *PingSlotPeriodValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, PingSlotPeriod_value)
 		if err != nil {
 			return nil, err
@@ -363,9 +363,9 @@ func AddSetFlagsForAggregatedDutyCycleValue(flags *pflag.FlagSet, prefix string,
 
 // SetFromFlags sets the AggregatedDutyCycleValue message from flags.
 func (m *AggregatedDutyCycleValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, AggregatedDutyCycle_value)
 		if err != nil {
 			return nil, err
@@ -398,9 +398,9 @@ func AddSetFlagsForRxDelayValue(flags *pflag.FlagSet, prefix string, hidden bool
 
 // SetFromFlags sets the RxDelayValue message from flags.
 func (m *RxDelayValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, RxDelay_value)
 		if err != nil {
 			return nil, err
@@ -433,9 +433,9 @@ func AddSetFlagsForADRAckLimitExponentValue(flags *pflag.FlagSet, prefix string,
 
 // SetFromFlags sets the ADRAckLimitExponentValue message from flags.
 func (m *ADRAckLimitExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, ADRAckLimitExponent_value)
 		if err != nil {
 			return nil, err
@@ -468,9 +468,9 @@ func AddSetFlagsForADRAckDelayExponentValue(flags *pflag.FlagSet, prefix string,
 
 // SetFromFlags sets the ADRAckDelayExponentValue message from flags.
 func (m *ADRAckDelayExponentValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, ADRAckDelayExponent_value)
 		if err != nil {
 			return nil, err
@@ -503,9 +503,9 @@ func AddSetFlagsForDeviceEIRPValue(flags *pflag.FlagSet, prefix string, hidden b
 
 // SetFromFlags sets the DeviceEIRPValue message from flags.
 func (m *DeviceEIRPValue) SetFromFlags(flags *pflag.FlagSet, prefix string) (paths []string, err error) {
-	if val, selected, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
+	if val, changed, err := flagsplugin.GetString(flags, flagsplugin.Prefix("value", prefix)); err != nil {
 		return nil, err
-	} else if selected {
+	} else if changed {
 		enumValue, err := flagsplugin.SetEnumString(val, DeviceEIRP_value)
 		if err != nil {
 			return nil, err
